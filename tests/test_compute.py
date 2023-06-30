@@ -6,7 +6,7 @@ import pandas as pd
 data = load_breast_cancer()
 
 
-def test_compute():
+def test_compute_with_sklearn():
     Xpd = pd.DataFrame(data.data, columns=data.feature_names)
     result_df = compute(
         model_cls=RandomForestClassifier,
