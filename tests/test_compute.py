@@ -1,4 +1,4 @@
-from target_permutation_importance import compute
+from target_permutation_importances import compute
 from sklearn.datasets import load_breast_cancer
 from sklearn.ensemble import RandomForestClassifier
 import pandas as pd
