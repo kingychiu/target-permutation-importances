@@ -12,12 +12,14 @@ numpy = "^1.25.0"
 pandas = "^2.0.3"
 polars = "^0.18.4"
 scikit-learn = "^1.3.0"
+pandas-stubs = "^2.0.2.230605"
 
 
 [tool.poetry.group.dev.dependencies]
 ruff = "^0.0.275"
 black = "^23.3.0"
 isort = "^5.12.0"
+mypy = "^1.4.1"
 
 [build-system]
 requires = ["poetry-core"]
