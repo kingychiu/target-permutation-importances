@@ -1,4 +1,5 @@
-from typing import Any, List, Protocol, Union
+from functools import partial
+from typing import Any, Dict, List, Protocol, Union
 
 import numpy as np
 import pandas as pd
@@ -7,62 +8,85 @@ XType = pd.DataFrame
 YType = Union[np.ndarray, pd.Series]
 
 
-class XBuilderType(Protocol):
+class XBuilderType(Protocol):  # pragma: no cover
     def __call__(self, is_random_run: bool, run_idx: int) -> XType:
         ...
 
 
-class YBuilderType(Protocol):
+class YBuilderType(Protocol):  # pragma: no cover
     def __call__(self, is_random_run: bool, run_idx: int) -> YType:
         ...
 
 
-class ModelBuilderType(Protocol):
+class ModelBuilderType(Protocol):  # pragma: no cover
     def __call__(self, *args: Any, **kwds: Any) -> Any:
         ...
 
 
-class ModelFitterType(Protocol):
+class ModelFitterType(Protocol):  # pragma: no cover
     def __call__(self, model: Any, X: XType, y: YType) -> Any:
         ...
 
 
-class ModelImportanceCalculatorType(Protocol):
+class ModelImportanceCalculatorType(Protocol):  # pragma: no cover
     def __call__(self, model: Any, X: XType, y: YType) -> pd.DataFrame:
         ...
 
 
-class PermutationImportanceCalculatorType(Protocol):
+class PermutationImportanceCalculatorType(Protocol):  # pragma: no cover
     def __call__(
         self,
-        base_importance_dfs: List[pd.DataFrame],
+        actual_importance_dfs: List[pd.DataFrame],
         random_importance_dfs: List[pd.DataFrame],
     ) -> pd.DataFrame:
         ...
 
 
-def sklearn_importance_calculator(
-    model: Any, x: pd.DataFrame, y: YType
-) -> pd.DataFrame:
-    return pd.DataFrame(
-        {"feature": model.feature_names_in_, "importance": model.feature_importances_}
-    )
-
-
-def default_permutation_importance_calculator(
-    base_importance_dfs: List[pd.DataFrame], random_importance_dfs: List[pd.DataFrame]
+def compute_permutation_importance_by_signal_to_noise_ratio(
+    actual_importance_dfs: List[pd.DataFrame], random_importance_dfs: List[pd.DataFrame]
 ) -> pd.DataFrame:
     # Calculate the mean importance
-    mean_base_importance_df = pd.concat(base_importance_dfs).groupby("feature").mean()
+    mean_actual_importance_df = (
+        pd.concat(actual_importance_dfs).groupby("feature").mean()
+    )
     # Calculate the mean random importance
     mean_random_importance_df = (
         pd.concat(random_importance_dfs).groupby("feature").mean()
     )
+    # Sort by feature name to make sure the order is the same
+    mean_actual_importance_df = mean_actual_importance_df.sort_index()
+    mean_random_importance_df = mean_random_importance_df.sort_index()
+    assert (mean_random_importance_df.index == mean_actual_importance_df.index).all()
+
     # Add 1 to the random importance to avoid division by 0 and scaling up
-    mean_base_importance_df["importance"] = mean_base_importance_df["importance"] / (
-        mean_random_importance_df["importance"] + 1
-    )
-    return mean_base_importance_df
+    mean_actual_importance_df["permutation_importance"] = mean_actual_importance_df[
+        "importance"
+    ] / (mean_random_importance_df["importance"] + 1)
+    mean_actual_importance_df["mean_actual_importance"] = mean_actual_importance_df[
+        "importance"
+    ]
+    mean_actual_importance_df["mean_random_importance"] = mean_random_importance_df[
+        "importance"
+    ]
+    return mean_actual_importance_df[
+        ["permutation_importance", "mean_actual_importance", "mean_random_importance"]
+    ]
+
+
+def _compute_one_run(
+    model_builder: ModelBuilderType,
+    model_fitter: ModelFitterType,
+    model_importance_calculator: ModelImportanceCalculatorType,
+    X_builder: XBuilderType,
+    y_builder: YBuilderType,
+    is_random_run: bool,
+    run_idx: int,
+):
+    model = model_builder()
+    X = X_builder(is_random_run=is_random_run, run_idx=run_idx)
+    y = y_builder(is_random_run=is_random_run, run_idx=run_idx)
+    model = model_fitter(model, X, y)
+    return model_importance_calculator(model, X, y)
 
 
 def generic_compute(
@@ -72,32 +96,84 @@ def generic_compute(
     permutation_importance_calculator: PermutationImportanceCalculatorType,
     X_builder: XBuilderType,
     y_builder: YBuilderType,
-    num_base_runs: int = 2,
+    num_actual_runs: int = 2,
     num_random_runs: int = 10,
 ):
+    run_params = {
+        "model_builder": model_builder,
+        "model_fitter": model_fitter,
+        "model_importance_calculator": model_importance_calculator,
+        "X_builder": X_builder,
+        "y_builder": y_builder,
+    }
+    partial_compute_one_run = partial(_compute_one_run, **run_params)
     # Run the base runs
-    base_importance_dfs = []
-    for run_idx in range(num_base_runs):
-        model = model_builder()
-        X = X_builder(is_random_run=False, run_idx=run_idx)
-        y = y_builder(is_random_run=False, run_idx=run_idx)
-        model = model_fitter(model, X, y)
-        importance_df = model_importance_calculator(model, X, y)
-        base_importance_dfs.append(importance_df)
+    actual_importance_dfs = []
+    for run_idx in range(num_actual_runs):
+        actual_importance_dfs.append(
+            partial_compute_one_run(
+                is_random_run=False,
+                run_idx=run_idx,
+            )
+        )
 
     # Run the random runs
     random_importance_dfs = []
     for run_idx in range(num_random_runs):
-        model = model_builder()
-        X = X_builder(is_random_run=True, run_idx=run_idx)
-        y = y_builder(is_random_run=True, run_idx=run_idx)
-        model = model_fitter(model, X, y)
-        importance_df = model_importance_calculator(model, X, y)
-        random_importance_dfs.append(importance_df)
+        random_importance_dfs.append(
+            partial_compute_one_run(
+                is_random_run=True,
+                run_idx=run_idx,
+            )
+        )
 
     # Calculate the permutation importance
     permutation_importance_df = permutation_importance_calculator(
-        base_importance_dfs, random_importance_dfs
+        actual_importance_dfs, random_importance_dfs
     )
 
     return permutation_importance_df
+
+
+def compute(
+    model_cls: Any,
+    model_cls_params: Dict,
+    model_fit_params: Dict,
+    X: XType,
+    y: YType,
+    num_actual_runs: int = 2,
+    num_random_runs: int = 10,
+):
+    def _x_builder(is_random_run: bool, run_idx: int) -> XType:
+        shuffled_feature_orders = np.random.permutation(X.columns.tolist())
+        return X[shuffled_feature_orders]
+
+    def _y_builder(is_random_run: bool, run_idx: int) -> YType:
+        if is_random_run:
+            return np.random.permutation(y)
+        return y
+
+    def _model_builder() -> Any:
+        return model_cls(**model_cls_params)
+
+    def _model_fitter(model: Any, X: XType, y: YType) -> Any:
+        return model.fit(X, y, **model_fit_params)
+
+    def _model_importance_calculator(model: Any, X: XType, y: YType) -> pd.DataFrame:
+        return pd.DataFrame(
+            {
+                "feature": model.feature_names_in_,
+                "importance": model.feature_importances_,
+            }
+        )
+
+    return generic_compute(
+        model_builder=_model_builder,
+        model_fitter=_model_fitter,
+        model_importance_calculator=_model_importance_calculator,
+        permutation_importance_calculator=compute_permutation_importance_by_signal_to_noise_ratio,
+        X_builder=_x_builder,
+        y_builder=_y_builder,
+        num_actual_runs=num_actual_runs,
+        num_random_runs=num_random_runs,
+    )

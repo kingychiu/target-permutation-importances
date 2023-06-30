@@ -5,4 +5,4 @@ lint:
 	ruff check ./target_permutation_importance
 	mypy target_permutation_importance
 test:
-	# --p
+	pytest --cov=target_permutation_importance --no-cov-on-fail --cov-fail-under=100 --cov-report=term-missing:skip-covered ./tests
