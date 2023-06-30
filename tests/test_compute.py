@@ -20,3 +20,15 @@ def test_compute_with_sklearn():
         num_random_runs=10,
     )
     assert isinstance(result_df, pd.DataFrame)
+
+
+def test_compute_with_xgboost():
+    pass
+
+
+def test_compute_with_lightgbm():
+    pass
+
+
+def test_compute_with_catboost():
+    pass
