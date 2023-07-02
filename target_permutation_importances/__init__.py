@@ -60,7 +60,7 @@ def compute_permutation_importance_by_subtraction(
     assert (mean_random_importance_df.index == mean_actual_importance_df.index).all()
 
     # Calculate the signal to noise ratio
-    mean_actual_importance_df["permutation_importance"] = mean_actual_importance_df[
+    mean_actual_importance_df["importance"] = mean_actual_importance_df[
         "importance"
     ] - (mean_random_importance_df["importance"])
     mean_actual_importance_df["mean_actual_importance"] = mean_actual_importance_df[
@@ -70,7 +70,7 @@ def compute_permutation_importance_by_subtraction(
         "importance"
     ]
     return mean_actual_importance_df[
-        ["permutation_importance", "mean_actual_importance", "mean_random_importance"]
+        ["importance", "mean_actual_importance", "mean_random_importance"]
     ].reset_index()
 
 
@@ -90,26 +90,18 @@ def compute_permutation_importance_by_division(
     mean_random_importance_df = mean_random_importance_df.sort_index()
     assert (mean_random_importance_df.index == mean_actual_importance_df.index).all()
 
-    # MinMax scale the random importance + 1
-    random_min = mean_random_importance_df["importance"].min()
-    random_max = mean_random_importance_df["importance"].max()
-    mean_random_importance_df["importance"] -= random_min
-    mean_random_importance_df["importance"] /= random_max - random_min
-    mean_random_importance_df["importance"] += 1
-
     # Calculate the signal to noise ratio
-    mean_actual_importance_df["permutation_importance"] = mean_actual_importance_df[
+    mean_actual_importance_df["importance"] = mean_actual_importance_df[
         "importance"
-    ] / (mean_random_importance_df["importance"])
+    ] / (mean_random_importance_df["importance"] + 1)
     mean_actual_importance_df["mean_actual_importance"] = mean_actual_importance_df[
         "importance"
     ]
     mean_actual_importance_df["mean_random_importance"] = mean_random_importance_df[
         "importance"
     ]
-
     return mean_actual_importance_df[
-        ["permutation_importance", "mean_actual_importance", "mean_random_importance"]
+        ["importance", "mean_actual_importance", "mean_random_importance"]
     ].reset_index()
 
 
@@ -210,7 +202,7 @@ def compute(
 
         return pd.DataFrame(
             {
-                "feature": feature_attr,
+                "feature": getattr(model, feature_attr),
                 "importance": model.feature_importances_,
             }
         )

@@ -22,6 +22,7 @@ test_ratio = 0.4
 score_funcs = {
     "binary_classification": [f1_score, True],
 }
+result_path = "./benchmarks/results/tabular_benchmark.csv"
 
 
 def run_selection(model_cls, importance_df, score_func=f1_score, higher_is_better=True):
@@ -35,7 +36,10 @@ def run_selection(model_cls, importance_df, score_func=f1_score, higher_is_bette
         clf.fit(X_train[selected_features], y_train)
         val_preds = clf.predict(X_val[selected_features])
         score = score_func(y_val, val_preds, average="macro")
-        if score > best_score:
+
+        if (higher_is_better and score > best_score) or (
+            not higher_is_better and score < best_score
+        ):
             best_score = score
             best_features = selected_features
 
@@ -78,7 +82,10 @@ for model_cls in [RandomForestClassifier]:
         clf = model_cls(random_state=seed)
         clf.fit(X_train, y_train)
         importance_df = pd.DataFrame(
-            {"feature": clf.feature_names_in_, "importance": clf.feature_importances_}
+            {
+                "feature": clf.feature_names_in_,
+                "importance": clf.feature_importances_,
+            }
         ).sort_values("importance", ascending=False, ignore_index=True)
 
         num_selected, val_score, test_score = run_selection(
@@ -98,6 +105,7 @@ for model_cls in [RandomForestClassifier]:
             }
         )
         print(reports[-1])
+        pd.DataFrame(reports).to_csv(result_path, index=False)
 
         compute_variants = [
             ("actual - random", compute_permutation_importance_by_subtraction),
@@ -114,7 +122,7 @@ for model_cls in [RandomForestClassifier]:
                 num_actual_runs=num_actual_runs,
                 num_random_runs=num_random_runs,
                 permutation_importance_calculator=func,
-            ).sort_values("permutation_importance", ascending=False, ignore_index=True)
+            ).sort_values("importance", ascending=False, ignore_index=True)
 
             num_selected, val_score, test_score = run_selection(
                 model_cls, importance_df, score_func, higher_is_better
@@ -133,8 +141,6 @@ for model_cls in [RandomForestClassifier]:
                 }
             )
             print(reports[-1])
-        pd.DataFrame(reports).to_csv(
-            "./benchmarks/results/tabular_benchmark.csv", index=False
-        )
+            pd.DataFrame(reports).to_csv(result_path, index=False)
 
-pd.DataFrame(reports).to_csv("./benchmarks/results/tabular_benchmark.csv", index=False)
+pd.DataFrame(reports).to_csv(result_path, index=False)

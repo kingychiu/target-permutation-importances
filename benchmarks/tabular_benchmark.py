@@ -15,11 +15,11 @@ dataset_configs = [
         "task": "binary_classification",
         "target_column": "label",
     },
-    # {
-    #     "name": "clf_cat/covertype.csv",
-    #     "task": "binary_classification",
-    #     "target_column": "class",
-    # },
+    {
+        "name": "clf_cat/covertype.csv",
+        "task": "binary_classification",
+        "target_column": "class",
+    },
     {
         "name": "clf_cat/albert.csv",
         "task": "binary_classification",
@@ -39,6 +39,21 @@ dataset_configs = [
         "name": "clf_cat/road-safety.csv",
         "task": "binary_classification",
         "target_column": "SexofDriver",
+    },
+    {
+        "name": "clf_num/Bioresponse.csv",
+        "task": "binary_classification",
+        "target_column": "target",
+    },
+    {
+        "name": "clf_num/jannis.csv",
+        "task": "binary_classification",
+        "target_column": "class",
+    },
+    {
+        "name": "clf_num/MiniBooNE.csv",
+        "task": "binary_classification",
+        "target_column": "signal",
     },
 ]
 

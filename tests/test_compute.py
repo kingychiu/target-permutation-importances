@@ -28,7 +28,9 @@ for model_cls in MODEL_CLS:
 
 @pytest.mark.parametrize("model_cls,imp_func", test_compute_scope)
 def test_compute(model_cls, imp_func):
-    Xpd = pd.DataFrame(data.data, columns=data.feature_names)
+    Xpd = pd.DataFrame(
+        data.data, columns=[f.replace(" ", "_") for f in data.feature_names]
+    )
 
     result_df = compute(
         model_cls=model_cls,
@@ -43,3 +45,8 @@ def test_compute(model_cls, imp_func):
         num_random_runs=10,
     )
     assert isinstance(result_df, pd.DataFrame)
+    assert result_df.shape[0] == Xpd.shape[1]
+    assert "importance" in result_df.columns
+    assert "feature" in result_df.columns
+    assert set(result_df["feature"].tolist()) == set(Xpd.columns.tolist())
+    assert result_df["importance"].isna().sum() == 0
