@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "target-permutation-importances"
-version = "1.0.3"
+version = "1.0.4"
 description = "Compute (Target) Permutation Importances of a machine learning model"
 authors = ["Anthony Chiu <kingychiu@gmail.com>"]
 readme = "README.md"
@@ -9,7 +9,7 @@ packages = [{include = "target_permutation_importances"}]
 [tool.poetry.dependencies]
 python = "^3.9"
 numpy = "^1.25.0"
-pandas = "^2.0.3"
+pandas = "^1.5.3"
 tqdm = "^4.65.0"
 
 
