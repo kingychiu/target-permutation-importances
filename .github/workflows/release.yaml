@@ -2,9 +2,7 @@ name: Release package to PyPI
 on:
   push:
     branches:
-      - main
-    tags:
-      - "v*.*.*"
+      - "releases/**"
 concurrency:
   group: ${{ github.ref }}
   cancel-in-progress: true
