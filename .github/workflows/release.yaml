@@ -11,8 +11,6 @@ concurrency:
 jobs:
   checks:
     runs-on: ubuntu-latest
-    env:
-      DJANGO_SETTINGS_MODULE: tl_lms.settings.test
     strategy:
       fail-fast: false
       matrix:
