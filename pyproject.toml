@@ -28,6 +28,7 @@ xgboost = "^1.7.6"
 catboost = "^1.2"
 cmake = "^3.26.4"
 lightgbm = "^3.3.5"
+coverage-badge = "^1.1.0"
 
 [build-system]
 requires = ["poetry-core"]
