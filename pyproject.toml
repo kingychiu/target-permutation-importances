@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "target-permutation-importances"
-version = "1.0.0"
+version = "1.0.1"
 description = "Compute (Target) Permutation Importances of a machine learning model"
 authors = ["Anthony Chiu <kingychiu@gmail.com>"]
 readme = "README.md"
