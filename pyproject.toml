@@ -10,9 +10,6 @@ packages = [{include = "target_permutation_importances"}]
 python = "^3.9"
 numpy = "^1.25.0"
 pandas = "^2.0.3"
-polars = "^0.18.4"
-scikit-learn = "^1.3.0"
-pandas-stubs = "^2.0.2.230605"
 tqdm = "^4.65.0"
 
 
@@ -24,6 +21,8 @@ mypy = "^1.4.1"
 pytest = "^7.4.0"
 pytest-cov = "^4.1.0"
 datasets = "^2.13.1"
+scikit-learn = "^1.3.0"
+pandas-stubs = "^2.0.2.230605"
 types-tqdm = "^4.65.0.1"
 
 [build-system]
