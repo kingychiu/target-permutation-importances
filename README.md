@@ -1,8 +1,8 @@
 # Target Permutation Importances
 
 ## Overview
-This method aims at lower the feature attribution due to the variance of a feature.
-If a feature is important after the target vector is shuffled, it is fitting to noise.
+This method aims to lower the feature attribution due to a feature's variance.
+If a feature shows high importance to a model after the target vector is shuffled, it fits the noise.
 
 Overall, this package 
 
@@ -46,7 +46,6 @@ data = load_breast_cancer()
 
 # Compute permutation importances with default settings
 result_df = compute(
-    # RandomForestClassifier, XGBClassifier, CatBoostClassifier, LGBMClassifier...
     model_cls=RandomForestClassifier,
     model_cls_params={ # The params for the model class construction
         "n_estimators": 1,
@@ -56,15 +55,14 @@ result_df = compute(
     y=data.target,
     num_actual_runs=2,
     num_random_runs=10,
-    permutation_importance_calculator=compute_permutation_importance_by_subtraction,
 )
 ```
 
 You can find more detailed examples in the "Feature Selection Examples" section.
 
 ## Advance Usage / Customization
-Instead of calling `compute` this package also expose `generic_compute` to allow customization.
-Read `target_permutation_importances.__init__` for details.
+This package exposes `generic_compute` to allow customization.
+Read [`target_permutation_importances.__init__.py`](./target_permutation_importances/__init__.py) for details.
 
 
 ## Feature Selection Examples
@@ -85,14 +83,14 @@ The following models with their default params are used in the benchmark:
 - `lightgbm.LGBMClassifier`
 - `lightgbm.LGBMRegressor`
 
-For binary classification task, `sklearn.metrics.f1_score` is used for evaluation. For regression task, `sklearn.metrics.mean_squared_error` is used for evaluation.
+For the binary classification task, `sklearn.metrics.f1_score` is used for evaluation. For the regression task, `sklearn.metrics.mean_squared_error` is used for evaluation.
 
 The downloaded datasets are divided into 3 sections: `train`: 50%, `val`: 10%, `test`: 40%.
 Feature importance is calculated from the `train` set. Feature selection is done on the `val` set. 
 The final benchmark is evaluated on the `test` set. Therefore the `test` set is unseen to both the feature importance and selection process.
 
 
-Raw result data are in `target-permutation-importances/benchmarks/results/tabular_benchmark.csv`.
+Raw result data are in [`target-permutation-importances/benchmarks/results/tabular_benchmark.csv`](target-permutation-importances/benchmarks/results/tabular_benchmark.csv).
 
 ## Kaggle Competitions
 Many Kaggle Competition top solutions involve this method, here are some examples
@@ -108,16 +106,16 @@ Many Kaggle Competition top solutions involve this method, here are some example
 **Python Version**
 
 You can find the suggested development Python version in `.python-version`.
-You might consider setting up `Pyenv` if you want to have multiple Python versions in your machine.
+You might consider setting up `Pyenv` if you want to have multiple Python versions on your machine.
 
 **Python packages**
 
-This repository is setup with `Poetry`. If you are not familiar with Poetry, you can find packages requirements are listed in `pyproject.toml`. 
-Otherwise, you can just set up with `poetry install`
+This repository is setup with `Poetry`. If you are not familiar with Poetry, you can find package requirements listed in `pyproject.toml`. 
+Otherwise, you can just set it up with `poetry install`
 
 **Run Benchmarks**
 
-To run benchmark locally on your machine, run `make run_tabular_benchmark` or `python -m benchmarks.run_tabular_benchmark`
+To run the benchmark locally on your machine, run `make run_tabular_benchmark` or `python -m benchmarks.run_tabular_benchmark`
 
 **Make Changes**
 
