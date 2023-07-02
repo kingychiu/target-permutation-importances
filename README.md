@@ -90,7 +90,7 @@ Feature importance is calculated from the `train` set. Feature selection is done
 The final benchmark is evaluated on the `test` set. Therefore the `test` set is unseen to both the feature importance and selection process.
 
 
-Raw result data are in [`target-permutation-importances/benchmarks/results/tabular_benchmark.csv`](target-permutation-importances/benchmarks/results/tabular_benchmark.csv).
+Raw result data are in [`benchmarks/results/tabular_benchmark.csv`](benchmarks/results/tabular_benchmark.csv).
 
 ## Kaggle Competitions
 Many Kaggle Competition top solutions involve this method, here are some examples
