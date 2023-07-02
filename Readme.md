@@ -7,7 +7,7 @@ If a feature is important after the target vector is shuffled, it is fitting to 
 By default, this package 
 
 1. Fit the given model class on the given dataset M times to compute the mean actual feature importances ($A$).
-2. Fit the given model class on the given dataset with shuffled targets N times to compute mean random feature importances ($R$).
+2. Fit the given model class on the given dataset with shuffled targets for N times to compute mean random feature importances ($R$).
 3. Compute the final importances by either $A - R$ or $A / (MinMaxScale(R) + 1)$
 
 Not to be confused with [sklearn.inspection.permutation_importance](https://scikit-learn.org/stable/modules/generated/sklearn.inspection.permutation_importance.html#sklearn.inspection.permutation_importance),
