@@ -21,6 +21,16 @@ This method were originally proposed/implemented by:
 ](https://www.kaggle.com/code/ogrellier/feature-selection-with-null-importances/notebook)
 
 
+## Install
+
+```
+pip install target-permutation-importances
+```
+or
+```
+poetry add target-permutation-importances
+```
+
 ## Basic Usage
 
 ```python
