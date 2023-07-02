@@ -19,7 +19,6 @@ This method were originally proposed/implemented by:
 ](https://www.kaggle.com/code/ogrellier/feature-selection-with-null-importances/notebook)
 
 
-
 ## Basic Usage
 
 ### With Scikit Learn Models
@@ -85,6 +84,16 @@ The download datasets are divided into 3 sections: `train`: 50%, `val`: 10%, `te
 
 Feature importance is calculated from the `train` set. Feature selection is done on the `val` set. 
 The final benchmark is evaluated on the `test` set. Therefore the `test` set is unseen to both the feature importance and selection process.
+
+## Kaggle Competitions
+Many Kaggle Competition top solutions involve using this method, here are some examples
+
+| Year | Competition                                                                                                                  | Medal | Link                                                                                                                                        |
+| ---- | ---------------------------------------------------------------------------------------------------------------------------- | ----- | ------------------------------------------------------------------------------------------------------------------------------------------- |
+| 2023 | [Predict Student Performance from Game Play](https://www.kaggle.com/competitions/predict-student-performance-from-game-play) | Gold  | [3rd place solution](https://www.kaggle.com/competitions/predict-student-performance-from-game-play/discussion/420235)                      |
+| 2019 | [Elo Merchant Category Recommendation](https://www.kaggle.com/competitions/elo-merchant-category-recommendation/overview)    | Gold  | [16th place solution]([-play/discussion/420235](https://www.kaggle.com/competitions/elo-merchant-category-recommendation/discussion/82166)) |
+| 2018 | [Home Credit Default Risk](https://www.kaggle.com/competitions/home-credit-default-risk/overview)                            | Gold  | [10th place solution](https://www.kaggle.com/competitions/home-credit-default-risk/discussion/64598)                                        |
+
 
 ## Development Setup and Contribution Guide
 ### Python Version
