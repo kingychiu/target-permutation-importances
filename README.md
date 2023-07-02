@@ -38,15 +38,23 @@ poetry add target-permutation-importances
 from target_permutation_importances import compute
 
 # Prepare a dataset
-from sklearn.datasets import load_breast_cancer
-from sklearn.ensemble import RandomForestClassifier
 import pandas as pd
+from sklearn.datasets import load_breast_cancer
+
+# Models
+from catboost import CatBoostClassifier
+from lightgbm import LGBMClassifier
+from sklearn.ensemble import RandomForestClassifier
+from xgboost import XGBClassifier
 
 data = load_breast_cancer()
 
+# Convert to a pandas dataframe
+Xpd = pd.DataFrame(data.data, columns=data.feature_names)
+
 # Compute permutation importances with default settings
 result_df = compute(
-    model_cls=RandomForestClassifier,
+    model_cls=RandomForestClassifier, # Or other models
     model_cls_params={ # The params for the model class construction
         "n_estimators": 1,
     },
