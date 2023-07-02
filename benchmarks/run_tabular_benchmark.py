@@ -133,6 +133,8 @@ for model_cls in [RandomForestClassifier]:
                 }
             )
             print(reports[-1])
-        pd.DataFrame(reports).to_csv("./benchmarks/results/results.csv", index=False)
+        pd.DataFrame(reports).to_csv(
+            "./benchmarks/results/tabular_benchmark.csv", index=False
+        )
 
-pd.DataFrame(reports).to_csv("./benchmarks/results/results.csv", index=False)
+pd.DataFrame(reports).to_csv("./benchmarks/results/tabular_benchmark.csv", index=False)

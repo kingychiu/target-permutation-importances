@@ -7,5 +7,5 @@ lint:
 test:
 	pytest --cov=target_permutation_importances --no-cov-on-fail --cov-fail-under=100 --cov-report=term-missing:skip-covered ./tests
 
-benchmark:
-	python -m benchmarks.run
+run_tabular_benchmark:
+	python -m benchmarks.run_tabular_benchmark

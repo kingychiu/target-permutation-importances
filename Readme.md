@@ -54,7 +54,10 @@ result_df = compute(
 
 ### With CatBoost
 
-## Advance Usage
+## Advance Usage / Customization
+Instead of calling `compute` this package also expose `generic_compute` to allow customization.
+Read `target_permutation_importances.__init__` for details.
+
 
 ## Feature Selection Examples
 
@@ -105,7 +108,7 @@ This repository is setup with `Poetry`. If you are not familiar with Poetry, you
 Otherwise, you can just set up with `poetry install`
 
 ### Run Benchmarks
-To run benchmark locally on your machine, run `make benchmark` or `python -m benchmarks.run`
+To run benchmark locally on your machine, run `make run_tabular_benchmark` or `python -m benchmarks.run_tabular_benchmark`
 
 ### Make Changes
 Following the [Make Changes Guide from Github](https://github.com/github/docs/blob/main/CONTRIBUTING.md#make-changes)
