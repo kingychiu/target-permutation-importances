@@ -1,9 +1,9 @@
 from functools import partial
 from typing import Any, Dict, List, Protocol, Union
-from tqdm import tqdm
 
 import numpy as np
 import pandas as pd
+from tqdm import tqdm
 
 XType = pd.DataFrame
 YType = Union[np.ndarray, pd.Series]
