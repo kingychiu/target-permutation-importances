@@ -1,5 +1,12 @@
 # Target Permutation Importances
 
+[![Ruff](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/charliermarsh/ruff/main/assets/badge/v2.json)](https://github.com/kingychiu/target-permutation-importances)
+[![image](https://img.shields.io/pypi/v/target-permutation-importances.svg)](https://pypi.python.org/pypi/target-permutation-importances)
+[![image](https://img.shields.io/pypi/pyversions/target-permutation-importances.svg)](https://pypi.python.org/pypi/target-permutation-importances)
+[![Actions status](https://github.com/kingychiu/target-permutation-importances/workflows/CI/badge.svg)](https://github.com/kingychiu/target-permutation-importances/actions/workflows/main.yaml)
+
+
+
 ## Overview
 This method aims to lower the feature attribution due to a feature's variance.
 If a feature shows high importance to a model after the target vector is shuffled, it fits the noise.
@@ -70,7 +77,7 @@ You can find more detailed examples in the "Feature Selection Examples" section.
 
 ## Advance Usage / Customization
 This package exposes `generic_compute` to allow customization.
-Read [`target_permutation_importances.__init__.py`](./target_permutation_importances/__init__.py) for details.
+Read [`target_permutation_importances.__init__.py`](target_permutation_importances/__init__.py) for details.
 
 
 ## Feature Selection Examples
