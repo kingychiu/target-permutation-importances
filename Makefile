@@ -9,3 +9,9 @@ test:
 
 run_tabular_benchmark:
 	python -m benchmarks.run_tabular_benchmark
+
+build:
+	poetry build
+
+publish:
+	poetry publish
