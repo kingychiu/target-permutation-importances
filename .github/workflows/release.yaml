@@ -60,6 +60,7 @@ jobs:
         run: |
           poetry run pytest --cov=target_permutation_importances --no-cov-on-fail --cov-fail-under=100 --cov-report=term-missing:skip-covered ./tests
   build:
+    needs: checks
     runs-on: ubuntu-latest
     timeout-minutes: 15
     steps:
