@@ -95,7 +95,6 @@ You might consider setting up `Pyenv` if you want to have multiple Python versio
 This repository is setup with `Poetry`. If you are not familiar with Poetry, you can find packages requirements are listed in `pyproject.toml`. 
 Otherwise, you can just set up with `poetry install`
 
-
 ### Run Benchmarks
 To run benchmark locally on your machine, run `make benchmark` or `python -m benchmarks.run`
 
