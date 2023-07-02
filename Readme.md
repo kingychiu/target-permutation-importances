@@ -21,8 +21,6 @@ This method were originally proposed/implemented by:
 
 ## Basic Usage
 
-### With Scikit Learn Models
-
 ```python
 # Import the function
 from target_permutation_importances import compute
@@ -36,6 +34,7 @@ data = load_breast_cancer()
 
 # Compute permutation importances with default settings
 result_df = compute(
+    # RandomForestClassifier, XGBClassifier, CatBoostClassifier, LGBMClassifier...
     model_cls=RandomForestClassifier,
     model_cls_params={ # The params for the model class construction
         "n_estimators": 1,
@@ -48,11 +47,7 @@ result_df = compute(
 )
 ```
 
-### With XGBoost
-
-### With LightGBM
-
-### With CatBoost
+You can find more detailed examples in the "Feature Selection Examples" section.
 
 ## Advance Usage / Customization
 Instead of calling `compute` this package also expose `generic_compute` to allow customization.
@@ -64,9 +59,8 @@ Read `target_permutation_importances.__init__` for details.
 ## Benchmarks
 
 ### Datasets
-Benchmark has been done with some tabular datasets from the Tabular data learning benchmark
-- [Github](https://github.com/LeoGrin/tabular-benchmark/tree/main)
-- [Hugging Face](https://huggingface.co/datasets/inria-soda/tabular-benchmark)
+Benchmark has been done with some tabular datasets from the [Tabular data learning benchmark](https://github.com/LeoGrin/tabular-benchmark/tree/main). It is also
+hosted on [Hugging Face](https://huggingface.co/datasets/inria-soda/tabular-benchmark).
 
 ### Models
 The following models with their default params are used:
@@ -83,7 +77,7 @@ The following models with their default params are used:
 For binary classification task, `sklearn.metrics.f1_score` is used for evaluation.
 For regression task, `sklearn.metrics.mean_squared_error` is used for evaluation.
 
-The download datasets are divided into 3 sections: `train`: 50%, `val`: 10%, `test`: 40%
+The downloaded datasets are divided into 3 sections: `train`: 50%, `val`: 10%, `test`: 40%
 
 Feature importance is calculated from the `train` set. Feature selection is done on the `val` set. 
 The final benchmark is evaluated on the `test` set. Therefore the `test` set is unseen to both the feature importance and selection process.
