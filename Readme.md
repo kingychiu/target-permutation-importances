@@ -81,7 +81,7 @@ Feature importance is calculated from the `train` set. Feature selection is done
 The final benchmark is evaluated on the `test` set. Therefore the `test` set is unseen to both the feature importance and selection process.
 
 ## Kaggle Competitions
-Many Kaggle Competition top solutions involve using this method, here are some examples
+Many Kaggle Competition top solutions involve this method, here are some examples
 
 | Year | Competition                                                                                                                  | Medal | Link                                                                                                                                        |
 | ---- | ---------------------------------------------------------------------------------------------------------------------------- | ----- | ------------------------------------------------------------------------------------------------------------------------------------------- |
