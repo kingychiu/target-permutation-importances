@@ -57,7 +57,7 @@ result_df = compute(
 
 ## Advance Usage
 
-## Feature Selection Example
+## Feature Selection Examples
 
 ## Benchmarks
 
@@ -66,6 +66,16 @@ Benchmark has been done with some tabular datasets from the Tabular data learnin
 - [Github](https://github.com/LeoGrin/tabular-benchmark/tree/main)
 - [Hugging Face](https://huggingface.co/datasets/inria-soda/tabular-benchmark)
 
+### Models
+The following models with their default params are used:
+- `sklearn.ensemble.RandomForestClassifier`
+- `sklearn.ensemble.RandomForestRegressor`
+- `xgboost.XGBClassifier`
+- `xgboost.XGBRegressor`
+- `catboost.CatBoostClassifier`
+- `catboost.CatBoostRegressor`
+- `lightgbm.LGBMClassifier`
+- `lightgbm.LGBMRegressor`
 
 ### Evaluation
 For binary classification task, `sklearn.metrics.f1_score` is used for evaluation.
