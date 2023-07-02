@@ -4,11 +4,13 @@
 This method aims at lower the feature attribution due to the variance of a feature.
 If a feature is important after the target vector is shuffled, it is fitting to noise.
 
-By default, this package 
+Overall, this package 
 
-1. Fit the given model class on the given dataset M times to compute the mean actual feature importances ($A$).
-2. Fit the given model class on the given dataset with shuffled targets for N times to compute mean random feature importances ($R$).
-3. Compute the final importances by either $A - R$ or $A / (MinMaxScale(R) + 1)$
+1. Fit the given model class $M$ times to get $M$ actual feature importances ($A$).
+2. Fit the given model class with shuffled targets for $N$ times to get $N$ feature random importances ($R$).
+3. Compute the final importances by various methods, such as:
+    - $A - R$ 
+    - $A / (MinMaxScale(R) + 1)$
 
 Not to be confused with [sklearn.inspection.permutation_importance](https://scikit-learn.org/stable/modules/generated/sklearn.inspection.permutation_importance.html#sklearn.inspection.permutation_importance),
 this sklearn method is about feature permutation instead of target permutation.
@@ -44,6 +46,7 @@ result_df = compute(
     y=data.target,
     num_actual_runs=2,
     num_random_runs=10,
+    permutation_importance_calculator=compute_permutation_importance_by_subtraction,
 )
 ```
 
