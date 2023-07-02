@@ -49,10 +49,10 @@ jobs:
         run: poetry install --no-interaction
       - name: Lint with (ruff)
         run: |
-          poetry run pylint_runner --django-settings-module=tl_lms.settings.test
+          poetry run ruff check ./target_permutation_importances ./benchmarks ./tests
       - name: Type Check (mypy)
         run: |
-          poetry run mypy .
+          poetry run mypy target_permutation_importances
       - name: Test (pytest)
         run: |
           pytest --cov=target_permutation_importances --no-cov-on-fail --cov-fail-under=100 --cov-report=term-missing:skip-covered ./tests
