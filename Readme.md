@@ -98,5 +98,7 @@ Otherwise, you can just set up with `poetry install`
 ### Run Benchmarks
 To run benchmark locally on your machine, run `make benchmark` or `python -m benchmarks.run`
 
-
+### Make Changes
+Following the [Make Changes Guide from Github](https://github.com/github/docs/blob/main/CONTRIBUTING.md#make-changes)
+Before committing or merging, please run the linters defined in `make lint` and the tests defined in `make test`
 
