@@ -24,6 +24,7 @@ mypy = "^1.4.1"
 pytest = "^7.4.0"
 pytest-cov = "^4.1.0"
 datasets = "^2.13.1"
+types-tqdm = "^4.65.0.1"
 
 [build-system]
 requires = ["poetry-core"]
