@@ -58,7 +58,7 @@ jobs:
           poetry run mypy target_permutation_importances
       - name: Test (pytest)
         run: |
-          pytest --cov=target_permutation_importances --no-cov-on-fail --cov-fail-under=100 --cov-report=term-missing:skip-covered ./tests
+          poetry run pytest --cov=target_permutation_importances --no-cov-on-fail --cov-fail-under=100 --cov-report=term-missing:skip-covered ./tests
   build:
     runs-on: ubuntu-latest
     timeout-minutes: 15
@@ -68,6 +68,5 @@ jobs:
         uses: JRubics/poetry-publish@v1.17
         with:
           python_version: 3.9
-          poetry_version: 1.4.2
           pypi_token: ${{ secrets.PYPI_TOKEN }}
-          ignore_dev_requirements: 'yes'
+          ignore_dev_requirements: "yes"
