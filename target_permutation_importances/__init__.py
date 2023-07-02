@@ -202,9 +202,15 @@ def compute(
         return model.fit(X, y, **model_fit_params)
 
     def _model_importance_calculator(model: Any, X: XType, y: YType) -> pd.DataFrame:
+        feature_attr = "feature_names_in_"
+        if "LGBM" in str(model.__class__):
+            feature_attr = "feature_name_"
+        elif "Cat" in str(model.__class__):
+            feature_attr = "feature_names_"
+
         return pd.DataFrame(
             {
-                "feature": model.feature_names_in_,
+                "feature": feature_attr,
                 "importance": model.feature_importances_,
             }
         )
