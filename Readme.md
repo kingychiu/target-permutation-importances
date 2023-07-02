@@ -58,12 +58,10 @@ Read `target_permutation_importances.__init__` for details.
 
 ## Benchmarks
 
-### Datasets
 Benchmark has been done with some tabular datasets from the [Tabular data learning benchmark](https://github.com/LeoGrin/tabular-benchmark/tree/main). It is also
 hosted on [Hugging Face](https://huggingface.co/datasets/inria-soda/tabular-benchmark).
 
-### Models
-The following models with their default params are used:
+The following models with their default params are used in the benchmark:
 - `sklearn.ensemble.RandomForestClassifier`
 - `sklearn.ensemble.RandomForestRegressor`
 - `xgboost.XGBClassifier`
@@ -73,12 +71,9 @@ The following models with their default params are used:
 - `lightgbm.LGBMClassifier`
 - `lightgbm.LGBMRegressor`
 
-### Evaluation
-For binary classification task, `sklearn.metrics.f1_score` is used for evaluation.
-For regression task, `sklearn.metrics.mean_squared_error` is used for evaluation.
+For binary classification task, `sklearn.metrics.f1_score` is used for evaluation. For regression task, `sklearn.metrics.mean_squared_error` is used for evaluation.
 
-The downloaded datasets are divided into 3 sections: `train`: 50%, `val`: 10%, `test`: 40%
-
+The downloaded datasets are divided into 3 sections: `train`: 50%, `val`: 10%, `test`: 40%.
 Feature importance is calculated from the `train` set. Feature selection is done on the `val` set. 
 The final benchmark is evaluated on the `test` set. Therefore the `test` set is unseen to both the feature importance and selection process.
 
@@ -93,18 +88,22 @@ Many Kaggle Competition top solutions involve using this method, here are some e
 
 
 ## Development Setup and Contribution Guide
-### Python Version
+**Python Version**
+
 You can find the suggested development Python version in `.python-version`.
 You might consider setting up `Pyenv` if you want to have multiple Python versions in your machine.
 
-### Python packages
+**Python packages**
+
 This repository is setup with `Poetry`. If you are not familiar with Poetry, you can find packages requirements are listed in `pyproject.toml`. 
 Otherwise, you can just set up with `poetry install`
 
-### Run Benchmarks
+**Run Benchmarks**
+
 To run benchmark locally on your machine, run `make run_tabular_benchmark` or `python -m benchmarks.run_tabular_benchmark`
 
-### Make Changes
+**Make Changes**
+
 Following the [Make Changes Guide from Github](https://github.com/github/docs/blob/main/CONTRIBUTING.md#make-changes)
 Before committing or merging, please run the linters defined in `make lint` and the tests defined in `make test`
 
