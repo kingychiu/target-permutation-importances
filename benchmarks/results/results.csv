@@ -1,0 +1,19 @@
+model,dataset,task,importances,num_features,selected_num,score,val_score,test_score
+RandomForestClassifier,clf_cat/electricity.csv,binary_classification,default importances,8,2,f1_score,0.8827277577287629,0.8940080403292706
+RandomForestClassifier,clf_cat/electricity.csv,binary_classification,actual - random,8,4,f1_score,0.8983268030938341,0.9034482758620689
+RandomForestClassifier,clf_cat/electricity.csv,binary_classification,actual / random,8,2,f1_score,0.8827277577287629,0.8940080403292706
+RandomForestClassifier,clf_cat/eye_movements.csv,binary_classification,default importances,23,22,f1_score,0.6153851479527548,0.6169023347583033
+RandomForestClassifier,clf_cat/eye_movements.csv,binary_classification,actual - random,23,12,f1_score,0.673760924881071,0.6916197416363034
+RandomForestClassifier,clf_cat/eye_movements.csv,binary_classification,actual / random,23,1,f1_score,0.6345845596871589,0.6172185430463576
+RandomForestClassifier,clf_cat/albert.csv,binary_classification,default importances,31,22,f1_score,0.6470991688476245,0.6518101092896175
+RandomForestClassifier,clf_cat/albert.csv,binary_classification,actual - random,31,26,f1_score,0.644867823385439,0.6548936170212766
+RandomForestClassifier,clf_cat/albert.csv,binary_classification,actual / random,31,26,f1_score,0.6474398400566612,0.656341743607199
+RandomForestClassifier,clf_cat/compas-two-years.csv,binary_classification,default importances,11,10,f1_score,0.6378254955305092,0.631631135349529
+RandomForestClassifier,clf_cat/compas-two-years.csv,binary_classification,actual - random,11,11,f1_score,0.6358089917208154,0.6304347826086957
+RandomForestClassifier,clf_cat/compas-two-years.csv,binary_classification,actual / random,11,8,f1_score,0.6317668921791306,0.6369426751592357
+RandomForestClassifier,clf_cat/default-of-credit-card-clients.csv,binary_classification,default importances,21,18,f1_score,0.7220690550908235,0.6709729511505854
+RandomForestClassifier,clf_cat/default-of-credit-card-clients.csv,binary_classification,actual - random,21,17,f1_score,0.7212787054117402,0.6825814282824195
+RandomForestClassifier,clf_cat/default-of-credit-card-clients.csv,binary_classification,actual / random,21,20,f1_score,0.7183217449496954,0.6792759812894041
+RandomForestClassifier,clf_cat/road-safety.csv,binary_classification,default importances,32,31,f1_score,0.7938583961222945,0.7894921344375794
+RandomForestClassifier,clf_cat/road-safety.csv,binary_classification,actual - random,32,30,f1_score,0.7963781204132592,0.7894494709400399
+RandomForestClassifier,clf_cat/road-safety.csv,binary_classification,actual / random,32,31,f1_score,0.7960984640486886,0.7908422342847138

@@ -1,5 +1,6 @@
 from functools import partial
 from typing import Any, Dict, List, Protocol, Union
+from tqdm import tqdm
 
 import numpy as np
 import pandas as pd
@@ -42,7 +43,7 @@ class PermutationImportanceCalculatorType(Protocol):  # pragma: no cover
         ...
 
 
-def compute_permutation_importance_by_signal_to_noise_ratio(
+def compute_permutation_importance_by_subtraction(
     actual_importance_dfs: List[pd.DataFrame], random_importance_dfs: List[pd.DataFrame]
 ) -> pd.DataFrame:
     # Calculate the mean importance
@@ -58,10 +59,10 @@ def compute_permutation_importance_by_signal_to_noise_ratio(
     mean_random_importance_df = mean_random_importance_df.sort_index()
     assert (mean_random_importance_df.index == mean_actual_importance_df.index).all()
 
-    # Add 1 to the random importance to avoid division by 0 and scaling up
+    # Calculate the signal to noise ratio
     mean_actual_importance_df["permutation_importance"] = mean_actual_importance_df[
         "importance"
-    ] / (mean_random_importance_df["importance"] + 1)
+    ] - (mean_random_importance_df["importance"])
     mean_actual_importance_df["mean_actual_importance"] = mean_actual_importance_df[
         "importance"
     ]
@@ -70,7 +71,46 @@ def compute_permutation_importance_by_signal_to_noise_ratio(
     ]
     return mean_actual_importance_df[
         ["permutation_importance", "mean_actual_importance", "mean_random_importance"]
+    ].reset_index()
+
+
+def compute_permutation_importance_by_division(
+    actual_importance_dfs: List[pd.DataFrame], random_importance_dfs: List[pd.DataFrame]
+) -> pd.DataFrame:
+    # Calculate the mean importance
+    mean_actual_importance_df = (
+        pd.concat(actual_importance_dfs).groupby("feature").mean()
+    )
+    # Calculate the mean random importance
+    mean_random_importance_df = (
+        pd.concat(random_importance_dfs).groupby("feature").mean()
+    )
+    # Sort by feature name to make sure the order is the same
+    mean_actual_importance_df = mean_actual_importance_df.sort_index()
+    mean_random_importance_df = mean_random_importance_df.sort_index()
+    assert (mean_random_importance_df.index == mean_actual_importance_df.index).all()
+
+    # MinMax scale the random importance + 1
+    random_min = mean_random_importance_df["importance"].min()
+    random_max = mean_random_importance_df["importance"].max()
+    mean_random_importance_df["importance"] -= random_min
+    mean_random_importance_df["importance"] /= random_max - random_min
+    mean_random_importance_df["importance"] += 1
+
+    # Calculate the signal to noise ratio
+    mean_actual_importance_df["permutation_importance"] = mean_actual_importance_df[
+        "importance"
+    ] / (mean_random_importance_df["importance"])
+    mean_actual_importance_df["mean_actual_importance"] = mean_actual_importance_df[
+        "importance"
     ]
+    mean_actual_importance_df["mean_random_importance"] = mean_random_importance_df[
+        "importance"
+    ]
+
+    return mean_actual_importance_df[
+        ["permutation_importance", "mean_actual_importance", "mean_random_importance"]
+    ].reset_index()
 
 
 def _compute_one_run(
@@ -108,8 +148,9 @@ def generic_compute(
     }
     partial_compute_one_run = partial(_compute_one_run, **run_params)
     # Run the base runs
+    print(f"Running {num_actual_runs} actual runs and {num_random_runs} random runs")
     actual_importance_dfs = []
-    for run_idx in range(num_actual_runs):
+    for run_idx in tqdm(range(num_actual_runs)):
         actual_importance_dfs.append(
             partial_compute_one_run(
                 is_random_run=False,
@@ -119,7 +160,7 @@ def generic_compute(
 
     # Run the random runs
     random_importance_dfs = []
-    for run_idx in range(num_random_runs):
+    for run_idx in tqdm(range(num_random_runs)):
         random_importance_dfs.append(
             partial_compute_one_run(
                 is_random_run=True,
@@ -143,12 +184,13 @@ def compute(
     y: YType,
     num_actual_runs: int = 2,
     num_random_runs: int = 10,
+    permutation_importance_calculator: PermutationImportanceCalculatorType = compute_permutation_importance_by_subtraction,  # noqa
 ):
     def _x_builder(is_random_run: bool, run_idx: int) -> XType:
-        shuffled_feature_orders = np.random.permutation(X.columns.tolist())
-        return X[shuffled_feature_orders]
+        return X
 
     def _y_builder(is_random_run: bool, run_idx: int) -> YType:
+        np.random.seed(run_idx)
         if is_random_run:
             return np.random.permutation(y)
         return y
@@ -171,7 +213,7 @@ def compute(
         model_builder=_model_builder,
         model_fitter=_model_fitter,
         model_importance_calculator=_model_importance_calculator,
-        permutation_importance_calculator=compute_permutation_importance_by_signal_to_noise_ratio,
+        permutation_importance_calculator=permutation_importance_calculator,
         X_builder=_x_builder,
         y_builder=_y_builder,
         num_actual_runs=num_actual_runs,
