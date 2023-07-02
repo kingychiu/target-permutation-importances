@@ -58,6 +58,7 @@ Read `target_permutation_importances.__init__` for details.
 
 
 ## Feature Selection Examples
+TODO
 
 ## Benchmarks
 
@@ -79,6 +80,9 @@ For binary classification task, `sklearn.metrics.f1_score` is used for evaluatio
 The downloaded datasets are divided into 3 sections: `train`: 50%, `val`: 10%, `test`: 40%.
 Feature importance is calculated from the `train` set. Feature selection is done on the `val` set. 
 The final benchmark is evaluated on the `test` set. Therefore the `test` set is unseen to both the feature importance and selection process.
+
+
+Raw result data are in `target-permutation-importances/benchmarks/results/tabular_benchmark.csv`.
 
 ## Kaggle Competitions
 Many Kaggle Competition top solutions involve this method, here are some examples
