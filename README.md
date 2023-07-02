@@ -40,6 +40,7 @@ poetry add target-permutation-importances
 
 ## Basic Usage
 
+[Kaggle Notebook](https://www.kaggle.com/code/kingychiu/target-permutation-importances-basic-usage/notebook)
 ```python
 # Import the function
 from target_permutation_importances import compute
@@ -71,6 +72,21 @@ result_df = compute(
     num_actual_runs=2,
     num_random_runs=10,
 )
+
+print(result_df[["feature", "importance"]].sort_values("importance", ascending=False).head())
+```
+
+Outputs:
+```
+Running 2 actual runs and 10 random runs
+100%|██████████| 2/2 [00:00<00:00, 167.35it/s]
+100%|██████████| 10/10 [00:00<00:00, 163.71it/s]
+                feature  importance
+7   mean concave points    0.343365
+8        mean concavity    0.291501
+25      worst perimeter    0.021797
+10       mean perimeter    0.021520
+26         worst radius    0.008913
 ```
 
 You can find more detailed examples in the "Feature Selection Examples" section.
