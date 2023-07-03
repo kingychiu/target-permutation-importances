@@ -5,7 +5,7 @@
 [![image](https://img.shields.io/pypi/pyversions/target-permutation-importances.svg)](https://pypi.python.org/pypi/target-permutation-importances)
 [![Actions status](https://github.com/kingychiu/target-permutation-importances/workflows/CI/badge.svg)](https://github.com/kingychiu/target-permutation-importances/actions/workflows/main.yaml)
 
-
+[Source & Bug Report](https://github.com/kingychiu/target-permutation-importances)
 
 ## Overview
 This method aims to lower the feature attribution due to a feature's variance.
