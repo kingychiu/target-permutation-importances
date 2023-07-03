@@ -1,0 +1,7 @@
+model,dataset,task,importances,num_features,selected_num,score,val_score,test_score
+RandomForestClassifier,clf_cat/electricity.csv,binary_classification,default importances,8,2,f1_score,0.8855620400913474,0.8940080403292706
+RandomForestClassifier,clf_cat/electricity.csv,binary_classification,actual - random,8,4,f1_score,0.9008369261983262,0.9034482758620689
+RandomForestClassifier,clf_cat/electricity.csv,binary_classification,actual / random,8,2,f1_score,0.8855620400913474,0.8940080403292706
+RandomForestClassifier,clf_cat/eye_movements.csv,binary_classification,default importances,23,22,f1_score,0.6340852130325815,0.6169023347583033
+RandomForestClassifier,clf_cat/eye_movements.csv,binary_classification,actual - random,23,11,f1_score,0.6742138364779875,0.667332002661344
+RandomForestClassifier,clf_cat/eye_movements.csv,binary_classification,actual / random,23,23,f1_score,0.6345177664974619,0.6125041792042796

@@ -87,3 +87,45 @@ def test_compute_regression(model_cls, imp_func):
     assert "feature" in result_df.columns
     assert set(result_df["feature"].tolist()) == set(Xpd.columns.tolist())
     assert result_df["importance"].isna().sum() == 0
+
+
+def test_compute_permutation_importance():
+    actual_importance_dfs = [
+        pd.DataFrame({"feature": ["a", "b"], "importance": [1, 2]}),
+        pd.DataFrame({"feature": ["b", "a"], "importance": [1, 3]}),
+    ]
+    random_importance_dfs = [
+        pd.DataFrame({"feature": ["a", "b"], "importance": [4, 2]}),
+        pd.DataFrame({"feature": ["b", "a"], "importance": [1, 2]}),
+        pd.DataFrame({"feature": ["b", "a"], "importance": [5, 2]}),
+    ]
+
+    result_df = compute_permutation_importance_by_subtraction(
+        actual_importance_dfs, random_importance_dfs
+    )
+
+    assert result_df["feature"].tolist() == ["a", "b"]
+    assert result_df["mean_actual_importance"].tolist() == [(1 + 3) / 2, (2 + 1) / 2]
+    assert result_df["mean_random_importance"].tolist() == [
+        (4 + 2 + 2) / 3,
+        (2 + 1 + 5) / 3,
+    ]
+    assert result_df["importance"].tolist() == [
+        (1 + 3) / 2 - (4 + 2 + 2) / 3,
+        (2 + 1) / 2 - (2 + 1 + 5) / 3,
+    ]
+
+    result_df = compute_permutation_importance_by_division(
+        actual_importance_dfs, random_importance_dfs
+    )
+
+    assert result_df["feature"].tolist() == ["a", "b"]
+    assert result_df["mean_actual_importance"].tolist() == [(1 + 3) / 2, (2 + 1) / 2]
+    assert result_df["mean_random_importance"].tolist() == [
+        (4 + 2 + 2) / 3,
+        (2 + 1 + 5) / 3,
+    ]
+    assert result_df["importance"].tolist() == [
+        (1 + 3) / 2 / ((4 + 2 + 2) / 3 + 1),
+        (2 + 1) / 2 / ((2 + 1 + 5) / 3 + 1),
+    ]

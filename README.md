@@ -13,11 +13,13 @@ If a feature shows high importance to a model after the target vector is shuffle
 
 Overall, this package 
 
-1. Fit the given model class $M$ times with shuffled column order and different model's `random_state` to get $M$ actual feature importances of feature f: $A_f = [a_{f_1},a_{f_2}...a_{f_M}]$.
-2. Fit the given model class with shuffled column order and different model's `random_state` and **shuffled targets** for $N$ times to get $N$ feature random importances: $R_f = [r_{f_1},r_{f_2}...r_{f_N}]$.
+1. Fit the given model class $M$ times with shuffled feature order and different model's `random_state` to get $M$ actual feature importances of feature f: $A_f = [a_{f_1},a_{f_2}...a_{f_M}]$.
+2. Fit the given model class with shuffled feature order and different model's `random_state` and **shuffled targets** for $N$ times to get $N$ feature random importances: $R_f = [r_{f_1},r_{f_2}...r_{f_N}]$.
 3. Compute the final importances of a feature $f$ by various methods, such as:
     - $A_f$ - $R_f$
     - $A_f$ / ($R_f + 1)$
+
+We want $M \ge 1$ and $N \gg 1$. Having $M=1$ means the actual importances depends on only 1 set of feature order and model's `random_state`.
 
 Not to be confused with [sklearn.inspection.permutation_importance](https://scikit-learn.org/stable/modules/generated/sklearn.inspection.permutation_importance.html#sklearn.inspection.permutation_importance),
 this sklearn method is about feature permutation instead of target permutation.

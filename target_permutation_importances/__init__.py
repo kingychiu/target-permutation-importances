@@ -61,15 +61,15 @@ def compute_permutation_importance_by_subtraction(
     assert (mean_random_importance_df.index == mean_actual_importance_df.index).all()
 
     # Calculate the signal to noise ratio
-    mean_actual_importance_df["importance"] = mean_actual_importance_df[
-        "importance"
-    ] - (mean_random_importance_df["importance"])
     mean_actual_importance_df["mean_actual_importance"] = mean_actual_importance_df[
         "importance"
     ]
     mean_actual_importance_df["mean_random_importance"] = mean_random_importance_df[
         "importance"
     ]
+    mean_actual_importance_df["importance"] = mean_actual_importance_df[
+        "importance"
+    ] - (mean_random_importance_df["importance"])
     return mean_actual_importance_df[
         ["importance", "mean_actual_importance", "mean_random_importance"]
     ].reset_index()
@@ -92,15 +92,16 @@ def compute_permutation_importance_by_division(
     assert (mean_random_importance_df.index == mean_actual_importance_df.index).all()
 
     # Calculate the signal to noise ratio
-    mean_actual_importance_df["importance"] = mean_actual_importance_df[
-        "importance"
-    ] / (mean_random_importance_df["importance"] + 1)
     mean_actual_importance_df["mean_actual_importance"] = mean_actual_importance_df[
         "importance"
     ]
     mean_actual_importance_df["mean_random_importance"] = mean_random_importance_df[
         "importance"
     ]
+    mean_actual_importance_df["importance"] = mean_actual_importance_df[
+        "importance"
+    ] / (mean_random_importance_df["importance"] + 1)
+
     return mean_actual_importance_df[
         ["importance", "mean_actual_importance", "mean_random_importance"]
     ].reset_index()
@@ -187,6 +188,7 @@ def compute(
     def _y_builder(is_random_run: bool, run_idx: int) -> YType:
         np.random.seed(run_idx)
         if is_random_run:
+            # Only shuffle the target for random runs
             return np.random.permutation(y)
         return y
 

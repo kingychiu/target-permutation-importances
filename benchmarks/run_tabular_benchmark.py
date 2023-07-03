@@ -85,7 +85,7 @@ for model_name in ["RandomForest"]:
 
         # 0.6 / 0.4
         X_train, X_test, y_train, y_test = train_test_split(
-            X, y, test_size=test_ratio, random_state=seed
+            X, y, test_size=test_ratio, random_state=seed, shuffle=True
         )
         # 0.5 / 0.1
         X_train, X_val, y_train, y_val = train_test_split(
