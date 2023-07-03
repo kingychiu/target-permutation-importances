@@ -51,8 +51,8 @@ def test_compute_binary_classification(model_cls, imp_func):
         permutation_importance_calculator=imp_func,
         X=Xpd,
         y=data.target,
-        num_actual_runs=2,
-        num_random_runs=10,
+        num_actual_runs=5,
+        num_random_runs=20,
     )
     assert isinstance(result_df, pd.DataFrame)
     assert result_df.shape[0] == Xpd.shape[1]
@@ -78,8 +78,8 @@ def test_compute_regression(model_cls, imp_func):
         permutation_importance_calculator=imp_func,
         X=Xpd,
         y=data.target,
-        num_actual_runs=2,
-        num_random_runs=10,
+        num_actual_runs=5,
+        num_random_runs=20,
     )
     assert isinstance(result_df, pd.DataFrame)
     assert result_df.shape[0] == Xpd.shape[1]

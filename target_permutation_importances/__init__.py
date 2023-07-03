@@ -20,7 +20,7 @@ class YBuilderType(Protocol):  # pragma: no cover
 
 
 class ModelBuilderType(Protocol):  # pragma: no cover
-    def __call__(self, *args: Any, **kwds: Any) -> Any:
+    def __call__(self, is_random_run: bool, run_idx: int) -> Any:
         ...
 
 
@@ -50,6 +50,7 @@ def compute_permutation_importance_by_subtraction(
     mean_actual_importance_df = (
         pd.concat(actual_importance_dfs).groupby("feature").mean()
     )
+
     # Calculate the mean random importance
     mean_random_importance_df = (
         pd.concat(random_importance_dfs).groupby("feature").mean()
@@ -114,7 +115,7 @@ def _compute_one_run(
     is_random_run: bool,
     run_idx: int,
 ):
-    model = model_builder()
+    model = model_builder(is_random_run=is_random_run, run_idx=run_idx)
     X = X_builder(is_random_run=is_random_run, run_idx=run_idx)
     y = y_builder(is_random_run=is_random_run, run_idx=run_idx)
     model = model_fitter(model, X, y)
@@ -179,7 +180,9 @@ def compute(
     permutation_importance_calculator: PermutationImportanceCalculatorType = compute_permutation_importance_by_subtraction,  # noqa
 ):
     def _x_builder(is_random_run: bool, run_idx: int) -> XType:
-        return X
+        # Shuffle the columns for each run to create randomness
+        shuffled_cols = np.random.permutation(X.columns)
+        return X[shuffled_cols]
 
     def _y_builder(is_random_run: bool, run_idx: int) -> YType:
         np.random.seed(run_idx)
@@ -187,7 +190,10 @@ def compute(
             return np.random.permutation(y)
         return y
 
-    def _model_builder() -> Any:
+    def _model_builder(is_random_run: bool, run_idx: int) -> Any:
+        # Model random state should be different for each run for both
+        # actual and random runs
+        model_cls_params["random_state"] = run_idx
         return model_cls(**model_cls_params)
 
     def _model_fitter(model: Any, X: XType, y: YType) -> Any:
