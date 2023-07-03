@@ -75,7 +75,7 @@ result_df = tpi.compute(
 
 print(result_df[["feature", "importance"]].sort_values("importance", ascending=False).head())
 ```
-Fork above code from [Kaggle Notebook](https://www.kaggle.com/code/kingychiu/target-permutation-importances-basic-usage/notebook).
+Fork above code from [Kaggle](https://www.kaggle.com/code/kingychiu/target-permutation-importances-basic-usage/notebook).
 
 Outputs:
 ```
@@ -98,7 +98,7 @@ Read [`target_permutation_importances.__init__.py`](target_permutation_importanc
 
 
 ## Feature Selection Examples
-TODO
+- [Feature Selection for Binary Classification](https://www.kaggle.com/code/kingychiu/feature-selection-for-binary-classification-task)
 
 ## Benchmarks
 
