@@ -1,10 +1,15 @@
 [tool.poetry]
 name = "target-permutation-importances"
-version = "1.0.6"
+version = "1.0.7"
 description = "Compute (Target) Permutation Importances of a machine learning model"
 authors = ["Anthony Chiu <kingychiu@gmail.com>"]
 readme = "README.md"
 packages = [{include = "target_permutation_importances"}]
+
+[project.urls]
+"Homepage" = "https://github.com/kingychiu/target-permutation-importances"
+"Bug Tracker" = "https://github.com/kingychiu/target-permutation-importances/issues"
+
 
 [tool.poetry.dependencies]
 python = "^3.9"
