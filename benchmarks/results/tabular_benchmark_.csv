@@ -1,0 +1,20 @@
+model,dataset,task,importances,num_features,selected_num,score,val_score,test_score
+RandomForestRegressor,reg_num/cpu_act.csv,regression,default importances,21,20,mean_squared_error,5.993286341463414,6.0054644186756185
+RandomForestRegressor,reg_num/cpu_act.csv,regression,actual - random,21,21,mean_squared_error,5.986572195121951,6.002666097039975
+RandomForestRegressor,reg_num/cpu_act.csv,regression,actual / random,21,20,mean_squared_error,6.040998414634147,5.999873817516021
+RandomForestRegressor,reg_num/pol.csv,regression,default importances,26,16,mean_squared_error,0.24838887408394406,0.2734011666666667
+RandomForestRegressor,reg_num/pol.csv,regression,actual - random,26,26,mean_squared_error,0.25697055296469024,0.27457655
+RandomForestRegressor,reg_num/pol.csv,regression,actual / random,26,13,mean_squared_error,0.24666095936042637,0.27355598333333336
+RandomForestRegressor,reg_num/elevators.csv,regression,default importances,16,7,mean_squared_error,7.215365542168675,8.044734713855421
+RandomForestRegressor,reg_num/elevators.csv,regression,actual - random,16,16,mean_squared_error,7.499108132530121,8.322309021084337
+RandomForestRegressor,reg_num/elevators.csv,regression,actual / random,16,14,mean_squared_error,7.437129337349398,8.339335391566264
+RandomForestRegressor,reg_num/wine_quality.csv,regression,default importances,11,11,mean_squared_error,0.410936923076923,0.41092627933820697
+RandomForestRegressor,reg_num/wine_quality.csv,regression,actual - random,11,11,mean_squared_error,0.41405784615384617,0.41252120046171603
+RandomForestRegressor,reg_num/wine_quality.csv,regression,actual / random,11,9,mean_squared_error,0.41209676923076916,0.4210134667179684
+RandomForestRegressor,reg_num/Ailerons.csv,regression,default importances,33,12,mean_squared_error,2.5452486918604653,2.8273773818181818
+RandomForestRegressor,reg_num/Ailerons.csv,regression,actual - random,33,21,mean_squared_error,2.5164086699168284,2.798354283580808
+RandomForestRegressor,reg_num/Ailerons.csv,regression,actual / random,33,31,mean_squared_error,2.5812023255813954,2.8442299818181818
+RandomForestRegressor,reg_num/yprop_4_1.csv,regression,default importances,42,26,mean_squared_error,67443.76239219123,75403.64964694456
+RandomForestRegressor,reg_num/yprop_4_1.csv,regression,actual - random,42,42,mean_squared_error,68875.42171882742,74804.19636902184
+RandomForestRegressor,reg_num/yprop_4_1.csv,regression,actual / random,42,38,mean_squared_error,67553.75258913924,74685.84985432962
+RandomForestRegressor,reg_num/superconduct.csv,regression,default importances,79,53,mean_squared_error,48849.16832064885,54470.49235893425
