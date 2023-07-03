@@ -191,6 +191,8 @@ def compute(
         return model_cls(**model_cls_params)
 
     def _model_fitter(model: Any, X: XType, y: YType) -> Any:
+        if "Cat" in str(model.__class__):
+            model_fit_params["verbose"] = False
         return model.fit(X, y, **model_fit_params)
 
     def _model_importance_calculator(model: Any, X: XType, y: YType) -> pd.DataFrame:
