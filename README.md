@@ -43,7 +43,7 @@ poetry add target-permutation-importances
 
 ```python
 # Import the function
-from target_permutation_importances import compute
+import target_permutation_importances as tpi
 
 # Prepare a dataset
 import pandas as pd
@@ -61,7 +61,7 @@ data = load_breast_cancer()
 Xpd = pd.DataFrame(data.data, columns=data.feature_names)
 
 # Compute permutation importances with default settings
-result_df = compute(
+result_df = tpi.compute(
     model_cls=RandomForestClassifier, # Or other models
     model_cls_params={ # The params for the model class construction
         "n_estimators": 1,
