@@ -1,5 +1,12 @@
 # Target Permutation Importances
 
+[![Ruff](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/charliermarsh/ruff/main/assets/badge/v2.json)](https://github.com/kingychiu/target-permutation-importances)
+[![image](https://img.shields.io/pypi/v/target-permutation-importances.svg)](https://pypi.python.org/pypi/target-permutation-importances)
+[![image](https://img.shields.io/pypi/pyversions/target-permutation-importances.svg)](https://pypi.python.org/pypi/target-permutation-importances)
+[![Actions status](https://github.com/kingychiu/target-permutation-importances/workflows/CI/badge.svg)](https://github.com/kingychiu/target-permutation-importances/actions/workflows/main.yaml)
+
+
+
 ## Overview
 This method aims to lower the feature attribution due to a feature's variance.
 If a feature shows high importance to a model after the target vector is shuffled, it fits the noise.
@@ -10,7 +17,7 @@ Overall, this package
 2. Fit the given model class with shuffled targets for $N$ times to get $N$ feature random importances: $R_f = [r_{f_1},r_{f_2}...r_{f_N}]$.
 3. Compute the final importances of a feature $f$ by various methods, such as:
     - $A_f$ - $R_f$
-    - $A_f$ - ($R_f + 1)$
+    - $A_f$ / ($R_f + 1)$
 
 Not to be confused with [sklearn.inspection.permutation_importance](https://scikit-learn.org/stable/modules/generated/sklearn.inspection.permutation_importance.html#sklearn.inspection.permutation_importance),
 this sklearn method is about feature permutation instead of target permutation.
@@ -33,6 +40,7 @@ poetry add target-permutation-importances
 
 ## Basic Usage
 
+[Kaggle Notebook](https://www.kaggle.com/code/kingychiu/target-permutation-importances-basic-usage/notebook)
 ```python
 # Import the function
 from target_permutation_importances import compute
@@ -64,13 +72,28 @@ result_df = compute(
     num_actual_runs=2,
     num_random_runs=10,
 )
+
+print(result_df[["feature", "importance"]].sort_values("importance", ascending=False).head())
+```
+
+Outputs:
+```
+Running 2 actual runs and 10 random runs
+100%|██████████| 2/2 [00:00<00:00, 167.35it/s]
+100%|██████████| 10/10 [00:00<00:00, 163.71it/s]
+                feature  importance
+7   mean concave points    0.343365
+8        mean concavity    0.291501
+25      worst perimeter    0.021797
+10       mean perimeter    0.021520
+26         worst radius    0.008913
 ```
 
 You can find more detailed examples in the "Feature Selection Examples" section.
 
 ## Advance Usage / Customization
 This package exposes `generic_compute` to allow customization.
-Read [`target_permutation_importances.__init__.py`](./target_permutation_importances/__init__.py) for details.
+Read [`target_permutation_importances.__init__.py`](target_permutation_importances/__init__.py) for details.
 
 
 ## Feature Selection Examples
