@@ -41,7 +41,6 @@ poetry add target-permutation-importances
 
 ## Basic Usage
 
-[Kaggle Notebook](https://www.kaggle.com/code/kingychiu/target-permutation-importances-basic-usage/notebook)
 ```python
 # Import the function
 from target_permutation_importances import compute
@@ -76,6 +75,7 @@ result_df = compute(
 
 print(result_df[["feature", "importance"]].sort_values("importance", ascending=False).head())
 ```
+Fork above code from [Kaggle Notebook](https://www.kaggle.com/code/kingychiu/target-permutation-importances-basic-usage/notebook).
 
 Outputs:
 ```
