@@ -19,11 +19,12 @@ readme = "README.md"
 packages = [{include = "target_permutation_importances"}]
 homepage = "https://github.com/kingychiu/target-permutation-importances"
 repository = "https://github.com/kingychiu/target-permutation-importances"
+documentation = "https://target-permutation-importances.readthedocs.io/en/latest/"
 
 [project.urls]
 Repository = "https://github.com/kingychiu/target-permutation-importances" 
 Homepage = "https://github.com/kingychiu/target-permutation-importances"
-
+Documentation = "https://target-permutation-importances.readthedocs.io/en/latest/"
 
 [tool.poetry.dependencies]
 python = "^3.8"
