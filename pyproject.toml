@@ -2,7 +2,8 @@
 name = "target-permutation-importances"
 version = "1.0.8"
 description = "Compute (Target) Permutation Importances of a machine learning model"
-authors = ["Anthony Chiu <kingychiu@gmail.com>"]
+authors = [{name = "Anthony Chiu", email = "kingychiu@gmail.com"}]
+maintainers = [{name = "Anthony Chiu", email = "kingychiu@gmail.com"}]
 readme = "README.md"
 packages = [{include = "target_permutation_importances"}]
 homepage = "https://github.com/kingychiu/target-permutation-importances"
@@ -15,6 +16,7 @@ name = "target-permutation-importances"
 version = "1.0.8"
 description = "Compute (Target) Permutation Importances of a machine learning model"
 authors = ["Anthony Chiu <kingychiu@gmail.com>"]
+maintainers = ["Anthony Chiu <kingychiu@gmail.com>"]
 readme = "README.md"
 packages = [{include = "target_permutation_importances"}]
 homepage = "https://github.com/kingychiu/target-permutation-importances"
