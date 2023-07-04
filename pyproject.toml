@@ -39,6 +39,7 @@ cmake = "^3.26.4"
 lightgbm = "^3.3.5"
 coverage-badge = "^1.1.0"
 twine = "^4.0.2"
+mkdocs = "^1.4.3"
 
 [build-system]
 requires = ["poetry-core"]

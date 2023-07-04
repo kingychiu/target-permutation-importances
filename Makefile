@@ -19,3 +19,6 @@ publish_test:
 
 publish:
 	poetry publish
+
+doc:
+	poetry run mkdocs serve
