@@ -9,6 +9,7 @@
 [Source](https://github.com/kingychiu/target-permutation-importances/),
 [Bug Report](https://github.com/kingychiu/target-permutation-importances/issues/),
 [Documentation](https://target-permutation-importances.readthedocs.io/en/latest/)
+[API Reference](https://target-permutation-importances.readthedocs.io/en/latest/reference/)
 
 ## Overview
 This method aims to lower the feature attribution due to a feature's variance.
@@ -19,8 +20,8 @@ Overall, this package
 1. Fit the given model class $M$ times to get $M$ actual feature importances of feature f: $A_f = [a_{f_1},a_{f_2}...a_{f_M}]$.
 2. Fit the given model class with shuffled targets for $N$ times to get $N$ feature random importances: $R_f = [r_{f_1},r_{f_2}...r_{f_N}]$.
 3. Compute the final importances of a feature $f$ by various methods, such as:
-    - $Avg(A_f) - Avg(R_f)$
-    - $Avg(A_f) / (Avg(R_f) + 1)$
+    - $I_f = Avg(A_f) - Avg(R_f)$
+    - $I_f = Avg(A_f) / (Avg(R_f) + 1)$
 
 Not to be confused with [sklearn.inspection.permutation_importance](https://scikit-learn.org/stable/modules/generated/sklearn.inspection.permutation_importance.html#sklearn.inspection.permutation_importance),
 this sklearn method is about feature permutation instead of target permutation.
@@ -96,7 +97,7 @@ You can find more detailed examples in the "Feature Selection Examples" section.
 
 ## Advance Usage / Customization
 This package exposes `generic_compute` to allow customization.
-Read [`target_permutation_importances.__init__.py`](target_permutation_importances/__init__.py) for details.
+Read [`target_permutation_importances.__init__.py`](https://github.com/kingychiu/target-permutation-importances/target_permutation_importances/__init__.py) for details.
 
 
 ## Feature Selection Examples
@@ -124,7 +125,7 @@ Feature importance is calculated from the `train` set. Feature selection is done
 The final benchmark is evaluated on the `test` set. Therefore the `test` set is unseen to both the feature importance and selection process.
 
 
-Raw result data are in [`benchmarks/results/tabular_benchmark.csv`](benchmarks/results/tabular_benchmark.csv).
+Raw result data are in [`benchmarks/results/tabular_benchmark.csv`](https://github.com/kingychiu/target-permutation-importances/benchmarks/results/tabular_benchmark.csv).
 
 ## Kaggle Competitions
 Many Kaggle Competition top solutions involve this method, here are some examples

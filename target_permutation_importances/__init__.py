@@ -35,6 +35,18 @@ class ModelImportanceCalculatorType(Protocol):  # pragma: no cover
 
 
 class PermutationImportanceCalculatorType(Protocol):  # pragma: no cover
+    """
+    A function/callable that takes in a list of actual importance DataFrames
+    and a list of random importance s and returns a single DataFrame
+
+    Args:
+        actual_importance_dfs (List[pd.DataFrame]): list of actual importance DataFrames with columns ["feature", "importance"]
+        random_importance_dfs (List[pd.DataFrame]): list of random importance DataFrames with columns ["feature", "importance"]
+
+    Returns:
+        pd.DataFrame: The return DataFrame with columns ["feature", "importance"]
+    """
+
     def __call__(
         self,
         actual_importance_dfs: List[pd.DataFrame],
@@ -46,6 +58,17 @@ class PermutationImportanceCalculatorType(Protocol):  # pragma: no cover
 def compute_permutation_importance_by_subtraction(
     actual_importance_dfs: List[pd.DataFrame], random_importance_dfs: List[pd.DataFrame]
 ) -> pd.DataFrame:
+    """
+    Given a list of actual importance DataFrames and a list of random importance compute
+    the permutation importance by $I_f = Avg(A_f) - Avg(R_f)$
+
+    Args:
+        actual_importance_dfs (List[pd.DataFrame]): list of random importance DataFrames with columns ["feature", "importance"]
+        random_importance_dfs (List[pd.DataFrame]): list of random importance DataFrames with columns ["feature", "importance"]
+
+    Returns:
+        pd.DataFrame: The return DataFrame with columns ["feature", "importance"]
+    """
     # Calculate the mean importance
     mean_actual_importance_df = (
         pd.concat(actual_importance_dfs).groupby("feature").mean()
@@ -77,6 +100,17 @@ def compute_permutation_importance_by_subtraction(
 def compute_permutation_importance_by_division(
     actual_importance_dfs: List[pd.DataFrame], random_importance_dfs: List[pd.DataFrame]
 ) -> pd.DataFrame:
+    """
+    Given a list of actual importance DataFrames and a list of random importance compute
+    the permutation importance by $I_f = Avg(A_f) / (Avg(R_f) + 1)$
+
+    Args:
+        actual_importance_dfs (List[pd.DataFrame]): list of random importance DataFrames with columns ["feature", "importance"]
+        random_importance_dfs (List[pd.DataFrame]): list of random importance DataFrames with columns ["feature", "importance"]
+
+    Returns:
+        pd.DataFrame: The return DataFrame with columns ["feature", "importance"]
+    """
     # Calculate the mean importance
     mean_actual_importance_df = (
         pd.concat(actual_importance_dfs).groupby("feature").mean()
@@ -142,7 +176,7 @@ def generic_compute(
     y_builder: YBuilderType,
     num_actual_runs: int = 2,
     num_random_runs: int = 10,
-):
+) -> pd.DataFrame:
     run_params = {
         "model_builder": model_builder,
         "model_fitter": model_fitter,
@@ -189,7 +223,23 @@ def compute(
     num_actual_runs: int = 2,
     num_random_runs: int = 10,
     permutation_importance_calculator: PermutationImportanceCalculatorType = compute_permutation_importance_by_subtraction,  # noqa
-):
+) -> pd.DataFrame:
+    """
+    Compute the permutation importance of a model given a dataset.
+
+    Args:
+        model_cls: The constructor/class of the model.
+        model_cls_params: The parameters to pass to the model constructor.
+        model_fit_params: The parameters to pass to the model fit method.
+        X (pd.DataFrame): The input data.
+        y (pd.Series, np.ndarray): The target vector.
+        num_actual_runs: Number of actual runs. Defaults to 2.
+        num_random_runs: Number of random runs. Defaults to 10.
+        permutation_importance_calculator: The function to compute the final importance. Defaults to compute_permutation_importance_by_subtraction.
+
+    Returns:
+        pd.DataFrame: The return DataFrame contain columns ["feature", "importance"]
+    """
     _input_validation(X, y, num_actual_runs, num_random_runs)
 
     def _x_builder(is_random_run: bool, run_idx: int) -> XType:
