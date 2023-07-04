@@ -87,3 +87,43 @@ def test_compute_regression(model_cls, imp_func):
     assert "feature" in result_df.columns
     assert set(result_df["feature"].tolist()) == set(Xpd.columns.tolist())
     assert result_df["importance"].isna().sum() == 0
+
+
+def test_invalid_compute():
+    data = load_diabetes()
+    Xpd = pd.DataFrame(
+        data.data, columns=[f.replace(" ", "_") for f in data.feature_names]
+    )
+    with pytest.raises(ValueError):
+        compute(
+            model_cls=RandomForestClassifier,
+            model_cls_params={},
+            model_fit_params={},
+            permutation_importance_calculator=compute_permutation_importance_by_subtraction,
+            X=1,
+            y=data.target,
+            num_actual_runs=2,
+            num_random_runs=10,
+        )
+    with pytest.raises(ValueError):
+        compute(
+            model_cls=RandomForestClassifier,
+            model_cls_params={},
+            model_fit_params={},
+            permutation_importance_calculator=compute_permutation_importance_by_subtraction,
+            X=Xpd,
+            y=1,
+            num_actual_runs=2,
+            num_random_runs=10,
+        )
+    with pytest.raises(ValueError):
+        compute(
+            model_cls=RandomForestClassifier,
+            model_cls_params={},
+            model_fit_params={},
+            permutation_importance_calculator=compute_permutation_importance_by_subtraction,
+            X=Xpd,
+            y=data.target,
+            num_actual_runs=-1,
+            num_random_runs=10,
+        )

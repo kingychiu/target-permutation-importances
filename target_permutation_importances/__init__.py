@@ -105,6 +105,15 @@ def compute_permutation_importance_by_division(
     ].reset_index()
 
 
+def _input_validation(X: XType, y: YType, num_actual_runs: int, num_random_runs: int):
+    if not isinstance(X, pd.DataFrame):
+        raise ValueError("X must be a pandas DataFrame")
+    if not isinstance(y, pd.Series) and not isinstance(y, np.ndarray):
+        raise ValueError("y must be a pandas Series or a numpy array")
+    if num_actual_runs <= 0 or num_random_runs <= 0:
+        raise ValueError("num_actual_runs and num_random_runs must be positive")
+
+
 def _compute_one_run(
     model_builder: ModelBuilderType,
     model_fitter: ModelFitterType,
@@ -117,6 +126,9 @@ def _compute_one_run(
     model = model_builder()
     X = X_builder(is_random_run=is_random_run, run_idx=run_idx)
     y = y_builder(is_random_run=is_random_run, run_idx=run_idx)
+
+    _input_validation(X, y, 1, 1)
+
     model = model_fitter(model, X, y)
     return model_importance_calculator(model, X, y)
 
@@ -178,6 +190,8 @@ def compute(
     num_random_runs: int = 10,
     permutation_importance_calculator: PermutationImportanceCalculatorType = compute_permutation_importance_by_subtraction,  # noqa
 ):
+    _input_validation(X, y, num_actual_runs, num_random_runs)
+
     def _x_builder(is_random_run: bool, run_idx: int) -> XType:
         return X
 
