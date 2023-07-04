@@ -72,3 +72,8 @@ jobs:
           pypi_token: ${{ secrets.PYPI_TOKEN }}
           allow_poetry_pre_release: "yes"
           ignore_dev_requirements: "yes"
+
+      - uses: ncipollo/release-action@v1
+        with:
+          artifacts: "dist/*"
+
