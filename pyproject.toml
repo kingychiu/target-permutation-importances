@@ -5,11 +5,11 @@ description = "Compute (Target) Permutation Importances of a machine learning mo
 authors = [{name = "Anthony Chiu", email = "kingychiu@gmail.com"}]
 maintainers = [{name = "Anthony Chiu", email = "kingychiu@gmail.com"}]
 readme = "README.md"
-packages = [{include = "target_permutation_importances"}]
-homepage = "https://github.com/kingychiu/target-permutation-importances"
-repository = "https://github.com/kingychiu/target-permutation-importances"
-documentation = "https://github.com/kingychiu/target-permutation-importances"
+requires-python = ">=3.8"
+license = {file = "LICENSE.txt"}
 keywords = ["feature selection", "feature ranking", "feature importances", "kaggle", "machine learning"]
+Homepage = "https://github.com/kingychiu/target-permutation-importances"
+Repository = "https://github.com/kingychiu/target-permutation-importances"
 
 [tool.poetry]
 name = "target-permutation-importances"
@@ -19,10 +19,6 @@ authors = ["Anthony Chiu <kingychiu@gmail.com>"]
 maintainers = ["Anthony Chiu <kingychiu@gmail.com>"]
 readme = "README.md"
 packages = [{include = "target_permutation_importances"}]
-homepage = "https://github.com/kingychiu/target-permutation-importances"
-repository = "https://github.com/kingychiu/target-permutation-importances"
-documentation = "https://github.com/kingychiu/target-permutation-importances"
-keywords = ["feature selection", "feature ranking", "feature importances", "kaggle", "machine learning"]
 
 [project.urls]
 Repository = "https://github.com/kingychiu/target-permutation-importances" 
