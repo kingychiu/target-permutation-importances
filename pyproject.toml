@@ -1,3 +1,15 @@
+[project]
+name = "target-permutation-importances"
+version = "1.0.8"
+description = "Compute (Target) Permutation Importances of a machine learning model"
+authors = ["Anthony Chiu <kingychiu@gmail.com>"]
+readme = "README.md"
+packages = [{include = "target_permutation_importances"}]
+homepage = "https://github.com/kingychiu/target-permutation-importances"
+repository = "https://github.com/kingychiu/target-permutation-importances"
+documentation = "https://github.com/kingychiu/target-permutation-importances"
+keywords = ["feature selection", "feature ranking", "feature importances", "kaggle", "machine learning"]
+
 [tool.poetry]
 name = "target-permutation-importances"
 version = "1.0.8"
