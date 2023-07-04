@@ -6,10 +6,10 @@
 [![Actions status](https://github.com/kingychiu/target-permutation-importances/workflows/CI/badge.svg)](https://github.com/kingychiu/target-permutation-importances/actions/workflows/main.yaml)
 [![Ruff](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/charliermarsh/ruff/main/assets/badge/v2.json)](https://github.com/kingychiu/target-permutation-importances)
 
-[Source](https://github.com/kingychiu/target-permutation-importances/),
-[Bug Report](https://github.com/kingychiu/target-permutation-importances/issues/),
-[Documentation](https://target-permutation-importances.readthedocs.io/en/latest/)
-[API Reference](https://target-permutation-importances.readthedocs.io/en/latest/reference/)
+[[Source]](https://github.com/kingychiu/target-permutation-importances/)
+[[Bug Report]](https://github.com/kingychiu/target-permutation-importances/issues/)
+[[Documentation]](https://target-permutation-importances.readthedocs.io/en/latest/)
+[[API Reference]](https://target-permutation-importances.readthedocs.io/en/latest/reference/)
 
 ## Overview
 This method aims to lower the feature attribution due to a feature's variance.
