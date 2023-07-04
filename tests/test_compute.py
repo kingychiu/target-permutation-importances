@@ -1,3 +1,4 @@
+import numpy as np
 import pandas as pd
 import pytest
 from beartype import roar
@@ -24,25 +25,29 @@ CLF_MODEL_CLS = [
     LGBMClassifier,
 ]
 REG_MODEL_CLS = [RandomForestRegressor, XGBRegressor, CatBoostRegressor, LGBMRegressor]
-
+X_TYPES = [pd.DataFrame, np.ndarray]
 test_compute_clf_scope = []
 for model_cls in CLF_MODEL_CLS:
     for imp_func in IMP_FUNCS:
-        test_compute_clf_scope.append((model_cls, imp_func))
+        for xtype in X_TYPES:
+            test_compute_clf_scope.append((model_cls, imp_func, xtype))
 
 test_compute_reg_scope = []
 for model_cls in REG_MODEL_CLS:
     for imp_func in IMP_FUNCS:
-        test_compute_reg_scope.append((model_cls, imp_func))
+        for xtype in X_TYPES:
+            test_compute_reg_scope.append((model_cls, imp_func, xtype))
 
 
-@pytest.mark.parametrize("model_cls,imp_func", test_compute_clf_scope)
-def test_compute_binary_classification(model_cls, imp_func):
+@pytest.mark.parametrize("model_cls,imp_func,xtype", test_compute_clf_scope)
+def test_compute_binary_classification(model_cls, imp_func, xtype):
     data = load_breast_cancer()
-    Xpd = pd.DataFrame(
-        data.data, columns=[f.replace(" ", "_") for f in data.feature_names]
-    )
-
+    if xtype is pd.DataFrame:
+        X = pd.DataFrame(
+            data.data, columns=[f.replace(" ", "_") for f in data.feature_names]
+        )
+    else:
+        X = data.data
     result_df = compute(
         model_cls=model_cls,
         model_cls_params={
@@ -50,26 +55,31 @@ def test_compute_binary_classification(model_cls, imp_func):
         },
         model_fit_params={},
         permutation_importance_calculator=imp_func,
-        X=Xpd,
+        X=X,
         y=data.target,
         num_actual_runs=2,
         num_random_runs=10,
     )
     assert isinstance(result_df, pd.DataFrame)
-    assert result_df.shape[0] == Xpd.shape[1]
+    assert result_df.shape[0] == X.shape[1]
     assert "importance" in result_df.columns
     assert "feature" in result_df.columns
-    assert set(result_df["feature"].tolist()) == set(Xpd.columns.tolist())
+    if xtype is pd.DataFrame:
+        assert set(result_df["feature"].tolist()) == set(X.columns.tolist())
+    else:
+        assert set(result_df["feature"].tolist()) == set(range(data.data.shape[1]))
     assert result_df["importance"].isna().sum() == 0
 
 
-@pytest.mark.parametrize("model_cls,imp_func", test_compute_reg_scope)
-def test_compute_regression(model_cls, imp_func):
+@pytest.mark.parametrize("model_cls,imp_func,xtype", test_compute_reg_scope)
+def test_compute_regression(model_cls, imp_func, xtype):
     data = load_diabetes()
-    Xpd = pd.DataFrame(
-        data.data, columns=[f.replace(" ", "_") for f in data.feature_names]
-    )
-
+    if xtype is pd.DataFrame:
+        X = pd.DataFrame(
+            data.data, columns=[f.replace(" ", "_") for f in data.feature_names]
+        )
+    else:
+        X = data.data
     result_df = compute(
         model_cls=model_cls,
         model_cls_params={
@@ -77,16 +87,19 @@ def test_compute_regression(model_cls, imp_func):
         },
         model_fit_params={},
         permutation_importance_calculator=imp_func,
-        X=Xpd,
+        X=X,
         y=data.target,
         num_actual_runs=2,
         num_random_runs=10,
     )
     assert isinstance(result_df, pd.DataFrame)
-    assert result_df.shape[0] == Xpd.shape[1]
+    assert result_df.shape[0] == X.shape[1]
     assert "importance" in result_df.columns
     assert "feature" in result_df.columns
-    assert set(result_df["feature"].tolist()) == set(Xpd.columns.tolist())
+    if xtype is pd.DataFrame:
+        assert set(result_df["feature"].tolist()) == set(X.columns.tolist())
+    else:
+        assert set(result_df["feature"].tolist()) == set(range(data.data.shape[1]))
     assert result_df["importance"].isna().sum() == 0
 
 

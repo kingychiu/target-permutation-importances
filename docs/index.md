@@ -70,7 +70,7 @@ result_df = tpi.compute(
         "n_estimators": 1,
     },
     model_fit_params={}, # The parameters to pass to the model fit method.
-    X=Xpd, # pd.DataFrame
+    X=Xpd, # pd.DataFrame, np.ndarray
     y=data.target, # pd.Series, np.ndarray
     num_actual_runs=2,
     num_random_runs=10,

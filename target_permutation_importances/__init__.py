@@ -7,7 +7,7 @@ from beartype import beartype, vale
 from tqdm import tqdm
 from typing_extensions import Annotated
 
-XType = pd.DataFrame
+XType = Union[np.ndarray, pd.DataFrame]
 YType = Union[np.ndarray, pd.Series]
 PositiveInt = Annotated[int, vale.Is[lambda x: x > 0]]
 
@@ -231,7 +231,7 @@ def compute(
         model_cls: The constructor/class of the model.
         model_cls_params: The parameters to pass to the model constructor.
         model_fit_params: The parameters to pass to the model fit method.
-        X (pd.DataFrame): The input data.
+        X (pd.DataFrame, np.ndarray): The input data.
         y (pd.Series, np.ndarray): The target vector.
         num_actual_runs (int): Number of actual runs. Defaults to 2.
         num_random_runs (int): Number of random runs. Defaults to 10.
@@ -265,9 +265,14 @@ def compute(
         elif "Cat" in str(model.__class__):
             feature_attr = "feature_names_"
 
+        if isinstance(X, pd.DataFrame):
+            features = getattr(model, feature_attr)
+        else:
+            features = list(range(0, X.shape[1]))
+
         return pd.DataFrame(
             {
-                "feature": getattr(model, feature_attr),
+                "feature": features,
                 "importance": model.feature_importances_,
             }
         )
