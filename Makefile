@@ -21,4 +21,5 @@ publish:
 	poetry publish
 
 doc:
+	cp README.md docs/index.md
 	poetry run mkdocs serve

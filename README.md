@@ -65,13 +65,13 @@ Xpd = pd.DataFrame(data.data, columns=data.feature_names)
 
 # Compute permutation importances with default settings
 result_df = tpi.compute(
-    model_cls=RandomForestClassifier, # Or other models
-    model_cls_params={ # The params for the model class construction
+    model_cls=RandomForestClassifier, # The constructor/class of the model.
+    model_cls_params={ # The parameters to pass to the model constructor.
         "n_estimators": 1,
     },
-    model_fit_params={}, # The params for model.fit
-    X=Xpd,
-    y=data.target,
+    model_fit_params={}, # The parameters to pass to the model fit method.
+    X=Xpd, # pd.DataFrame
+    y=data.target, # pd.Series, np.ndarray
     num_actual_runs=2,
     num_random_runs=10,
 )
