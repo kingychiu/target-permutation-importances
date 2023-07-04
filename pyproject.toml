@@ -8,8 +8,6 @@ readme = "README.md"
 requires-python = ">=3.8"
 license = {file = "LICENSE.txt"}
 keywords = ["feature selection", "feature ranking", "feature importances", "kaggle", "machine learning"]
-Homepage = "https://github.com/kingychiu/target-permutation-importances"
-Repository = "https://github.com/kingychiu/target-permutation-importances"
 
 [tool.poetry]
 name = "target-permutation-importances"
@@ -19,6 +17,8 @@ authors = ["Anthony Chiu <kingychiu@gmail.com>"]
 maintainers = ["Anthony Chiu <kingychiu@gmail.com>"]
 readme = "README.md"
 packages = [{include = "target_permutation_importances"}]
+Homepage = "https://github.com/kingychiu/target-permutation-importances"
+Repository = "https://github.com/kingychiu/target-permutation-importances"
 
 [project.urls]
 Repository = "https://github.com/kingychiu/target-permutation-importances" 
