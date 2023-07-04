@@ -17,8 +17,8 @@ authors = ["Anthony Chiu <kingychiu@gmail.com>"]
 maintainers = ["Anthony Chiu <kingychiu@gmail.com>"]
 readme = "README.md"
 packages = [{include = "target_permutation_importances"}]
-Homepage = "https://github.com/kingychiu/target-permutation-importances"
-Repository = "https://github.com/kingychiu/target-permutation-importances"
+homepage = "https://github.com/kingychiu/target-permutation-importances"
+repository = "https://github.com/kingychiu/target-permutation-importances"
 
 [project.urls]
 Repository = "https://github.com/kingychiu/target-permutation-importances" 
