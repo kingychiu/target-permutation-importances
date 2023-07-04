@@ -1,6 +1,6 @@
 [project]
 name = "target-permutation-importances"
-version = "1.0.10"
+version = "1.0.11"
 description = "Compute (Target) Permutation Importances of a machine learning model"
 authors = [{name = "Anthony Chiu", email = "kingychiu@gmail.com"}]
 maintainers = [{name = "Anthony Chiu", email = "kingychiu@gmail.com"}]
@@ -11,7 +11,7 @@ keywords = ["feature selection", "feature ranking", "feature importances", "kagg
 
 [tool.poetry]
 name = "target-permutation-importances"
-version = "1.0.10"
+version = "1.0.11"
 description = "Compute (Target) Permutation Importances of a machine learning model"
 authors = ["Anthony Chiu <kingychiu@gmail.com>"]
 maintainers = ["Anthony Chiu <kingychiu@gmail.com>"]
