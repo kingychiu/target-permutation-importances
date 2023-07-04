@@ -1,9 +1,9 @@
 from functools import partial
-from typing import Any, Dict, List, Protocol, Union, runtime_checkable
 
 import numpy as np
 import pandas as pd
 from beartype import beartype, vale
+from beartype.typing import Any, Dict, List, Protocol, Union, runtime_checkable
 from tqdm import tqdm
 from typing_extensions import Annotated
 
