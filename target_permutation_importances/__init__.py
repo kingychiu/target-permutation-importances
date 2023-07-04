@@ -1,39 +1,48 @@
 from functools import partial
-from typing import Any, Dict, List, Protocol, Union
+from typing import Any, Dict, List, Protocol, Union, runtime_checkable
 
 import numpy as np
 import pandas as pd
+from beartype import beartype, vale
 from tqdm import tqdm
+from typing_extensions import Annotated
 
 XType = pd.DataFrame
 YType = Union[np.ndarray, pd.Series]
+PositiveInt = Annotated[int, vale.Is[lambda x: x > 0]]
 
 
+@runtime_checkable
 class XBuilderType(Protocol):  # pragma: no cover
     def __call__(self, is_random_run: bool, run_idx: int) -> XType:
         ...
 
 
+@runtime_checkable
 class YBuilderType(Protocol):  # pragma: no cover
     def __call__(self, is_random_run: bool, run_idx: int) -> YType:
         ...
 
 
+@runtime_checkable
 class ModelBuilderType(Protocol):  # pragma: no cover
     def __call__(self, *args: Any, **kwds: Any) -> Any:
         ...
 
 
+@runtime_checkable
 class ModelFitterType(Protocol):  # pragma: no cover
     def __call__(self, model: Any, X: XType, y: YType) -> Any:
         ...
 
 
+@runtime_checkable
 class ModelImportanceCalculatorType(Protocol):  # pragma: no cover
     def __call__(self, model: Any, X: XType, y: YType) -> pd.DataFrame:
         ...
 
 
+@runtime_checkable
 class PermutationImportanceCalculatorType(Protocol):  # pragma: no cover
     """
     A function/callable that takes in a list of actual importance DataFrames
@@ -139,15 +148,6 @@ def compute_permutation_importance_by_division(
     ].reset_index()
 
 
-def _input_validation(X: XType, y: YType, num_actual_runs: int, num_random_runs: int):
-    if not isinstance(X, pd.DataFrame):
-        raise ValueError("X must be a pandas DataFrame")
-    if not isinstance(y, pd.Series) and not isinstance(y, np.ndarray):
-        raise ValueError("y must be a pandas Series or a numpy array")
-    if num_actual_runs <= 0 or num_random_runs <= 0:
-        raise ValueError("num_actual_runs and num_random_runs must be positive")
-
-
 def _compute_one_run(
     model_builder: ModelBuilderType,
     model_fitter: ModelFitterType,
@@ -161,12 +161,11 @@ def _compute_one_run(
     X = X_builder(is_random_run=is_random_run, run_idx=run_idx)
     y = y_builder(is_random_run=is_random_run, run_idx=run_idx)
 
-    _input_validation(X, y, 1, 1)
-
     model = model_fitter(model, X, y)
     return model_importance_calculator(model, X, y)
 
 
+@beartype
 def generic_compute(
     model_builder: ModelBuilderType,
     model_fitter: ModelFitterType,
@@ -174,8 +173,8 @@ def generic_compute(
     permutation_importance_calculator: PermutationImportanceCalculatorType,
     X_builder: XBuilderType,
     y_builder: YBuilderType,
-    num_actual_runs: int = 2,
-    num_random_runs: int = 10,
+    num_actual_runs: PositiveInt = 2,
+    num_random_runs: PositiveInt = 10,
 ) -> pd.DataFrame:
     run_params = {
         "model_builder": model_builder,
@@ -214,14 +213,15 @@ def generic_compute(
     return permutation_importance_df
 
 
+@beartype
 def compute(
     model_cls: Any,
     model_cls_params: Dict,
     model_fit_params: Dict,
     X: XType,
     y: YType,
-    num_actual_runs: int = 2,
-    num_random_runs: int = 10,
+    num_actual_runs: PositiveInt = 2,
+    num_random_runs: PositiveInt = 10,
     permutation_importance_calculator: PermutationImportanceCalculatorType = compute_permutation_importance_by_subtraction,  # noqa
 ) -> pd.DataFrame:
     """
@@ -233,14 +233,13 @@ def compute(
         model_fit_params: The parameters to pass to the model fit method.
         X (pd.DataFrame): The input data.
         y (pd.Series, np.ndarray): The target vector.
-        num_actual_runs: Number of actual runs. Defaults to 2.
-        num_random_runs: Number of random runs. Defaults to 10.
+        num_actual_runs (int): Number of actual runs. Defaults to 2.
+        num_random_runs (int): Number of random runs. Defaults to 10.
         permutation_importance_calculator: The function to compute the final importance. Defaults to compute_permutation_importance_by_subtraction.
 
     Returns:
         pd.DataFrame: The return DataFrame contain columns ["feature", "importance"]
     """
-    _input_validation(X, y, num_actual_runs, num_random_runs)
 
     def _x_builder(is_random_run: bool, run_idx: int) -> XType:
         return X

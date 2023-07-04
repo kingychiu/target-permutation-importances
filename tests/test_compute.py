@@ -1,5 +1,6 @@
 import pandas as pd
 import pytest
+from beartype import roar
 from catboost import CatBoostClassifier, CatBoostRegressor
 from lightgbm import LGBMClassifier, LGBMRegressor
 from sklearn.datasets import load_breast_cancer, load_diabetes
@@ -94,7 +95,7 @@ def test_invalid_compute():
     Xpd = pd.DataFrame(
         data.data, columns=[f.replace(" ", "_") for f in data.feature_names]
     )
-    with pytest.raises(ValueError):
+    with pytest.raises(roar.BeartypeCallHintParamViolation):
         compute(
             model_cls=RandomForestClassifier,
             model_cls_params={},
@@ -105,7 +106,7 @@ def test_invalid_compute():
             num_actual_runs=2,
             num_random_runs=10,
         )
-    with pytest.raises(ValueError):
+    with pytest.raises(roar.BeartypeCallHintParamViolation):
         compute(
             model_cls=RandomForestClassifier,
             model_cls_params={},
@@ -116,7 +117,7 @@ def test_invalid_compute():
             num_actual_runs=2,
             num_random_runs=10,
         )
-    with pytest.raises(ValueError):
+    with pytest.raises(roar.BeartypeCallHintParamViolation):
         compute(
             model_cls=RandomForestClassifier,
             model_cls_params={},
