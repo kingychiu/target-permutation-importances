@@ -97,7 +97,7 @@ You can find more detailed examples in the "Feature Selection Examples" section.
 
 ## Advance Usage / Customization
 This package exposes `generic_compute` to allow customization.
-Read [`target_permutation_importances.__init__.py`](https://github.com/kingychiu/target-permutation-importances/target_permutation_importances/__init__.py) for details.
+Read [`target_permutation_importances.__init__.py`](https://github.com/kingychiu/target-permutation-importances/blob/main/target_permutation_importances/__init__.py) for details.
 
 
 ## Feature Selection Examples
@@ -125,7 +125,7 @@ Feature importance is calculated from the `train` set. Feature selection is done
 The final benchmark is evaluated on the `test` set. Therefore the `test` set is unseen to both the feature importance and selection process.
 
 
-Raw result data are in [`benchmarks/results/tabular_benchmark.csv`](https://github.com/kingychiu/target-permutation-importances/benchmarks/results/tabular_benchmark.csv).
+Raw result data are in [`benchmarks/results`](https://github.com/kingychiu/target-permutation-importances/tree/main/benchmarks).
 
 ## Kaggle Competitions
 Many Kaggle Competition top solutions involve this method, here are some examples
