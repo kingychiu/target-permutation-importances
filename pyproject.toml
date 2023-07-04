@@ -1,6 +1,6 @@
 [project]
 name = "target-permutation-importances"
-version = "1.0.12"
+version = "1.0.13"
 description = "Compute (Target) Permutation Importances of a machine learning model"
 authors = [{name = "Anthony Chiu", email = "kingychiu@gmail.com"}]
 maintainers = [{name = "Anthony Chiu", email = "kingychiu@gmail.com"}]
@@ -26,7 +26,7 @@ classifiers = [
 
 [tool.poetry]
 name = "target-permutation-importances"
-version = "1.0.12"
+version = "1.0.13"
 description = "Compute (Target) Permutation Importances of a machine learning model"
 authors = ["Anthony Chiu <kingychiu@gmail.com>"]
 maintainers = ["Anthony Chiu <kingychiu@gmail.com>"]
@@ -35,6 +35,21 @@ packages = [{include = "target_permutation_importances"}]
 homepage = "https://github.com/kingychiu/target-permutation-importances"
 repository = "https://github.com/kingychiu/target-permutation-importances"
 documentation = "https://target-permutation-importances.readthedocs.io/en/latest/"
+classifiers = [
+    "Intended Audience :: Developers", 
+    "Intended Audience :: Science/Research",
+    "Topic :: Scientific/Engineering",
+    "Topic :: Scientific/Engineering :: Artificial Intelligence",
+    "Operating System :: Microsoft :: Windows",
+    "Operating System :: POSIX",
+    "Operating System :: Unix",
+    "Operating System :: MacOS",
+    "Programming Language :: Python :: 3.7",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+"Programming Language :: Python :: 3.11",
+]
 
 [project.urls]
 Repository = "https://github.com/kingychiu/target-permutation-importances" 
