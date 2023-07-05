@@ -71,15 +71,15 @@ def run_selection(
 def get_model_cls(name: str, task: str):
     if task == "binary_classification":
         if name == "RandomForest":
-            return RandomForestClassifier
+            return RandomForestClassifier, {"n_jobs": -1}
         elif name == "XGBoost":  # noqa
-            return XGBClassifier
+            return XGBClassifier, {"n_jobs": -1, "importance_type": "gain"}
         raise NotImplementedError
     elif task == "regression":  # noqa
         if name == "RandomForest":
-            return RandomForestRegressor
+            return RandomForestRegressor, {"n_jobs": -1}
         elif name == "XGBoost":  # noqa
-            return XGBRegressor
+            return XGBRegressor, {"n_jobs": -1, "importance_type": "gain"}
         raise NotImplementedError
     raise NotImplementedError
 
@@ -137,7 +137,7 @@ for model_name in ["XGBoost"]:
         df,
     ) in tabular_benchmark.get_classification_tabular_datasets():
         score_func, higher_is_better = score_funcs[task]
-        model_cls = get_model_cls(model_name, task)
+        model_cls, model_cls_params = get_model_cls(model_name, task)
 
         print(f"==== Dataset: {name}, Num. of Features: {len(features)} ====")
         X = df[features]
@@ -157,7 +157,7 @@ for model_name in ["XGBoost"]:
         )
 
         # Fit default random forest with X_train and y_train
-        clf = model_cls(random_state=seed, n_jobs=-1)
+        clf = model_cls(random_state=seed, **model_cls_params)
         clf.fit(X_train, y_train)
         importance_df = pd.DataFrame(
             {
@@ -202,7 +202,7 @@ for model_name in ["XGBoost"]:
             print("X_train shape", X_train.shape, "y_train shape", y_train.shape)
             importance_df = compute(
                 model_cls=model_cls,
-                model_cls_params={"n_jobs": -1},
+                model_cls_params=model_cls_params,
                 model_fit_params={},
                 X=X_train,
                 y=y_train,

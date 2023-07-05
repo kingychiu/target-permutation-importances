@@ -217,7 +217,6 @@ Raw result data are in [`benchmarks/results`](https://github.com/kingychiu/targe
 
 </details>
 
-</br>
 
 ## Kaggle Competitions
 Many Kaggle Competition top solutions involve this method, here are some examples
