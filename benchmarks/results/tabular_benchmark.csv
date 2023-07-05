@@ -1,4 +1,0 @@
-model,dataset,task,importances,num_features,selected_num,score,val_score,test_score
-RandomForestClassifier,clf_cat/electricity.csv,binary_classification,default importances,8,2,f1_score,0.8827277577287629,0.8940080403292706
-RandomForestClassifier,clf_cat/electricity.csv,binary_classification,actual - random,8,4,f1_score,0.8983268030938341,0.9034482758620689
-RandomForestClassifier,clf_cat/electricity.csv,binary_classification,actual / random,8,2,f1_score,0.8827277577287629,0.8940080403292706

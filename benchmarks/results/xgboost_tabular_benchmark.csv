@@ -1,0 +1,17 @@
+model,dataset,task,importances,num_features,selected_num,score,val_score,test_score,is_best,% Change from baseline
+XGBClassifier,clf_cat/covertype.csv,binary_classification,A-R,54,42,f1_score,0.889559,0.890554,False,0.0
+XGBClassifier,clf_cat/covertype.csv,binary_classification,A/(R+1),54,40,f1_score,0.890147,0.891799,True,0.139801
+XGBClassifier,clf_cat/albert.csv,binary_classification,built-in,31,11,f1_score,0.646604,0.651735,True,0.0
+XGBClassifier,clf_cat/albert.csv,binary_classification,A-R,31,28,f1_score,0.65006,0.651434,False,-0.046184
+XGBClassifier,clf_cat/albert.csv,binary_classification,A/(R+1),31,11,f1_score,0.646604,0.651735,True,0.0
+XGBClassifier,clf_cat/compas-two-years.csv,binary_classification,built-in,11,4,f1_score,0.657315,0.66599,True,0.0
+XGBClassifier,clf_cat/compas-two-years.csv,binary_classification,A-R,11,7,f1_score,0.646465,0.63963,False,-3.958017
+XGBClassifier,clf_cat/compas-two-years.csv,binary_classification,A/(R+1),11,5,f1_score,0.65587,0.660931,False,-0.759621
+XGBClassifier,clf_cat/default-of-credit-card-clients.csv,binary_classification,built-in,21,17,f1_score,0.720119,0.677356,True,0.0
+XGBClassifier,clf_cat/electricity.csv,binary_classification,built-in,8,4,f1_score,0.90475,0.910815,True,0.0
+XGBClassifier,clf_cat/electricity.csv,binary_classification,A-R,8,4,f1_score,0.90475,0.910815,True,0.0
+XGBClassifier,clf_cat/electricity.csv,binary_classification,A/(R+1),8,4,f1_score,0.90475,0.910815,True,0.0
+XGBClassifier,clf_cat/eye_movements.csv,binary_classification,built-in,23,2,f1_score,0.6795,0.647699,False,0.0
+XGBClassifier,clf_cat/eye_movements.csv,binary_classification,A-R,23,5,f1_score,0.680988,0.647721,True,0.003353
+XGBClassifier,clf_cat/eye_movements.csv,binary_classification,A/(R+1),23,2,f1_score,0.6795,0.647699,False,0.0
+XGBClassifier,clf_cat/covertype.csv,binary_classification,built-in,54,40,f1_score,0.890147,0.891799,False,0.139774

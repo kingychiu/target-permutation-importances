@@ -58,7 +58,7 @@ def test_compute_binary_classification(model_cls, imp_func, xtype):
         X=X,
         y=data.target,
         num_actual_runs=5,
-        num_random_runs=10,
+        num_random_runs=20,
     )
     assert isinstance(result_df, pd.DataFrame)
     assert result_df.shape[0] == X.shape[1]
@@ -92,7 +92,7 @@ def test_compute_regression(model_cls, imp_func, xtype):
         X=X,
         y=data.target,
         num_actual_runs=5,
-        num_random_runs=10,
+        num_random_runs=20,
     )
     assert isinstance(result_df, pd.DataFrame)
     assert result_df.shape[0] == X.shape[1]
@@ -105,6 +105,48 @@ def test_compute_regression(model_cls, imp_func, xtype):
     assert result_df["importance"].isna().sum() == 0
     assert result_df["std_actual_importance"].isna().sum() == 0
     assert result_df["std_random_importance"].mean() > 0
+
+
+def test_compute_permutation_importance():
+    actual_importance_dfs = [
+        pd.DataFrame({"feature": ["a", "b"], "importance": [1, 2]}),
+        pd.DataFrame({"feature": ["b", "a"], "importance": [1, 3]}),
+    ]
+    random_importance_dfs = [
+        pd.DataFrame({"feature": ["a", "b"], "importance": [4, 2]}),
+        pd.DataFrame({"feature": ["b", "a"], "importance": [1, 2]}),
+        pd.DataFrame({"feature": ["b", "a"], "importance": [5, 2]}),
+    ]
+
+    result_df = compute_permutation_importance_by_subtraction(
+        actual_importance_dfs, random_importance_dfs
+    )
+
+    assert result_df["feature"].tolist() == ["a", "b"]
+    assert result_df["mean_actual_importance"].tolist() == [(1 + 3) / 2, (2 + 1) / 2]
+    assert result_df["mean_random_importance"].tolist() == [
+        (4 + 2 + 2) / 3,
+        (2 + 1 + 5) / 3,
+    ]
+    assert result_df["importance"].tolist() == [
+        (1 + 3) / 2 - (4 + 2 + 2) / 3,
+        (2 + 1) / 2 - (2 + 1 + 5) / 3,
+    ]
+
+    result_df = compute_permutation_importance_by_division(
+        actual_importance_dfs, random_importance_dfs
+    )
+
+    assert result_df["feature"].tolist() == ["a", "b"]
+    assert result_df["mean_actual_importance"].tolist() == [(1 + 3) / 2, (2 + 1) / 2]
+    assert result_df["mean_random_importance"].tolist() == [
+        (4 + 2 + 2) / 3,
+        (2 + 1 + 5) / 3,
+    ]
+    assert result_df["importance"].tolist() == [
+        (1 + 3) / 2 / ((4 + 2 + 2) / 3 + 1),
+        (2 + 1) / 2 / ((2 + 1 + 5) / 3 + 1),
+    ]
 
 
 def test_invalid_compute():

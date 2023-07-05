@@ -1,3 +1,4 @@
+import gc
 from functools import partial
 
 import numpy as np
@@ -96,9 +97,6 @@ def compute_permutation_importance_by_subtraction(
     assert (mean_random_importance_df.index == mean_actual_importance_df.index).all()
 
     # Calculate the signal to noise ratio
-    mean_actual_importance_df["importance"] = mean_actual_importance_df[
-        "importance"
-    ] - (mean_random_importance_df["importance"])
     mean_actual_importance_df["mean_actual_importance"] = mean_actual_importance_df[
         "importance"
     ]
@@ -108,6 +106,9 @@ def compute_permutation_importance_by_subtraction(
     mean_actual_importance_df["mean_random_importance"] = mean_random_importance_df[
         "importance"
     ]
+    mean_actual_importance_df["importance"] = mean_actual_importance_df[
+        "importance"
+    ] - (mean_random_importance_df["importance"])
     mean_actual_importance_df["std_random_importance"] = std_random_importance_df[
         "importance"
     ]
@@ -155,9 +156,6 @@ def compute_permutation_importance_by_division(
     assert (mean_random_importance_df.index == mean_actual_importance_df.index).all()
 
     # Calculate the signal to noise ratio
-    mean_actual_importance_df["importance"] = mean_actual_importance_df[
-        "importance"
-    ] / (mean_random_importance_df["importance"] + 1)
     mean_actual_importance_df["mean_actual_importance"] = mean_actual_importance_df[
         "importance"
     ]
@@ -167,6 +165,9 @@ def compute_permutation_importance_by_division(
     mean_actual_importance_df["mean_random_importance"] = mean_random_importance_df[
         "importance"
     ]
+    mean_actual_importance_df["importance"] = mean_actual_importance_df[
+        "importance"
+    ] / (mean_random_importance_df["importance"] + 1)
     mean_actual_importance_df["std_random_importance"] = std_random_importance_df[
         "importance"
     ]
@@ -195,6 +196,7 @@ def _compute_one_run(
     y = y_builder(is_random_run=is_random_run, run_idx=run_idx)
 
     model = model_fitter(model, X, y)
+    gc.collect()
     return model_importance_calculator(model, X, y)
 
 
@@ -278,6 +280,7 @@ def compute(
     def _y_builder(is_random_run: bool, run_idx: int) -> YType:
         rng = np.random.default_rng(seed=run_idx)
         if is_random_run:
+            # Only shuffle the target for random runs
             return rng.permutation(y)
         return y
 
