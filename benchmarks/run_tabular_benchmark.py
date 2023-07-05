@@ -28,7 +28,18 @@ score_funcs = {
 result_path = "./benchmarks/results/random_forest_tabular_benchmark.csv"
 
 
-def run_selection(model_cls, importance_df, score_func=f1_score, higher_is_better=True):
+def run_selection(
+    model_cls,
+    importance_df,
+    X_train,
+    X_val,
+    X_test,
+    y_train,
+    y_val,
+    y_test,
+    score_func=f1_score,
+    higher_is_better=True,
+):
     original_features = importance_df.feature.tolist()
     best_score = float("-inf") if higher_is_better else float("inf")
     best_features = None
@@ -59,13 +70,11 @@ def get_model_cls(name: str, task: str):
     if task == "binary_classification":
         if name == "RandomForest":
             return RandomForestClassifier
-        else:
-            raise NotImplementedError
-    elif task == "regression":
+        raise NotImplementedError
+    elif task == "regression":  # noqa
         if name == "RandomForest":
             return RandomForestRegressor
-        else:
-            raise
+        raise
     raise NotImplementedError
 
 
@@ -142,6 +151,7 @@ for model_name in ["RandomForest"]:
         # Fit default random forest with X_train and y_train
         clf = model_cls(random_state=seed, n_jobs=-1)
         clf.fit(X_train, y_train)
+        print(clf)
         importance_df = pd.DataFrame(
             {
                 "feature": clf.feature_names_in_,
@@ -150,14 +160,23 @@ for model_name in ["RandomForest"]:
         ).sort_values("importance", ascending=False, ignore_index=True)
 
         num_selected, val_score, test_score = run_selection(
-            model_cls, importance_df, score_func, higher_is_better
+            model_cls,
+            importance_df,
+            X_train,
+            X_val,
+            X_test,
+            y_train,
+            y_val,
+            y_test,
+            score_func,
+            higher_is_better,
         )
         reports.append(
             {
                 "model": model_cls.__name__,
                 "dataset": name,
                 "task": task,
-                "importances": "default importances",
+                "importances": "built-in",
                 "num_features": len(features),
                 "selected_num": num_selected,
                 "score": score_func.__name__,
@@ -167,15 +186,15 @@ for model_name in ["RandomForest"]:
         )
         print(reports[-1])
         write_report(reports)
-
         compute_variants = [
             ("A-R", compute_permutation_importance_by_subtraction),
             ("A/(R+1)", compute_permutation_importance_by_division),
         ]
 
         for variant_name, func in compute_variants:
+            print("X_train shape", X_train.shape, "y_train shape", y_train.shape)
             importance_df = compute(
-                model_cls=RandomForestClassifier,
+                model_cls=model_cls,
                 model_cls_params={"n_jobs": -1},
                 model_fit_params={},
                 X=X_train,
@@ -183,10 +202,21 @@ for model_name in ["RandomForest"]:
                 num_actual_runs=num_actual_runs,
                 num_random_runs=num_random_runs,
                 permutation_importance_calculator=func,
-            ).sort_values("importance", ascending=False, ignore_index=True)
-
+            )
+            importance_df = importance_df.sort_values(
+                "importance", ascending=False, ignore_index=True
+            )
             num_selected, val_score, test_score = run_selection(
-                model_cls, importance_df, score_func, higher_is_better=higher_is_better
+                model_cls,
+                importance_df,
+                X_train,
+                X_val,
+                X_test,
+                y_train,
+                y_val,
+                y_test,
+                score_func,
+                higher_is_better=higher_is_better,
             )
             reports.append(
                 {

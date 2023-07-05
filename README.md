@@ -135,77 +135,80 @@ The final benchmark is evaluated on the `test` set. Therefore the `test` set is 
 
 
 Raw result data are in [`benchmarks/results`](https://github.com/kingychiu/target-permutation-importances/tree/main/benchmarks/results).
+<details>
+    <summary>Benchmark Results with RandomForest</summary>
 
-**Classification**
+|dataset                                        |task                 |importances |feature_reduction|test_score         |% Change from baseline|
+|-----------------------------------------------|---------------------|------------|-----------------|-------------------|----------------------|
+|clf_cat/electricity.csv                        |binary_classification|built-in    |8->2             |0.894              |0.0%                  |
+|clf_cat/electricity.csv                        |binary_classification|**A-R**     |8->4             |**0.9034**         |**1.0515%**           |
+|clf_cat/electricity.csv                        |binary_classification|A/(R+1)     |8->2             |0.894              |0.0%                  |
+|clf_cat/eye_movements.csv                      |binary_classification|built-in    |23->22           |0.6169             |0.0%                  |
+|clf_cat/eye_movements.csv                      |binary_classification|**A-R**     |23->10           |**0.6772**         |**9.7747%**           |
+|clf_cat/eye_movements.csv                      |binary_classification|A/(R+1)     |23->22           |0.6212             |0.697%                |
+|clf_cat/covertype.csv                          |binary_classification|built-in    |54->26           |0.9558             |0.0%                  |
+|clf_cat/covertype.csv                          |binary_classification|**A-R**     |54->52           |**0.9586**         |**0.2929%**           |
+|clf_cat/covertype.csv                          |binary_classification|A/(R+1)     |54->30           |0.9547             |-0.1151%              |
+|clf_cat/albert.csv                             |binary_classification|built-in    |31->22           |0.6518             |0.0%                  |
+|clf_cat/albert.csv                             |binary_classification|**A-R**     |31->24           |**0.6587**         |**1.0586%**           |
+|clf_cat/albert.csv                             |binary_classification|A/(R+1)     |31->22           |0.6527             |0.1381%               |
+|clf_cat/compas-two-years.csv                   |binary_classification|built-in    |11->10           |0.6316             |0.0%                  |
+|clf_cat/compas-two-years.csv                   |binary_classification|**A-R**     |11->2            |**0.6589**         |**4.3224%**           |
+|clf_cat/compas-two-years.csv                   |binary_classification|A/(R+1)     |11->6            |0.6335             |0.3008%               |
+|clf_cat/default-of-credit-card-clients.csv     |binary_classification|built-in    |21->18           |0.671              |0.0%                  |
+|clf_cat/default-of-credit-card-clients.csv     |binary_classification|**A-R**     |21->17           |**0.6826**         |**1.7288%**           |
+|clf_cat/default-of-credit-card-clients.csv     |binary_classification|A/(R+1)     |21->20           |0.6797             |1.2966%               |
+|clf_cat/road-safety.csv                        |binary_classification|**built-in**|32->31           |**0.7895**         |**0.0%**              |
+|clf_cat/road-safety.csv                        |binary_classification|A-R         |32->30           |0.7886             |-0.114%               |
+|clf_cat/road-safety.csv                        |binary_classification|A/(R+1)     |32->29           |0.7893             |-0.0253%              |
+|clf_num/Bioresponse.csv                        |binary_classification|built-in    |419->295         |0.7686             |0.0%                  |
+|clf_num/Bioresponse.csv                        |binary_classification|A-R         |419->214         |0.7692             |0.0781%               |
+|clf_num/Bioresponse.csv                        |binary_classification|**A/(R+1)** |419->403         |**0.775**          |**0.8327%**           |
+|clf_num/jannis.csv                             |binary_classification|built-in    |54->22           |0.7958             |0.0%                  |
+|clf_num/jannis.csv                             |binary_classification|A-R         |54->28           |0.7988             |0.377%                |
+|clf_num/jannis.csv                             |binary_classification|**A/(R+1)** |54->26           |**0.7998**         |**0.5026%**           |
+|clf_num/MiniBooNE.csv                          |binary_classification|built-in    |50->33           |0.9306             |0.0%                  |
+|clf_num/MiniBooNE.csv                          |binary_classification|A-R         |50->47           |0.93               |-0.0669%              |
+|clf_num/MiniBooNE.csv                          |binary_classification|**A/(R+1)** |50->49           |**0.9316**         |**0.1091%**           |
+|reg_num/cpu_act.csv                            |regression           |built-in    |21->20           |6.0055             |0.0%                  |
+|reg_num/cpu_act.csv                            |regression           |A-R         |21->20           |6.0099             |0.0732%               |
+|reg_num/cpu_act.csv                            |regression           |**A/(R+1)** |21->19           |**5.9768**         |**-0.4775%**          |
+|reg_num/pol.csv                                |regression           |**built-in**|26->16           |**0.2734**         |**0.0%**              |
+|reg_num/pol.csv                                |regression           |A-R         |26->26           |0.278              |1.6789%               |
+|reg_num/pol.csv                                |regression           |A/(R+1)     |26->12           |0.2786             |1.8955%               |
+|reg_num/elevators.csv                          |regression           |built-in    |16->7            |8.0447             |0.0%                  |
+|reg_num/elevators.csv                          |regression           |A-R         |16->15           |8.3465             |3.7506%               |
+|reg_num/elevators.csv                          |regression           |**A/(R+1)** |16->6            |**7.8848**         |**-1.9883%**          |
+|reg_num/wine_quality.csv                       |regression           |built-in    |11->11           |0.4109             |0.0%                  |
+|reg_num/wine_quality.csv                       |regression           |**A-R**     |11->10           |**0.4089**         |**-0.481%**           |
+|reg_num/wine_quality.csv                       |regression           |A/(R+1)     |11->11           |0.4122             |0.3069%               |
+|reg_num/Ailerons.csv                           |regression           |built-in    |33->12           |2.8274             |0.0%                  |
+|reg_num/Ailerons.csv                           |regression           |**A-R**     |33->29           |**2.8125**         |**-0.5277%**          |
+|reg_num/Ailerons.csv                           |regression           |A/(R+1)     |33->12           |2.8304             |0.1073%               |
+|reg_num/yprop_4_1.csv                          |regression           |built-in    |42->26           |75403.6496         |0.0%                  |
+|reg_num/yprop_4_1.csv                          |regression           |A-R         |42->41           |75081.8961         |-0.4267%              |
+|reg_num/yprop_4_1.csv                          |regression           |**A/(R+1)** |42->32           |**74671.0854**     |**-0.9715%**          |
+|reg_num/superconduct.csv                       |regression           |built-in    |79->53           |54470.4924         |0.0%                  |
+|reg_num/superconduct.csv                       |regression           |**A-R**     |79->63           |**54011.8479**     |**-0.842%**           |
+|reg_num/superconduct.csv                       |regression           |A/(R+1)     |79->60           |54454.3817         |-0.0296%              |
+|reg_cat/topo_2_1.csv                           |regression           |built-in    |255->217         |76175.864          |0.0%                  |
+|reg_cat/topo_2_1.csv                           |regression           |A-R         |255->254         |76206.9714         |0.0408%               |
+|reg_cat/topo_2_1.csv                           |regression           |**A/(R+1)** |255->226         |**76140.8313**     |**-0.046%**           |
+|reg_cat/Mercedes_Benz_Greener_Manufacturing.csv|regression           |**built-in**|359->6           |**177937.9184**    |**0.0%**              |
+|reg_cat/Mercedes_Benz_Greener_Manufacturing.csv|regression           |A-R         |359->194         |183405.9763        |3.073%                |
+|reg_cat/Mercedes_Benz_Greener_Manufacturing.csv|regression           |**A/(R+1)** |359->6           |**177937.9184**    |**0.0%**              |
+|reg_cat/house_sales.csv                        |regression           |**built-in**|17->16           |**110072.8755**    |**0.0%**              |
+|reg_cat/house_sales.csv                        |regression           |A-R         |17->17           |110141.2913        |0.0622%               |
+|reg_cat/house_sales.csv                        |regression           |A/(R+1)     |17->17           |110404.0862        |0.3009%               |
+|reg_cat/nyc-taxi-green-dec-2016.csv            |regression           |**built-in**|16->15           |**10585.6377**     |**0.0%**              |
+|reg_cat/nyc-taxi-green-dec-2016.csv            |regression           |A-R         |16->4            |10758.4811         |1.6328%               |
+|reg_cat/nyc-taxi-green-dec-2016.csv            |regression           |A/(R+1)     |16->15           |10589.5054         |0.0365%               |
+|reg_cat/Allstate_Claims_Severity.csv           |regression           |**built-in**|124->113         |**1002055785.0415**|**0.0%**              |
+|reg_cat/Allstate_Claims_Severity.csv           |regression           |A-R         |124->124         |1003019739.9178    |0.0962%               |
+|reg_cat/Allstate_Claims_Severity.csv           |regression           |A/(R+1)     |124->102         |1003113924.3013    |0.1056%               |
 
-built_in: feature selection with models' built in importances method.
-
-|dataset|n_samples|model|importances|feature_reduction|test_f1|improve_from_built_in|
-|--|--|--|--|--|--|--|
-|clf_cat/electricity|38474|RandomForestClassifier|built_in|8->2|0.894|-|
-|clf_cat/electricity|38474|RandomForestClassifier|**A-R**|**8->4**|**0.9034**|**+1.0515%**|
-|clf_cat/electricity|38474|RandomForestClassifier|A/(R+1)|8->2|0.894|0%|
-|clf_cat/eye_movements|7608|RandomForestClassifier|built_in|23->22|0.6169|-|
-|clf_cat/eye_movements|7608|RandomForestClassifier|**A-R**|**23->8**|**0.6499**|**+5.3544%**|
-|clf_cat/eye_movements|7608|RandomForestClassifier|A/(R+1)|23->19|0.5927|-3.9164%|
-|clf_cat/covertype|423680|RandomForestClassifier|built_in|54->26|0.9558|-|
-|clf_cat/covertype|423680|RandomForestClassifier|**A-R**|**54->52**|**0.9593**|**+0.3634%**|
-|clf_cat/covertype|423680|RandomForestClassifier|A/(R+1)|54->25|0.9561|+0.0311%|
-|clf_cat/albert|58252|RandomForestClassifier|built_in|31->22|0.6518|-|
-|clf_cat/albert|58252|RandomForestClassifier|A-R|31->31|0.6572|+0.828%|
-|clf_cat/albert|58252|RandomForestClassifier|**A/(R+1)**|**31->27**|**0.6605**|**+1.3315%**|
-|clf_cat/compas-two-years|4966|RandomForestClassifier|built_in|11->10|0.6316|-|
-|clf_cat/compas-two-years|4966|RandomForestClassifier|A-R|11->11|0.6296|-0.3284%|
-|clf_cat/compas-two-years|4966|RandomForestClassifier|**A/(R+1)**|**11->8**|**0.6346**|**+0.474%**|
-|clf_cat/default-of-credit-card-clients|13272|RandomForestClassifier|built_in|21->18|0.671|-|
-|clf_cat/default-of-credit-card-clients|13272|RandomForestClassifier|**A-R**|**21->17**|**0.6826**|**+1.7301%**|
-|clf_cat/default-of-credit-card-clients|13272|RandomForestClassifier|A/(R+1)|21->19|0.6733|+0.3455%|
-|clf_cat/road-safety|111762|RandomForestClassifier|built_in|32->31|0.7895|-|
-|clf_cat/road-safety|111762|RandomForestClassifier|**A-R**|**32->32**|**0.791**|**+0.192%**|
-|clf_cat/road-safety|111762|RandomForestClassifier|A/(R+1)|32->24|0.7889|-0.0786%|
-|clf_num/Bioresponse|3434|RandomForestClassifier|built_in|419->295|0.7686|-|
-|clf_num/Bioresponse|3434|RandomForestClassifier|**A-R**|**419->344**|**0.7703**|**+0.2265%**|
-|clf_num/Bioresponse|3434|RandomForestClassifier|A/(R+1)|419->311|0.7686|+0.0008%|
-|clf_num/jannis|57580|RandomForestClassifier|built_in|54->22|0.7958|-|
-|clf_num/jannis|57580|RandomForestClassifier|A-R|54->26|0.7981|+0.286%|
-|clf_num/jannis|57580|RandomForestClassifier|**A/(R+1)**|**54->27**|**0.799**|**+0.4019%**|
-|clf_num/MiniBooNE|72998|RandomForestClassifier|built_in||||
-|clf_num/MiniBooNE|72998|RandomForestClassifier|A-R||||
-|clf_num/MiniBooNE|72998|RandomForestClassifier|A/(R+1)||||
-
-
-
-**Regression**
-
-built_in: feature selection with models' built in importances method.
-
-|dataset|n_samples|model|importances|feature_reduction|test_mse|improve_from_built_in|
-|--|--|--|--|--|--|--|
-|reg_num/cpu_act|8192|RandomForestRegressor|built_in|21->20|6.0055|-|
-|reg_num/cpu_act|8192|RandomForestRegressor|**A-R**|**21->21**|**5.9896**|**-2.2648%**|
-|reg_num/cpu_act|8192|RandomForestRegressor|A/(R+1)|21->20|5.9999|-0.0932%|
-|reg_num/pol|15000|RandomForestRegressor|**built_in**|**26->16**|**0.2734**|**-**|
-|reg_num/pol|15000|RandomForestRegressor|A-R|26->26|0.2794|+2.1946%|
-|reg_num/pol|15000|RandomForestRegressor|A/(R+1)|26->11|0.2827|+3.4016%|
-|reg_num/elevators|16599|RandomForestRegressor|**built_in**|**16->7**|**8.0447**|**-**|
-|reg_num/elevators|16599|RandomForestRegressor|A-R|16->14|8.3434|+3.713%|
-|reg_num/elevators|16599|RandomForestRegressor|A/(R+1)|16->16|8.3232|+3.4619%|
-|reg_num/wine_quality|6497|RandomForestRegressor|**built_in**|**11->11**|**0.4109**|**-**|
-|reg_num/wine_quality|6497|RandomForestRegressor|A-R|11->11|0.4124|+0.3651%|
-|reg_num/wine_quality|6497|RandomForestRegressor|A/(R+1)|11->9|0.421|+2.458%|
-|reg_num/Ailerons|13750|RandomForestRegressor|built_in|33->12|2.8274|-|
-|reg_num/Ailerons|13750|RandomForestRegressor|**A-R**|**33->25**|**2.7965**|**-1.0929%**|
-|reg_num/Ailerons|13750|RandomForestRegressor|A/(R+1)|33->31|2.8438|+0.58%|
-|reg_num/yprop_4_1|8885|RandomForestRegressor|built_in|42->26|75403.6496|-|
-|reg_num/yprop_4_1|8885|RandomForestRegressor|A-R|42->42|74824.051|**-0.7687%**|
-|reg_num/yprop_4_1|8885|RandomForestRegressor|**A/(R+1)**|**42->34**|**74466.2487**|**-1.2432%**|
-|reg_num/superconduct|21263|RandomForestRegressor|built_in|79->53|54470.4924|-|
-|reg_num/superconduct|21263|RandomForestRegressor|**A-R**|**79->74**|**54374.393**|**-0.1764%**|
-|reg_num/superconduct|21263|RandomForestRegressor|A/(R+1)|79->75|55654.4327|+2.1735%|
-|reg_cat/topo_2_1|8885|RandomForestRegressor|**built_in**|**255->217**|**76175.864**|**-**|
-|reg_cat/topo_2_1|8885|RandomForestRegressor|A-R|255->255|76400.4006|+0.2948%|
-|reg_cat/topo_2_1|8885|RandomForestRegressor|A/(R+1)|255->249|76432.8836|+0.3374%|
-
+</details>
+</br>
 
 ## Kaggle Competitions
 Many Kaggle Competition top solutions involve this method, here are some examples

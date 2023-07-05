@@ -51,62 +51,62 @@ dataset_configs = [
     #     "task": "binary_classification",
     #     "target_column": "class",
     # },
-    # {
-    #     "name": "clf_num/MiniBooNE.csv",
-    #     "task": "binary_classification",
-    #     "target_column": "signal",
-    # },
-    # # Regression
-    # {
-    #     "name": "reg_num/cpu_act.csv",
-    #     "task": "regression",
-    #     "target_column": "usr",
-    # },
-    # {
-    #     "name": "reg_num/pol.csv",
-    #     "task": "regression",
-    #     "target_column": "foo",
-    # },
-    # {
-    #     "name": "reg_num/elevators.csv",
-    #     "task": "regression",
-    #     "target_column": "Goal",
-    # },
-    # {
-    #     "name": "reg_num/wine_quality.csv",
-    #     "task": "regression",
-    #     "target_column": "quality",
-    # },
-    # {
-    #     "name": "reg_num/Ailerons.csv",
-    #     "task": "regression",
-    #     "target_column": "goal",
-    # },
-    # {
-    #     "name": "reg_num/yprop_4_1.csv",
-    #     "task": "regression",
-    #     "target_column": "oz252",
-    # },
-    # {
-    #     "name": "reg_num/superconduct.csv",
-    #     "task": "regression",
-    #     "target_column": "criticaltemp",
-    # },
-    # {
-    #     "name": "reg_cat/topo_2_1.csv",
-    #     "task": "regression",
-    #     "target_column": "oz267",
-    # },
-    # {
-    #     "name": "reg_cat/Mercedes_Benz_Greener_Manufacturing.csv",
-    #     "task": "regression",
-    #     "target_column": "y",
-    # },
-    # {
-    #     "name": "reg_cat/house_sales.csv",
-    #     "task": "regression",
-    #     "target_column": "price",
-    # },
+    {
+        "name": "clf_num/MiniBooNE.csv",
+        "task": "binary_classification",
+        "target_column": "signal",
+    },
+    # Regression
+    {
+        "name": "reg_num/cpu_act.csv",
+        "task": "regression",
+        "target_column": "usr",
+    },
+    {
+        "name": "reg_num/pol.csv",
+        "task": "regression",
+        "target_column": "foo",
+    },
+    {
+        "name": "reg_num/elevators.csv",
+        "task": "regression",
+        "target_column": "Goal",
+    },
+    {
+        "name": "reg_num/wine_quality.csv",
+        "task": "regression",
+        "target_column": "quality",
+    },
+    {
+        "name": "reg_num/Ailerons.csv",
+        "task": "regression",
+        "target_column": "goal",
+    },
+    {
+        "name": "reg_num/yprop_4_1.csv",
+        "task": "regression",
+        "target_column": "oz252",
+    },
+    {
+        "name": "reg_num/superconduct.csv",
+        "task": "regression",
+        "target_column": "criticaltemp",
+    },
+    {
+        "name": "reg_cat/topo_2_1.csv",
+        "task": "regression",
+        "target_column": "oz267",
+    },
+    {
+        "name": "reg_cat/Mercedes_Benz_Greener_Manufacturing.csv",
+        "task": "regression",
+        "target_column": "y",
+    },
+    {
+        "name": "reg_cat/house_sales.csv",
+        "task": "regression",
+        "target_column": "price",
+    },
     {
         "name": "reg_cat/nyc-taxi-green-dec-2016.csv",
         "task": "regression",

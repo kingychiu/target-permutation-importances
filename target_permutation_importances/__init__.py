@@ -281,7 +281,7 @@ def compute(
         rng = np.random.default_rng(seed=run_idx)
         if is_random_run:
             # Only shuffle the target for random runs
-            return np.random.permutation(y)
+            return rng.permutation(y)
         return y
 
     def _model_builder(is_random_run: bool, run_idx: int) -> Any:
