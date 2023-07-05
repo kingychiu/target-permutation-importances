@@ -91,4 +91,5 @@ build-backend = "poetry.core.masonry.api"
 
 
 [tool.ruff]
-line-length = 256
+select = ["E", "F", "PL", "I", "ICN", "RET", "SIM", "NPY", "RUF"]
+ignore = ["E501", "PLR0913"]
