@@ -82,6 +82,7 @@ twine = "^4.0.2"
 mkdocs = {extras = ["python"], version = "^1.4.3"}
 mkdocstrings = "^0.22.0"
 mkdocstrings-python = "^1.1.2"
+mkdocs-table-reader-plugin = "^2.0.1"
 
 [build-system]
 requires = ["poetry-core"]

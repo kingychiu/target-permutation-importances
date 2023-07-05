@@ -122,6 +122,38 @@ Read [`target_permutation_importances.__init__.py`](https://github.com/kingychiu
 ## Feature Selection Examples
 - [Feature Selection for Binary Classification](https://www.kaggle.com/code/kingychiu/feature-selection-for-binary-classification-task)
 
+
+## Kaggle Competitions
+Many Kaggle Competition top solutions involve this method, here are some examples
+
+| Year | Competition                                                                                                                  | Medal | Link                                                                                                                                        |
+| ---- | ---------------------------------------------------------------------------------------------------------------------------- | ----- | ------------------------------------------------------------------------------------------------------------------------------------------- |
+| 2023 | [Predict Student Performance from Game Play](https://www.kaggle.com/competitions/predict-student-performance-from-game-play) | Gold  | [3rd place solution](https://www.kaggle.com/competitions/predict-student-performance-from-game-play/discussion/420235)                      |
+| 2019 | [Elo Merchant Category Recommendation](https://www.kaggle.com/competitions/elo-merchant-category-recommendation/overview)    | Gold  | [16th place solution]([-play/discussion/420235](https://www.kaggle.com/competitions/elo-merchant-category-recommendation/discussion/82166)) |
+| 2018 | [Home Credit Default Risk](https://www.kaggle.com/competitions/home-credit-default-risk/overview)                            | Gold  | [10th place solution](https://www.kaggle.com/competitions/home-credit-default-risk/discussion/64598)                                        |
+
+
+## Development Setup and Contribution Guide
+**Python Version**
+
+You can find the suggested development Python version in `.python-version`.
+You might consider setting up `Pyenv` if you want to have multiple Python versions on your machine.
+
+**Python packages**
+
+This repository is setup with `Poetry`. If you are not familiar with Poetry, you can find package requirements listed in `pyproject.toml`. 
+Otherwise, you can just set it up with `poetry install`
+
+**Run Benchmarks**
+
+To run the benchmark locally on your machine, run `make run_tabular_benchmark` or `python -m benchmarks.run_tabular_benchmark`
+
+**Make Changes**
+
+Following the [Make Changes Guide from Github](https://github.com/github/docs/blob/main/CONTRIBUTING.md#make-changes)
+Before committing or merging, please run the linters defined in `make lint` and the tests defined in `make test`
+
+
 ## Benchmarks
 
 Benchmark has been done with some tabular datasets from the [Tabular data learning benchmark](https://github.com/LeoGrin/tabular-benchmark/tree/main). It is also
@@ -136,54 +168,50 @@ The final benchmark is evaluated on the `test` set. Therefore the `test` set is 
 
 Raw result data are in [`benchmarks/results`](https://github.com/kingychiu/target-permutation-importances/tree/main/benchmarks/results).
 
-<details>
-    <summary>Binary Classification Results with RandomForest</summary>
 
-
-built-in: The baseline, it is the built-in importances from the model.
-
-
-| dataset                                         | importances  | feature_reduction | test_f1          |
-|-------------------------------------------------|--------------|-------------------|---------------------|
-| clf_cat/electricity.csv                         | built-in     | 8->2              | 0.894               |
-| clf_cat/electricity.csv                         | **A-R**      | 8->4              | **0.9034**          |
-| clf_cat/electricity.csv                         | A/(R+1)      | 8->2              | 0.894               |
-| clf_cat/eye_movements.csv                       | built-in     | 23->22            | 0.6169              |
-| clf_cat/eye_movements.csv                       | **A-R**      | 23->10            | **0.6772**          |
-| clf_cat/eye_movements.csv                       | A/(R+1)      | 23->22            | 0.6212              |
-| clf_cat/covertype.csv                           | built-in     | 54->26            | 0.9558              |
-| clf_cat/covertype.csv                           | **A-R**      | 54->52            | **0.9586**          |
-| clf_cat/covertype.csv                           | A/(R+1)      | 54->30            | 0.9547              |
-| clf_cat/albert.csv                              | built-in     | 31->22            | 0.6518              |
-| clf_cat/albert.csv                              | **A-R**      | 31->24            | **0.6587**          |
-| clf_cat/albert.csv                              | A/(R+1)      | 31->22            | 0.6527              |
-| clf_cat/compas-two-years.csv                    | built-in     | 11->10            | 0.6316              |
-| clf_cat/compas-two-years.csv                    | **A-R**      | 11->2             | **0.6589**          |
-| clf_cat/compas-two-years.csv                    | A/(R+1)      | 11->6             | 0.6335              |
-| clf_cat/default-of-credit-card-clients.csv      | built-in     | 21->18            | 0.671               |
-| clf_cat/default-of-credit-card-clients.csv      | **A-R**      | 21->17            | **0.6826**          |
-| clf_cat/default-of-credit-card-clients.csv      | A/(R+1)      | 21->20            | 0.6797              |
-| clf_cat/road-safety.csv                         | **built-in** | 32->31            | **0.7895**          |
-| clf_cat/road-safety.csv                         | A-R          | 32->30            | 0.7886              |
-| clf_cat/road-safety.csv                         | A/(R+1)      | 32->29            | 0.7893              |
-| clf_num/Bioresponse.csv                         | built-in     | 419->295          | 0.7686              |
-| clf_num/Bioresponse.csv                         | A-R          | 419->214          | 0.7692              |
-| clf_num/Bioresponse.csv                         | **A/(R+1)**  | 419->403          | **0.775**           |
-| clf_num/jannis.csv                              | built-in     | 54->22            | 0.7958              |
-| clf_num/jannis.csv                              | A-R          | 54->28            | 0.7988              |
-| clf_num/jannis.csv                              | **A/(R+1)**  | 54->26            | **0.7998**          |
-| clf_num/MiniBooNE.csv                           | built-in     | 50->33            | 0.9306              |
-| clf_num/MiniBooNE.csv                           | A-R          | 50->47            | 0.93                |
-| clf_num/MiniBooNE.csv                           | **A/(R+1)**  | 50->49            | **0.9316**          |
-</details>
-
-<details>
-    <summary>Regression Results with RandomForest</summary>
+**Binary Classification Results with RandomForest**
 
 built-in: The baseline, it is the built-in importances from the model.
 
-| dataset                                         | importances  | feature_reduction | test_mse          |
-|-------------------------------------------------|--------------|-------------------|---------------------|
+| dataset                                    | importances  | feature_reduction | test_f1    |
+| ------------------------------------------ | ------------ | ----------------- | ---------- |
+| clf_cat/electricity.csv                    | built-in     | 8->2              | 0.894      |
+| clf_cat/electricity.csv                    | **A-R**      | 8->4              | **0.9034** |
+| clf_cat/electricity.csv                    | A/(R+1)      | 8->2              | 0.894      |
+| clf_cat/eye_movements.csv                  | built-in     | 23->22            | 0.6169     |
+| clf_cat/eye_movements.csv                  | **A-R**      | 23->10            | **0.6772** |
+| clf_cat/eye_movements.csv                  | A/(R+1)      | 23->22            | 0.6212     |
+| clf_cat/covertype.csv                      | built-in     | 54->26            | 0.9558     |
+| clf_cat/covertype.csv                      | **A-R**      | 54->52            | **0.9586** |
+| clf_cat/covertype.csv                      | A/(R+1)      | 54->30            | 0.9547     |
+| clf_cat/albert.csv                         | built-in     | 31->22            | 0.6518     |
+| clf_cat/albert.csv                         | **A-R**      | 31->24            | **0.6587** |
+| clf_cat/albert.csv                         | A/(R+1)      | 31->22            | 0.6527     |
+| clf_cat/compas-two-years.csv               | built-in     | 11->10            | 0.6316     |
+| clf_cat/compas-two-years.csv               | **A-R**      | 11->2             | **0.6589** |
+| clf_cat/compas-two-years.csv               | A/(R+1)      | 11->6             | 0.6335     |
+| clf_cat/default-of-credit-card-clients.csv | built-in     | 21->18            | 0.671      |
+| clf_cat/default-of-credit-card-clients.csv | **A-R**      | 21->17            | **0.6826** |
+| clf_cat/default-of-credit-card-clients.csv | A/(R+1)      | 21->20            | 0.6797     |
+| clf_cat/road-safety.csv                    | **built-in** | 32->31            | **0.7895** |
+| clf_cat/road-safety.csv                    | A-R          | 32->30            | 0.7886     |
+| clf_cat/road-safety.csv                    | A/(R+1)      | 32->29            | 0.7893     |
+| clf_num/Bioresponse.csv                    | built-in     | 419->295          | 0.7686     |
+| clf_num/Bioresponse.csv                    | A-R          | 419->214          | 0.7692     |
+| clf_num/Bioresponse.csv                    | **A/(R+1)**  | 419->403          | **0.775**  |
+| clf_num/jannis.csv                         | built-in     | 54->22            | 0.7958     |
+| clf_num/jannis.csv                         | A-R          | 54->28            | 0.7988     |
+| clf_num/jannis.csv                         | **A/(R+1)**  | 54->26            | **0.7998** |
+| clf_num/MiniBooNE.csv                      | built-in     | 50->33            | 0.9306     |
+| clf_num/MiniBooNE.csv                      | A-R          | 50->47            | 0.93       |
+| clf_num/MiniBooNE.csv                      | **A/(R+1)**  | 50->49            | **0.9316** |
+
+**Regression Results with RandomForest**
+
+built-in: The baseline, it is the built-in importances from the model.
+
+| dataset                                         | importances  | feature_reduction | test_mse            |
+| ----------------------------------------------- | ------------ | ----------------- | ------------------- |
 | reg_num/cpu_act.csv                             | built-in     | 21->20            | 6.0055              |
 | reg_num/cpu_act.csv                             | A-R          | 21->20            | 6.0099              |
 | reg_num/cpu_act.csv                             | **A/(R+1)**  | 21->19            | **5.9768**          |
@@ -222,36 +250,4 @@ built-in: The baseline, it is the built-in importances from the model.
 | reg_cat/Allstate_Claims_Severity.csv            | A/(R+1)      | 124->102          | 1003113924.3013     |
 
 
-</details>
-
-
-## Kaggle Competitions
-Many Kaggle Competition top solutions involve this method, here are some examples
-
-| Year | Competition                                                                                                                  | Medal | Link                                                                                                                                        |
-| ---- | ---------------------------------------------------------------------------------------------------------------------------- | ----- | ------------------------------------------------------------------------------------------------------------------------------------------- |
-| 2023 | [Predict Student Performance from Game Play](https://www.kaggle.com/competitions/predict-student-performance-from-game-play) | Gold  | [3rd place solution](https://www.kaggle.com/competitions/predict-student-performance-from-game-play/discussion/420235)                      |
-| 2019 | [Elo Merchant Category Recommendation](https://www.kaggle.com/competitions/elo-merchant-category-recommendation/overview)    | Gold  | [16th place solution]([-play/discussion/420235](https://www.kaggle.com/competitions/elo-merchant-category-recommendation/discussion/82166)) |
-| 2018 | [Home Credit Default Risk](https://www.kaggle.com/competitions/home-credit-default-risk/overview)                            | Gold  | [10th place solution](https://www.kaggle.com/competitions/home-credit-default-risk/discussion/64598)                                        |
-
-
-## Development Setup and Contribution Guide
-**Python Version**
-
-You can find the suggested development Python version in `.python-version`.
-You might consider setting up `Pyenv` if you want to have multiple Python versions on your machine.
-
-**Python packages**
-
-This repository is setup with `Poetry`. If you are not familiar with Poetry, you can find package requirements listed in `pyproject.toml`. 
-Otherwise, you can just set it up with `poetry install`
-
-**Run Benchmarks**
-
-To run the benchmark locally on your machine, run `make run_tabular_benchmark` or `python -m benchmarks.run_tabular_benchmark`
-
-**Make Changes**
-
-Following the [Make Changes Guide from Github](https://github.com/github/docs/blob/main/CONTRIBUTING.md#make-changes)
-Before committing or merging, please run the linters defined in `make lint` and the tests defined in `make test`
 

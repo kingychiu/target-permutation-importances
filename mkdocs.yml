@@ -20,3 +20,4 @@ plugins:
   - search
   - autorefs
   - mkdocstrings
+  - table-reader
