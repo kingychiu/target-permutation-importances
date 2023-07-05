@@ -12,7 +12,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        python-version: [3.9]
+        python-version: ["3.8", "3.9", "3.10", "3.11"]
     steps:
       - uses: actions/checkout@v3
       - name: Set up Python ${{ matrix.python-version }}
@@ -72,3 +72,5 @@ jobs:
           pypi_token: ${{ secrets.PYPI_TOKEN }}
           allow_poetry_pre_release: "yes"
           ignore_dev_requirements: "yes"
+
+

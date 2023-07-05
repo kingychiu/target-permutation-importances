@@ -1,25 +1,67 @@
+[project]
+name = "target-permutation-importances"
+version = "1.0.13"
+description = "Compute (Target) Permutation Importances of a machine learning model"
+authors = [{name = "Anthony Chiu", email = "kingychiu@gmail.com"}]
+maintainers = [{name = "Anthony Chiu", email = "kingychiu@gmail.com"}]
+readme = "README.md"
+requires-python = ">=3.8"
+license = {file = "LICENSE.txt"}
+keywords = ["feature selection", "feature ranking", "feature importances", "kaggle", "machine learning", "permutation-importances", "null-importances"]
+classifiers = [
+    "Intended Audience :: Developers", 
+    "Intended Audience :: Science/Research",
+    "Topic :: Scientific/Engineering",
+    "Topic :: Scientific/Engineering :: Artificial Intelligence",
+    "Operating System :: Microsoft :: Windows",
+    "Operating System :: POSIX",
+    "Operating System :: Unix",
+    "Operating System :: MacOS",
+    "Programming Language :: Python :: 3.7",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+"Programming Language :: Python :: 3.11",
+]
+
 [tool.poetry]
 name = "target-permutation-importances"
-version = "1.0.8"
+version = "1.0.13"
 description = "Compute (Target) Permutation Importances of a machine learning model"
 authors = ["Anthony Chiu <kingychiu@gmail.com>"]
+maintainers = ["Anthony Chiu <kingychiu@gmail.com>"]
 readme = "README.md"
 packages = [{include = "target_permutation_importances"}]
 homepage = "https://github.com/kingychiu/target-permutation-importances"
 repository = "https://github.com/kingychiu/target-permutation-importances"
-documentation = "https://github.com/kingychiu/target-permutation-importances"
-keywords = ["feature selection", "feature ranking", "feature importances", "kaggle", "machine learning"]
+documentation = "https://target-permutation-importances.readthedocs.io/en/latest/"
+classifiers = [
+    "Intended Audience :: Developers", 
+    "Intended Audience :: Science/Research",
+    "Topic :: Scientific/Engineering",
+    "Topic :: Scientific/Engineering :: Artificial Intelligence",
+    "Operating System :: Microsoft :: Windows",
+    "Operating System :: POSIX",
+    "Operating System :: Unix",
+    "Operating System :: MacOS",
+    "Programming Language :: Python :: 3.7",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+"Programming Language :: Python :: 3.11",
+]
 
 [project.urls]
 Repository = "https://github.com/kingychiu/target-permutation-importances" 
 Homepage = "https://github.com/kingychiu/target-permutation-importances"
-
+Documentation = "https://target-permutation-importances.readthedocs.io/en/latest/"
 
 [tool.poetry.dependencies]
 python = "^3.8"
 numpy = "^1.21.0"
 pandas = "^1.5.3"
 tqdm = "^4.48.2"
+beartype = "^0.14.1"
 
 
 [tool.poetry.group.dev.dependencies]
@@ -38,7 +80,15 @@ catboost = "^1.2"
 cmake = "^3.26.4"
 lightgbm = "^3.3.5"
 coverage-badge = "^1.1.0"
+twine = "^4.0.2"
+mkdocs = {extras = ["python"], version = "^1.4.3"}
+mkdocstrings = "^0.22.0"
+mkdocstrings-python = "^1.1.2"
 
 [build-system]
 requires = ["poetry-core"]
 build-backend = "poetry.core.masonry.api"
+
+
+[tool.ruff]
+line-length = 256

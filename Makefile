@@ -11,7 +11,15 @@ run_tabular_benchmark:
 	poetry run python -m benchmarks.run_tabular_benchmark
 
 build:
+	rm -rf dist
 	poetry build
+
+publish_test:
+	twine upload --repository testpypi dist/*
 
 publish:
 	poetry publish
+
+doc:
+	cp README.md docs/index.md
+	poetry run mkdocs serve

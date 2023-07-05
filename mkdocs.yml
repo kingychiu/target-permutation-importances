@@ -1,0 +1,22 @@
+site_name: Target Permutation Importances Documentation
+site_url: https://target-permutation-importances.readthedocs.io/en/latest/
+repo_url: https://github.com/kingychiu/target-permutation-importances
+repo_name: target-permutation-importances
+theme: "readthedocs"
+
+nav:
+  - "Introduction": index.md
+  - "API Reference": reference.md
+
+extra_javascript:
+  - https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.7/katex.min.js
+  - https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.7/contrib/auto-render.min.js
+  - javascripts/katex.js
+
+extra_css:
+  - https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.7/katex.min.css
+
+plugins:
+  - search
+  - autorefs
+  - mkdocstrings
