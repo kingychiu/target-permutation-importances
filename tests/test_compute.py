@@ -143,7 +143,8 @@ def test_compute_permutation_importance():
         (1 + 3) / 2 / ((4 + 2 + 2) / 3 + 1),
         (2 + 1) / 2 / ((2 + 1 + 5) / 3 + 1),
     ]
-    
+
+
 def test_invalid_compute():
     data = load_diabetes()
     Xpd = pd.DataFrame(

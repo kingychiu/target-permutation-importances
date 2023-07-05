@@ -1,3 +1,4 @@
+import gc
 from functools import partial
 
 import numpy as np
@@ -164,6 +165,7 @@ def _compute_one_run(
     y = y_builder(is_random_run=is_random_run, run_idx=run_idx)
 
     model = model_fitter(model, X, y)
+    gc.collect()
     return model_importance_calculator(model, X, y)
 
 
@@ -245,8 +247,11 @@ def compute(
 
     def _x_builder(is_random_run: bool, run_idx: int) -> XType:
         # Shuffle the columns for each run to create randomness
-        shuffled_cols = np.random.permutation(X.columns)
-        return X[shuffled_cols]
+        if isinstance(X, pd.DataFrame):
+            shuffled_cols = np.random.permutation(X.columns)
+            return X[shuffled_cols]
+        if isinstance(X, np.ndarray):
+            return X[:, np.random.permutation(X.shape[1])]
 
     def _y_builder(is_random_run: bool, run_idx: int) -> YType:
         np.random.seed(run_idx)

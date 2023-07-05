@@ -117,7 +117,7 @@ Feature importance is calculated from the `train` set. Feature selection is done
 The final benchmark is evaluated on the `test` set. Therefore the `test` set is unseen to both the feature importance and selection process.
 
 
-Raw result data are in [`benchmarks/results`](https://github.com/kingychiu/target-permutation-importances/tree/main/benchmarks).
+Raw result data are in [`benchmarks/results`](https://github.com/kingychiu/target-permutation-importances/tree/main/benchmarks/results).
 
 **Classification**
 
@@ -180,7 +180,7 @@ built_in: feature selection with models' built in importances method.
 |reg_num/Ailerons|13750|RandomForestRegressor|**A-R**|**33->25**|**2.7965**|**-1.0929%**|
 |reg_num/Ailerons|13750|RandomForestRegressor|A/(R+1)|33->31|2.8438|+0.58%|
 |reg_num/yprop_4_1|8885|RandomForestRegressor|built_in|42->26|75403.6496|-|
-|reg_num/yprop_4_1|8885|RandomForestRegressor|A-R|42->42|74824.051|**-0.7687**|
+|reg_num/yprop_4_1|8885|RandomForestRegressor|A-R|42->42|74824.051|**-0.7687%**|
 |reg_num/yprop_4_1|8885|RandomForestRegressor|**A/(R+1)**|**42->34**|**74466.2487**|**-1.2432%**|
 |reg_num/superconduct|21263|RandomForestRegressor|built_in|79->53|54470.4924|-|
 |reg_num/superconduct|21263|RandomForestRegressor|**A-R**|**79->74**|**54374.393**|**-0.1764%**|
