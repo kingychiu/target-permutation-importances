@@ -1,55 +1,62 @@
 model,dataset,task,importances,num_features,selected_num,score,val_score,test_score,is_best,% Change from baseline
 RandomForestClassifier,clf_cat/electricity.csv,binary_classification,default importances,8,2,f1_score,0.8856,0.894,False,0.0
-RandomForestClassifier,clf_cat/electricity.csv,binary_classification,A-R,8,4,f1_score,0.9008,0.9034,True,1.0515
+RandomForestClassifier,clf_cat/electricity.csv,binary_classification,A-R,8,4,f1_score,0.9008,0.9034,True,1.0559
 RandomForestClassifier,clf_cat/electricity.csv,binary_classification,A/(R+1),8,2,f1_score,0.8856,0.894,False,0.0
 RandomForestClassifier,clf_cat/eye_movements.csv,binary_classification,default importances,23,22,f1_score,0.6341,0.6169,False,0.0
-RandomForestClassifier,clf_cat/eye_movements.csv,binary_classification,A-R,23,8,f1_score,0.67,0.6499,True,5.3493
-RandomForestClassifier,clf_cat/eye_movements.csv,binary_classification,A/(R+1),23,19,f1_score,0.6179,0.5927,False,-3.9228
+RandomForestClassifier,clf_cat/eye_movements.csv,binary_classification,A-R,23,12,f1_score,0.6973,0.6938,True,12.4624
+RandomForestClassifier,clf_cat/eye_movements.csv,binary_classification,A/(R+1),23,22,f1_score,0.6284,0.6212,False,0.7027
 RandomForestClassifier,clf_cat/covertype.csv,binary_classification,default importances,54,26,f1_score,0.9536,0.9558,False,0.0
-RandomForestClassifier,clf_cat/covertype.csv,binary_classification,A-R,54,52,f1_score,0.9572,0.9593,True,0.3662
-RandomForestClassifier,clf_cat/covertype.csv,binary_classification,A/(R+1),54,25,f1_score,0.9544,0.9561,False,0.0314
+RandomForestClassifier,clf_cat/covertype.csv,binary_classification,A-R,54,52,f1_score,0.9575,0.9594,True,0.3703
+RandomForestClassifier,clf_cat/covertype.csv,binary_classification,A/(R+1),54,30,f1_score,0.9535,0.9547,False,-0.1129
 RandomForestClassifier,clf_cat/albert.csv,binary_classification,default importances,31,22,f1_score,0.647,0.6518,False,0.0
-RandomForestClassifier,clf_cat/albert.csv,binary_classification,A-R,31,31,f1_score,0.6523,0.6572,False,0.8285
-RandomForestClassifier,clf_cat/albert.csv,binary_classification,A/(R+1),31,27,f1_score,0.6427,0.6605,True,1.3348
+RandomForestClassifier,clf_cat/albert.csv,binary_classification,A-R,31,31,f1_score,0.6494,0.656,True,0.6497
+RandomForestClassifier,clf_cat/albert.csv,binary_classification,A/(R+1),31,22,f1_score,0.6448,0.6527,False,0.1366
 RandomForestClassifier,clf_cat/compas-two-years.csv,binary_classification,default importances,11,10,f1_score,0.6386,0.6316,False,0.0
-RandomForestClassifier,clf_cat/compas-two-years.csv,binary_classification,A-R,11,11,f1_score,0.6322,0.6296,False,-0.3167
-RandomForestClassifier,clf_cat/compas-two-years.csv,binary_classification,A/(R+1),11,8,f1_score,0.64,0.6346,True,0.475
+RandomForestClassifier,clf_cat/compas-two-years.csv,binary_classification,A-R,11,2,f1_score,0.6415,0.6589,True,4.321
+RandomForestClassifier,clf_cat/compas-two-years.csv,binary_classification,A/(R+1),11,6,f1_score,0.6376,0.6335,False,0.3032
 RandomForestClassifier,clf_cat/default-of-credit-card-clients.csv,binary_classification,default importances,21,18,f1_score,0.7177,0.671,False,0.0
-RandomForestClassifier,clf_cat/default-of-credit-card-clients.csv,binary_classification,A-R,21,17,f1_score,0.7158,0.6826,True,1.7288
-RandomForestClassifier,clf_cat/default-of-credit-card-clients.csv,binary_classification,A/(R+1),21,19,f1_score,0.717,0.6733,False,0.3428
-RandomForestClassifier,clf_cat/road-safety.csv,binary_classification,default importances,32,31,f1_score,0.7982,0.7895,False,0.0
-RandomForestClassifier,clf_cat/road-safety.csv,binary_classification,A-R,32,32,f1_score,0.799,0.791,True,0.19
-RandomForestClassifier,clf_cat/road-safety.csv,binary_classification,A/(R+1),32,24,f1_score,0.8012,0.7889,False,-0.076
+RandomForestClassifier,clf_cat/default-of-credit-card-clients.csv,binary_classification,A-R,21,17,f1_score,0.7158,0.6826,True,1.7301
+RandomForestClassifier,clf_cat/default-of-credit-card-clients.csv,binary_classification,A/(R+1),21,20,f1_score,0.7117,0.6797,False,1.2957
+RandomForestClassifier,clf_cat/road-safety.csv,binary_classification,default importances,32,31,f1_score,0.7982,0.7895,True,0.0
+RandomForestClassifier,clf_cat/road-safety.csv,binary_classification,A-R,32,29,f1_score,0.8003,0.7886,False,-0.1113
+RandomForestClassifier,clf_cat/road-safety.csv,binary_classification,A/(R+1),32,29,f1_score,0.7999,0.7893,False,-0.0183
 RandomForestClassifier,clf_num/Bioresponse.csv,binary_classification,default importances,419,295,f1_score,0.8094,0.7686,False,0.0
-RandomForestClassifier,clf_num/Bioresponse.csv,binary_classification,A-R,419,344,f1_score,0.8081,0.7703,True,0.2212
-RandomForestClassifier,clf_num/Bioresponse.csv,binary_classification,A/(R+1),419,311,f1_score,0.8198,0.7686,False,0.0
+RandomForestClassifier,clf_num/Bioresponse.csv,binary_classification,A-R,419,56,f1_score,0.8103,0.7703,False,0.2252
+RandomForestClassifier,clf_num/Bioresponse.csv,binary_classification,A/(R+1),419,123,f1_score,0.8118,0.7787,True,1.3185
 RandomForestClassifier,clf_num/jannis.csv,binary_classification,default importances,54,22,f1_score,0.7988,0.7958,False,0.0
-RandomForestClassifier,clf_num/jannis.csv,binary_classification,A-R,54,26,f1_score,0.7939,0.7981,False,0.289
-RandomForestClassifier,clf_num/jannis.csv,binary_classification,A/(R+1),54,27,f1_score,0.7958,0.799,True,0.4021
+RandomForestClassifier,clf_num/jannis.csv,binary_classification,A-R,54,28,f1_score,0.7975,0.7974,False,0.2031
+RandomForestClassifier,clf_num/jannis.csv,binary_classification,A/(R+1),54,26,f1_score,0.7984,0.7998,True,0.5096
 RandomForestClassifier,clf_num/MiniBooNE.csv,binary_classification,default importances,50,33,f1_score,0.9378,0.9306,False,0.0
-RandomForestClassifier,clf_num/MiniBooNE.csv,binary_classification,A-R,50,43,f1_score,0.9384,0.9311,False,0.0537
-RandomForestClassifier,clf_num/MiniBooNE.csv,binary_classification,A/(R+1),50,49,f1_score,0.9382,0.9316,True,0.1075
+RandomForestClassifier,clf_num/MiniBooNE.csv,binary_classification,A-R,50,50,f1_score,0.9384,0.9313,False,0.0817
+RandomForestClassifier,clf_num/MiniBooNE.csv,binary_classification,A/(R+1),50,49,f1_score,0.9381,0.9316,True,0.1091
 RandomForestRegressor,reg_num/cpu_act.csv,regression,default importances,21,20,mean_squared_error,5.9933,6.0055,False,0.0
-RandomForestRegressor,reg_num/cpu_act.csv,regression,A-R,21,21,mean_squared_error,6.0087,5.9896,True,-0.2648
-RandomForestRegressor,reg_num/cpu_act.csv,regression,A/(R+1),21,20,mean_squared_error,6.041,5.9999,False,-0.0932
+RandomForestRegressor,reg_num/cpu_act.csv,regression,A-R,21,21,mean_squared_error,5.981,5.9717,True,-0.5619
+RandomForestRegressor,reg_num/cpu_act.csv,regression,A/(R+1),21,20,mean_squared_error,6.041,5.9999,False,-0.0931
 RandomForestRegressor,reg_num/pol.csv,regression,default importances,26,16,mean_squared_error,0.2484,0.2734,True,0.0
-RandomForestRegressor,reg_num/pol.csv,regression,A-R,26,26,mean_squared_error,0.2599,0.2794,False,2.1946
-RandomForestRegressor,reg_num/pol.csv,regression,A/(R+1),26,11,mean_squared_error,0.2454,0.2827,False,3.4016
+RandomForestRegressor,reg_num/pol.csv,regression,A-R,26,26,mean_squared_error,0.2602,0.2775,False,1.5167
+RandomForestRegressor,reg_num/pol.csv,regression,A/(R+1),26,13,mean_squared_error,0.2467,0.2736,False,0.0566
 RandomForestRegressor,reg_num/elevators.csv,regression,default importances,16,7,mean_squared_error,7.2154,8.0447,True,0.0
-RandomForestRegressor,reg_num/elevators.csv,regression,A-R,16,14,mean_squared_error,7.4346,8.3434,False,3.713
-RandomForestRegressor,reg_num/elevators.csv,regression,A/(R+1),16,16,mean_squared_error,7.4654,8.3232,False,3.4619
+RandomForestRegressor,reg_num/elevators.csv,regression,A-R,16,16,mean_squared_error,7.4455,8.3512,False,3.8096
+RandomForestRegressor,reg_num/elevators.csv,regression,A/(R+1),16,14,mean_squared_error,7.4371,8.3393,False,3.662
 RandomForestRegressor,reg_num/wine_quality.csv,regression,default importances,11,11,mean_squared_error,0.4109,0.4109,True,0.0
-RandomForestRegressor,reg_num/wine_quality.csv,regression,A-R,11,11,mean_squared_error,0.4123,0.4124,False,0.3651
-RandomForestRegressor,reg_num/wine_quality.csv,regression,A/(R+1),11,9,mean_squared_error,0.4121,0.421,False,2.458
+RandomForestRegressor,reg_num/wine_quality.csv,regression,A-R,11,11,mean_squared_error,0.4141,0.4125,False,0.3881
+RandomForestRegressor,reg_num/wine_quality.csv,regression,A/(R+1),11,9,mean_squared_error,0.4121,0.421,False,2.4547
 RandomForestRegressor,reg_num/Ailerons.csv,regression,default importances,33,12,mean_squared_error,2.5452,2.8274,False,0.0
-RandomForestRegressor,reg_num/Ailerons.csv,regression,A-R,33,25,mean_squared_error,2.516,2.7965,True,-1.0929
-RandomForestRegressor,reg_num/Ailerons.csv,regression,A/(R+1),33,31,mean_squared_error,2.5786,2.8438,False,0.58
+RandomForestRegressor,reg_num/Ailerons.csv,regression,A-R,33,24,mean_squared_error,2.517,2.7927,True,-1.2277
+RandomForestRegressor,reg_num/Ailerons.csv,regression,A/(R+1),33,31,mean_squared_error,2.5812,2.8442,False,0.5961
 RandomForestRegressor,reg_num/yprop_4_1.csv,regression,default importances,42,26,mean_squared_error,67443.7624,75403.6496,False,0.0
-RandomForestRegressor,reg_num/yprop_4_1.csv,regression,A-R,42,42,mean_squared_error,68454.1062,74824.051,False,-0.7687
-RandomForestRegressor,reg_num/yprop_4_1.csv,regression,A/(R+1),42,34,mean_squared_error,67447.8843,74466.2487,True,-1.2432
+RandomForestRegressor,reg_num/yprop_4_1.csv,regression,A-R,42,42,mean_squared_error,68472.9138,74612.1535,True,-1.0497
+RandomForestRegressor,reg_num/yprop_4_1.csv,regression,A/(R+1),42,38,mean_squared_error,67553.7526,74685.8499,False,-0.9519
 RandomForestRegressor,reg_num/superconduct.csv,regression,default importances,79,53,mean_squared_error,48849.1683,54470.4924,False,0.0
-RandomForestRegressor,reg_num/superconduct.csv,regression,A-R,79,74,mean_squared_error,48715.5527,54374.393,True,-0.1764
-RandomForestRegressor,reg_num/superconduct.csv,regression,A/(R+1),79,75,mean_squared_error,49308.5895,55654.4327,False,2.1735
+RandomForestRegressor,reg_num/superconduct.csv,regression,A-R,79,71,mean_squared_error,48913.5221,54449.3865,True,-0.0387
+RandomForestRegressor,reg_num/superconduct.csv,regression,A/(R+1),79,78,mean_squared_error,49128.6386,55441.0072,False,1.7817
 RandomForestRegressor,reg_cat/topo_2_1.csv,regression,default importances,255,217,mean_squared_error,67021.3657,76175.864,True,0.0
-RandomForestRegressor,reg_cat/topo_2_1.csv,regression,A-R,255,255,mean_squared_error,67484.9747,76400.4006,False,0.2948
-RandomForestRegressor,reg_cat/topo_2_1.csv,regression,A/(R+1),255,249,mean_squared_error,67205.2053,76432.8836,False,0.3374
+RandomForestRegressor,reg_cat/topo_2_1.csv,regression,A-R,255,250,mean_squared_error,67423.3403,76387.5548,False,0.2779
+RandomForestRegressor,reg_cat/topo_2_1.csv,regression,A/(R+1),255,246,mean_squared_error,67256.7095,76460.4509,False,0.3736
+RandomForestRegressor,reg_cat/Mercedes_Benz_Greener_Manufacturing.csv,regression,default importances,359,6,mean_squared_error,155528.3149,177937.9184,True,0.0
+RandomForestRegressor,reg_cat/Mercedes_Benz_Greener_Manufacturing.csv,regression,A-R,359,358,mean_squared_error,159961.8364,197952.7911,False,11.2482
+RandomForestRegressor,reg_cat/Mercedes_Benz_Greener_Manufacturing.csv,regression,A/(R+1),359,301,mean_squared_error,159644.255,197345.3327,False,10.9068
+RandomForestRegressor,reg_cat/house_sales.csv,regression,default importances,17,16,mean_squared_error,113706.1773,110072.8755,False,0.0
+RandomForestRegressor,reg_cat/house_sales.csv,regression,A-R,17,17,mean_squared_error,114232.5525,110195.6246,False,0.1115
+RandomForestRegressor,reg_cat/house_sales.csv,regression,A/(R+1),17,17,mean_squared_error,114176.0097,109952.6794,True,-0.1092
+RandomForestRegressor,reg_cat/nyc-taxi-green-dec-2016.csv,regression,default importances,16,15,mean_squared_error,9975.9161,10585.6377,True,0.0

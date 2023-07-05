@@ -25,7 +25,7 @@ score_funcs = {
     "binary_classification": [f1_score, True],
     "regression": [mean_squared_error, False],
 }
-result_path = "./benchmarks/results/tabular_benchmark.csv"
+result_path = "./benchmarks/results/random_forest_tabular_benchmark.csv"
 
 
 def run_selection(model_cls, importance_df, score_func=f1_score, higher_is_better=True):

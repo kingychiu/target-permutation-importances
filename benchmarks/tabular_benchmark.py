@@ -56,7 +56,7 @@ dataset_configs = [
     #     "task": "binary_classification",
     #     "target_column": "signal",
     # },
-    # Regression
+    # # Regression
     # {
     #     "name": "reg_num/cpu_act.csv",
     #     "task": "regression",
@@ -107,6 +107,16 @@ dataset_configs = [
     #     "task": "regression",
     #     "target_column": "price",
     # },
+    {
+        "name": "reg_cat/nyc-taxi-green-dec-2016.csv",
+        "task": "regression",
+        "target_column": "tip_amount",
+    },
+    {
+        "name": "reg_cat/Allstate_Claims_Severity.csv",
+        "task": "regression",
+        "target_column": "loss",
+    },
 ]
 
 
