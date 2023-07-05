@@ -1,0 +1,9 @@
+model,dataset,task,importances,num_features,selected_num,score,val_score,test_score,is_best,% Change from baseline
+XGBClassifier,clf_cat/electricity.csv,binary_classification,built-in,8,4,f1_score,0.90475,0.910815,True,0.0
+XGBClassifier,clf_cat/electricity.csv,binary_classification,A-R,8,4,f1_score,0.90475,0.910815,True,0.0
+XGBClassifier,clf_cat/electricity.csv,binary_classification,A/(R+1),8,4,f1_score,0.90475,0.910815,True,0.0
+XGBClassifier,clf_cat/eye_movements.csv,binary_classification,built-in,23,2,f1_score,0.6795,0.647699,False,0.0
+XGBClassifier,clf_cat/eye_movements.csv,binary_classification,A-R,23,5,f1_score,0.680988,0.647721,True,0.003353
+XGBClassifier,clf_cat/eye_movements.csv,binary_classification,A/(R+1),23,2,f1_score,0.6795,0.647699,False,0.0
+XGBClassifier,clf_cat/covertype.csv,binary_classification,built-in,54,40,f1_score,0.890147,0.891799,True,0.0
+XGBClassifier,clf_cat/covertype.csv,binary_classification,A-R,54,42,f1_score,0.889559,0.890554,False,-0.139563

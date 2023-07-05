@@ -11,11 +11,9 @@ for col in ["importances", "test_score", "% Change from baseline"]:
 df[
     [
         "dataset",
-        "task",
         "importances",
         "feature_reduction",
         "test_score",
-        "% Change from baseline",
     ]
 ].to_csv(
     "./benchmarks/results/random_forest_tabular_benchmark_processed.csv", index=False

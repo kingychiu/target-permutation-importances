@@ -1,9 +1,11 @@
+import os
 from typing import List
 
 import pandas as pd
 from sklearn.ensemble import RandomForestClassifier, RandomForestRegressor
 from sklearn.metrics import f1_score, mean_squared_error
 from sklearn.model_selection import train_test_split
+from xgboost import XGBClassifier, XGBRegressor
 
 from target_permutation_importances import (
     compute,
@@ -25,7 +27,7 @@ score_funcs = {
     "binary_classification": [f1_score, True],
     "regression": [mean_squared_error, False],
 }
-result_path = "./benchmarks/results/random_forest_tabular_benchmark.csv"
+result_path = "./benchmarks/results/xgboost_tabular_benchmark.csv"
 
 
 def run_selection(
@@ -70,18 +72,24 @@ def get_model_cls(name: str, task: str):
     if task == "binary_classification":
         if name == "RandomForest":
             return RandomForestClassifier
+        elif name == "XGBoost":  # noqa
+            return XGBClassifier
         raise NotImplementedError
     elif task == "regression":  # noqa
         if name == "RandomForest":
             return RandomForestRegressor
-        raise
+        elif name == "XGBoost":  # noqa
+            return XGBRegressor
+        raise NotImplementedError
     raise NotImplementedError
 
 
 def write_report(reports: List):
-    existing_df = pd.read_csv(result_path)
+    if os.path.exists(result_path):
+        existing_df = pd.read_csv(result_path)
     report_df = pd.DataFrame(reports)
-    report_df = pd.concat([existing_df, report_df])
+    if os.path.exists(result_path):
+        report_df = pd.concat([existing_df, report_df])
     report_df = report_df.drop_duplicates(
         subset=["model", "dataset", "importances"], keep="last"
     ).reset_index(drop=True)
@@ -110,9 +118,9 @@ def write_report(reports: List):
         100
         * (report_df["test_score"] - report_df["base_score"])
         / (report_df["base_score"])
-    ).round(4)
-    report_df["val_score"] = report_df["val_score"].round(4)
-    report_df["test_score"] = report_df["test_score"].round(4)
+    ).round(6)
+    report_df["val_score"] = report_df["val_score"].round(6)
+    report_df["test_score"] = report_df["test_score"].round(6)
     report_df = report_df.drop(
         columns=["max_score", "min_score", "base_score", "higher_is_better"],
     )
@@ -120,7 +128,7 @@ def write_report(reports: List):
 
 
 reports = []
-for model_name in ["RandomForest"]:
+for model_name in ["XGBoost"]:
     for (
         name,
         task,
@@ -151,7 +159,6 @@ for model_name in ["RandomForest"]:
         # Fit default random forest with X_train and y_train
         clf = model_cls(random_state=seed, n_jobs=-1)
         clf.fit(X_train, y_train)
-        print(clf)
         importance_df = pd.DataFrame(
             {
                 "feature": clf.feature_names_in_,
