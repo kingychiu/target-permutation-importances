@@ -80,21 +80,27 @@ def compute_permutation_importance_by_subtraction(
         pd.DataFrame: The return DataFrame with columns ["feature", "importance"]
     """
     # Calculate the mean importance
-    mean_actual_importance_df = (
-        pd.concat(actual_importance_dfs).groupby("feature").mean()
-    )
+    actual_importance_df = pd.concat(actual_importance_dfs)
+    mean_actual_importance_df = actual_importance_df.groupby("feature").mean()
+    std_actual_importance_df = actual_importance_df.groupby("feature").std()
 
     # Calculate the mean random importance
-    mean_random_importance_df = (
-        pd.concat(random_importance_dfs).groupby("feature").mean()
-    )
+    random_importance_df = pd.concat(random_importance_dfs)
+    mean_random_importance_df = random_importance_df.groupby("feature").mean()
+    std_random_importance_df = random_importance_df.groupby("feature").std()
+
     # Sort by feature name to make sure the order is the same
     mean_actual_importance_df = mean_actual_importance_df.sort_index()
+    std_actual_importance_df = std_actual_importance_df.sort_index()
     mean_random_importance_df = mean_random_importance_df.sort_index()
+    std_random_importance_df = std_random_importance_df.sort_index()
     assert (mean_random_importance_df.index == mean_actual_importance_df.index).all()
 
     # Calculate the signal to noise ratio
     mean_actual_importance_df["mean_actual_importance"] = mean_actual_importance_df[
+        "importance"
+    ]
+    mean_actual_importance_df["std_actual_importance"] = std_actual_importance_df[
         "importance"
     ]
     mean_actual_importance_df["mean_random_importance"] = mean_random_importance_df[
@@ -103,8 +109,17 @@ def compute_permutation_importance_by_subtraction(
     mean_actual_importance_df["importance"] = mean_actual_importance_df[
         "importance"
     ] - (mean_random_importance_df["importance"])
+    mean_actual_importance_df["std_random_importance"] = std_random_importance_df[
+        "importance"
+    ]
     return mean_actual_importance_df[
-        ["importance", "mean_actual_importance", "mean_random_importance"]
+        [
+            "importance",
+            "mean_actual_importance",
+            "mean_random_importance",
+            "std_actual_importance",
+            "std_random_importance",
+        ]
     ].reset_index()
 
 
@@ -123,20 +138,28 @@ def compute_permutation_importance_by_division(
         pd.DataFrame: The return DataFrame with columns ["feature", "importance"]
     """
     # Calculate the mean importance
-    mean_actual_importance_df = (
-        pd.concat(actual_importance_dfs).groupby("feature").mean()
-    )
+    actual_importance_df = pd.concat(actual_importance_dfs)
+    mean_actual_importance_df = actual_importance_df.groupby("feature").mean()
+    std_actual_importance_df = actual_importance_df.groupby("feature").std()
+
     # Calculate the mean random importance
-    mean_random_importance_df = (
-        pd.concat(random_importance_dfs).groupby("feature").mean()
-    )
+    random_importance_df = pd.concat(random_importance_dfs)
+    mean_random_importance_df = random_importance_df.groupby("feature").mean()
+    std_random_importance_df = random_importance_df.groupby("feature").std()
+
     # Sort by feature name to make sure the order is the same
     mean_actual_importance_df = mean_actual_importance_df.sort_index()
+    std_actual_importance_df = std_actual_importance_df.sort_index()
     mean_random_importance_df = mean_random_importance_df.sort_index()
+    std_random_importance_df = std_random_importance_df.sort_index()
+
     assert (mean_random_importance_df.index == mean_actual_importance_df.index).all()
 
     # Calculate the signal to noise ratio
     mean_actual_importance_df["mean_actual_importance"] = mean_actual_importance_df[
+        "importance"
+    ]
+    mean_actual_importance_df["std_actual_importance"] = std_actual_importance_df[
         "importance"
     ]
     mean_actual_importance_df["mean_random_importance"] = mean_random_importance_df[
@@ -145,9 +168,17 @@ def compute_permutation_importance_by_division(
     mean_actual_importance_df["importance"] = mean_actual_importance_df[
         "importance"
     ] / (mean_random_importance_df["importance"] + 1)
-
+    mean_actual_importance_df["std_random_importance"] = std_random_importance_df[
+        "importance"
+    ]
     return mean_actual_importance_df[
-        ["importance", "mean_actual_importance", "mean_random_importance"]
+        [
+            "importance",
+            "mean_actual_importance",
+            "mean_random_importance",
+            "std_actual_importance",
+            "std_random_importance",
+        ]
     ].reset_index()
 
 
@@ -210,11 +241,9 @@ def generic_compute(
         )
 
     # Calculate the permutation importance
-    permutation_importance_df = permutation_importance_calculator(
+    return permutation_importance_calculator(
         actual_importance_dfs, random_importance_dfs
     )
-
-    return permutation_importance_df
 
 
 @beartype
@@ -226,7 +255,7 @@ def compute(
     y: YType,
     num_actual_runs: PositiveInt = 2,
     num_random_runs: PositiveInt = 10,
-    permutation_importance_calculator: PermutationImportanceCalculatorType = compute_permutation_importance_by_subtraction,  # noqa
+    permutation_importance_calculator: PermutationImportanceCalculatorType = compute_permutation_importance_by_subtraction,
 ) -> pd.DataFrame:
     """
     Compute the permutation importance of a model given a dataset.
@@ -254,7 +283,7 @@ def compute(
             return X[:, np.random.permutation(X.shape[1])]
 
     def _y_builder(is_random_run: bool, run_idx: int) -> YType:
-        np.random.seed(run_idx)
+        rng = np.random.default_rng(seed=run_idx)
         if is_random_run:
             # Only shuffle the target for random runs
             return np.random.permutation(y)

@@ -39,10 +39,26 @@ This method were originally proposed/implemented by:
 ```
 pip install target-permutation-importances
 ```
-or
+or with poetry:
 ```
 poetry add target-permutation-importances
 ```
+
+Although this package is tested on models from `sklearn`, `xgboost`, `catboost`, `lightgbm`, they are not
+a hard requirement for the installation, you can use this package for any model if it implements the `sklearn` interface.
+For models that don't follow `sklearn` interface, you can use the exposed `generic_compute` method as discussed in the 
+Advance Usage / Customization section.
+
+Dependencies:
+```
+[tool.poetry.dependencies]
+python = "^3.8"
+numpy = "^1.21.0"
+pandas = "^1.5.3"
+tqdm = "^4.48.2"
+beartype = "^0.14.1"
+```
+
 
 ## Basic Usage
 

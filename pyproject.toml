@@ -17,7 +17,6 @@ classifiers = [
     "Operating System :: POSIX",
     "Operating System :: Unix",
     "Operating System :: MacOS",
-    "Programming Language :: Python :: 3.7",
     "Programming Language :: Python :: 3.8",
     "Programming Language :: Python :: 3.9",
     "Programming Language :: Python :: 3.10",
@@ -44,7 +43,6 @@ classifiers = [
     "Operating System :: POSIX",
     "Operating System :: Unix",
     "Operating System :: MacOS",
-    "Programming Language :: Python :: 3.7",
     "Programming Language :: Python :: 3.8",
     "Programming Language :: Python :: 3.9",
     "Programming Language :: Python :: 3.10",
@@ -91,4 +89,5 @@ build-backend = "poetry.core.masonry.api"
 
 
 [tool.ruff]
-line-length = 256
+select = ["E", "F", "PL", "I", "ICN", "RET", "SIM", "NPY", "RUF"]
+ignore = ["E501", "PLR0913"]

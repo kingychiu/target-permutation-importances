@@ -51,7 +51,7 @@ def test_compute_binary_classification(model_cls, imp_func, xtype):
     result_df = compute(
         model_cls=model_cls,
         model_cls_params={
-            "n_estimators": 1,
+            "n_estimators": 2,
         },
         model_fit_params={},
         permutation_importance_calculator=imp_func,
@@ -64,11 +64,13 @@ def test_compute_binary_classification(model_cls, imp_func, xtype):
     assert result_df.shape[0] == X.shape[1]
     assert "importance" in result_df.columns
     assert "feature" in result_df.columns
+
     if xtype is pd.DataFrame:
         assert set(result_df["feature"].tolist()) == set(X.columns.tolist())
     else:
         assert set(result_df["feature"].tolist()) == set(range(data.data.shape[1]))
     assert result_df["importance"].isna().sum() == 0
+    assert result_df["std_random_importance"].mean() > 0
 
 
 @pytest.mark.parametrize("model_cls,imp_func,xtype", test_compute_reg_scope)
@@ -83,7 +85,7 @@ def test_compute_regression(model_cls, imp_func, xtype):
     result_df = compute(
         model_cls=model_cls,
         model_cls_params={
-            "n_estimators": 1,
+            "n_estimators": 2,
         },
         model_fit_params={},
         permutation_importance_calculator=imp_func,
@@ -101,6 +103,8 @@ def test_compute_regression(model_cls, imp_func, xtype):
     else:
         assert set(result_df["feature"].tolist()) == set(range(data.data.shape[1]))
     assert result_df["importance"].isna().sum() == 0
+    assert result_df["std_actual_importance"].isna().sum() == 0
+    assert result_df["std_random_importance"].mean() > 0
 
 
 def test_compute_permutation_importance():
