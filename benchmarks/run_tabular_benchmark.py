@@ -1,3 +1,4 @@
+from typing import List
 import pandas as pd
 from sklearn.ensemble import RandomForestClassifier, RandomForestRegressor
 from sklearn.metrics import f1_score, mean_squared_error
@@ -14,7 +15,7 @@ from . import tabular_benchmark
 # Configurations
 seed = 2023
 num_actual_runs = 5
-num_random_runs = 20
+num_random_runs = 50
 train_ratio = 0.5
 valid_ratio = 0.1
 test_ratio = 0.4
@@ -33,7 +34,7 @@ def run_selection(model_cls, importance_df, score_func=f1_score, higher_is_bette
     for num_drop in range(len(original_features), 0, -1):
         selected_features = original_features[0:num_drop]
 
-        clf = model_cls(random_state=seed)
+        clf = model_cls(random_state=seed, n_jobs=-1)
         clf.fit(X_train[selected_features], y_train)
         val_preds = clf.predict(X_val[selected_features])
         score = score_func(y_val, val_preds)
@@ -67,6 +68,47 @@ def get_model_cls(name: str, task: str):
     raise NotImplementedError
 
 
+def write_report(reports: List):
+    existing_df = pd.read_csv(result_path)
+    report_df = pd.DataFrame(reports)
+    report_df = pd.concat([existing_df, report_df])
+    report_df = report_df.drop_duplicates(
+        subset=["model", "dataset", "importances"], keep="last"
+    ).reset_index(drop=True)
+    # Update best method for each dataset
+    report_df["higher_is_better"] = False
+    report_df.loc[report_df["score"] == "f1_score", "higher_is_better"] = True
+
+    report_df["max_score"] = report_df.groupby(["model", "dataset"])[
+        "test_score"
+    ].transform("max")
+    report_df["min_score"] = report_df.groupby(["model", "dataset"])[
+        "test_score"
+    ].transform("min")
+    report_df["base_score"] = report_df.groupby(["model", "dataset"])[
+        "test_score"
+    ].transform("first")
+
+    report_df.loc[report_df["higher_is_better"], "is_best"] = (
+        report_df["test_score"] >= report_df["max_score"]
+    )
+    report_df.loc[~report_df["higher_is_better"], "is_best"] = (
+        report_df["test_score"] <= report_df["min_score"]
+    )
+
+    report_df["% Change from baseline"] = (
+        100
+        * (report_df["test_score"] - report_df["base_score"])
+        / (report_df["base_score"])
+    ).round(4)
+    report_df["val_score"] = report_df["val_score"].round(4)
+    report_df["test_score"] = report_df["test_score"].round(4)
+    report_df = report_df.drop(
+        columns=["max_score", "min_score", "base_score", "higher_is_better"],
+    )
+    report_df.to_csv(result_path, index=False)
+
+
 reports = []
 for model_name in ["RandomForest"]:
     for (
@@ -93,10 +135,11 @@ for model_name in ["RandomForest"]:
             y_train,
             test_size=valid_ratio / (1 - test_ratio),
             random_state=seed,
+            shuffle=True,
         )
 
         # Fit default random forest with X_train and y_train
-        clf = model_cls(random_state=seed)
+        clf = model_cls(random_state=seed, n_jobs=-1)
         clf.fit(X_train, y_train)
         importance_df = pd.DataFrame(
             {
@@ -122,17 +165,17 @@ for model_name in ["RandomForest"]:
             }
         )
         print(reports[-1])
-        pd.DataFrame(reports).to_csv(result_path, index=False)
+        write_report(reports)
 
         compute_variants = [
-            ("actual - random", compute_permutation_importance_by_subtraction),
-            ("actual / random", compute_permutation_importance_by_division),
+            ("A-R", compute_permutation_importance_by_subtraction),
+            ("A/(R+1)", compute_permutation_importance_by_division),
         ]
 
         for variant_name, func in compute_variants:
             importance_df = compute(
                 model_cls=RandomForestClassifier,
-                model_cls_params={},
+                model_cls_params={"n_jobs": -1},
                 model_fit_params={},
                 X=X_train,
                 y=y_train,
@@ -142,7 +185,7 @@ for model_name in ["RandomForest"]:
             ).sort_values("importance", ascending=False, ignore_index=True)
 
             num_selected, val_score, test_score = run_selection(
-                model_cls, importance_df, score_func, higher_is_better
+                model_cls, importance_df, score_func, higher_is_better=higher_is_better
             )
             reports.append(
                 {
@@ -158,6 +201,4 @@ for model_name in ["RandomForest"]:
                 }
             )
             print(reports[-1])
-            pd.DataFrame(reports).to_csv(result_path, index=False)
-
-pd.DataFrame(reports).to_csv(result_path, index=False)
+            write_report(reports)
