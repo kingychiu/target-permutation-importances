@@ -33,6 +33,7 @@ This method were originally proposed/implemented by:
 - [Feature Selection with Null Importances
 ](https://www.kaggle.com/code/ogrellier/feature-selection-with-null-importances/notebook)
 
+---
 
 ## Install
 
@@ -58,7 +59,7 @@ pandas = "^1.5.3"
 tqdm = "^4.48.2"
 beartype = "^0.14.1"
 ```
-
+---
 
 ## Basic Usage
 
@@ -114,14 +115,18 @@ Running 2 actual runs and 10 random runs
 
 You can find more detailed examples in the "Feature Selection Examples" section.
 
+---
+
 ## Advance Usage / Customization
 This package exposes `generic_compute` to allow customization.
 Read [`target_permutation_importances.__init__.py`](https://github.com/kingychiu/target-permutation-importances/blob/main/target_permutation_importances/__init__.py) for details.
 
+---
 
 ## Feature Selection Examples
 - [Feature Selection for Binary Classification](https://www.kaggle.com/code/kingychiu/feature-selection-for-binary-classification-task)
 
+---
 
 ## Kaggle Competitions
 Many Kaggle Competition top solutions involve this method, here are some examples
@@ -132,6 +137,7 @@ Many Kaggle Competition top solutions involve this method, here are some example
 | 2019 | [Elo Merchant Category Recommendation](https://www.kaggle.com/competitions/elo-merchant-category-recommendation/overview)    | Gold  | [16th place solution]([-play/discussion/420235](https://www.kaggle.com/competitions/elo-merchant-category-recommendation/discussion/82166)) |
 | 2018 | [Home Credit Default Risk](https://www.kaggle.com/competitions/home-credit-default-risk/overview)                            | Gold  | [10th place solution](https://www.kaggle.com/competitions/home-credit-default-risk/discussion/64598)                                        |
 
+---
 
 ## Development Setup and Contribution Guide
 **Python Version**
@@ -153,6 +159,7 @@ To run the benchmark locally on your machine, run `make run_tabular_benchmark` o
 Following the [Make Changes Guide from Github](https://github.com/github/docs/blob/main/CONTRIBUTING.md#make-changes)
 Before committing or merging, please run the linters defined in `make lint` and the tests defined in `make test`
 
+---
 
 ## Benchmarks
 
@@ -249,5 +256,6 @@ built-in: The baseline, it is the built-in importances from the model.
 | reg_cat/Allstate_Claims_Severity.csv            | A-R          | 124->124          | 1003019739.9178     |
 | reg_cat/Allstate_Claims_Severity.csv            | A/(R+1)      | 124->102          | 1003113924.3013     |
 
+---
 
 
