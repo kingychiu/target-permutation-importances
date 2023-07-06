@@ -11,6 +11,8 @@
 [[Documentation]](https://target-permutation-importances.readthedocs.io/en/latest/)
 [[API Reference]](https://target-permutation-importances.readthedocs.io/en/latest/reference/)
 
+---
+
 ## Overview
 Null Importances is normalized feature importance measures that can correct the feature importance bias.
 The method is based on repeated permutations of the outcome
@@ -208,7 +210,8 @@ Read [`target_permutation_importances.__init__.py`](https://github.com/kingychiu
 ---
 
 ## Feature Selection Examples
-- [Feature Selection for Binary Classification](https://www.kaggle.com/code/kingychiu/feature-selection-for-binary-classification-task)
+- [Feature Selection for Binary Classification with RandomForestClassifier](https://www.kaggle.com/code/kingychiu/feature-selection-for-binary-classification-task)
+- [Feature Selection for Binary Classification with XGBClassifier](kaggle.com/code/kingychiu/feature-selection-for-binary-classification-xgb/notebook)
 
 ---
 
