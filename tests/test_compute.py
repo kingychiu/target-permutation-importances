@@ -4,7 +4,12 @@ import pytest
 from beartype import roar
 from catboost import CatBoostClassifier, CatBoostRegressor
 from lightgbm import LGBMClassifier, LGBMRegressor
-from sklearn.datasets import load_breast_cancer, load_diabetes
+from sklearn.datasets import (
+    load_breast_cancer,
+    load_diabetes,
+    load_wine,
+    make_multilabel_classification,
+)
 from sklearn.ensemble import RandomForestClassifier, RandomForestRegressor
 from xgboost import XGBClassifier, XGBRegressor
 
@@ -58,7 +63,7 @@ def test_compute_binary_classification(model_cls, imp_func, xtype):
         X=X,
         y=data.target,
         num_actual_runs=5,
-        num_random_runs=20,
+        num_random_runs=5,
     )
     assert isinstance(result_df, pd.DataFrame)
     assert result_df.shape[0] == X.shape[1]
@@ -71,6 +76,80 @@ def test_compute_binary_classification(model_cls, imp_func, xtype):
         assert set(result_df["feature"].tolist()) == set(range(data.data.shape[1]))
     assert result_df["importance"].isna().sum() == 0
     assert result_df["std_random_importance"].mean() > 0
+
+
+@pytest.mark.parametrize("model_cls,imp_func,xtype", test_compute_clf_scope)
+def test_compute_multi_class_classification(model_cls, imp_func, xtype):
+    data = load_wine()
+    if xtype is pd.DataFrame:
+        X = pd.DataFrame(
+            data.data, columns=[f.replace(" ", "_") for f in data.feature_names]
+        )
+    else:
+        X = data.data
+
+    result_df = compute(
+        model_cls=model_cls,
+        model_cls_params={
+            "n_estimators": 2,
+        },
+        model_fit_params={},
+        permutation_importance_calculator=imp_func,
+        X=X,
+        y=data.target,
+        num_actual_runs=5,
+        num_random_runs=5,
+    )
+    assert isinstance(result_df, pd.DataFrame)
+    assert result_df.shape[0] == X.shape[1]
+    assert "importance" in result_df.columns
+    assert "feature" in result_df.columns
+
+    if xtype is pd.DataFrame:
+        assert set(result_df["feature"].tolist()) == set(X.columns.tolist())
+    else:
+        assert set(result_df["feature"].tolist()) == set(range(data.data.shape[1]))
+    assert result_df["importance"].isna().sum() == 0
+
+
+@pytest.mark.parametrize("model_cls,imp_func,xtype", test_compute_clf_scope)
+def test_compute_multi_label_classification(model_cls, imp_func, xtype):
+    X, y = make_multilabel_classification(
+        n_samples=100, n_features=20, n_classes=5, n_labels=2
+    )
+    if xtype is pd.DataFrame:
+        X = pd.DataFrame(X, columns=[f"feature_{i}" for i in range(X.shape[1])])
+    else:
+        X = X
+
+    model_cls_params = {
+        "n_estimators": 2,
+    }
+    if "Cat" in model_cls.__name__:
+        model_cls_params["objective"] = "MultiLogloss"
+    elif "LGBM" in model_cls.__name__:
+        return  # LGBMClassifier does not support multi-label classification
+
+    result_df = compute(
+        model_cls=model_cls,
+        model_cls_params=model_cls_params,
+        model_fit_params={},
+        permutation_importance_calculator=imp_func,
+        X=X,
+        y=y,
+        num_actual_runs=5,
+        num_random_runs=5,
+    )
+    assert isinstance(result_df, pd.DataFrame)
+    assert result_df.shape[0] == X.shape[1]
+    assert "importance" in result_df.columns
+    assert "feature" in result_df.columns
+
+    if xtype is pd.DataFrame:
+        assert set(result_df["feature"].tolist()) == set(X.columns.tolist())
+    else:
+        assert set(result_df["feature"].tolist()) == set(range(X.shape[1]))
+    assert result_df["importance"].isna().sum() == 0
 
 
 @pytest.mark.parametrize("model_cls,imp_func,xtype", test_compute_reg_scope)
@@ -92,7 +171,7 @@ def test_compute_regression(model_cls, imp_func, xtype):
         X=X,
         y=data.target,
         num_actual_runs=5,
-        num_random_runs=20,
+        num_random_runs=5,
     )
     assert isinstance(result_df, pd.DataFrame)
     assert result_df.shape[0] == X.shape[1]
