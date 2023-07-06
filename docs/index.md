@@ -12,8 +12,10 @@
 [[API Reference]](https://target-permutation-importances.readthedocs.io/en/latest/reference/)
 
 ## Overview
-This method aims to lower the feature attribution due to a feature's variance.
-If a feature shows high importance to a model after the target vector is shuffled, it fits the noise.
+Null Importances is normalized feature importance measures that can correct the feature importance bias.
+The method is based on repeated permutations of the outcome
+vector for estimating the distribution of measured importance
+for each variable in a non-informative setting.
 
 Overall, this package 
 
@@ -53,7 +55,7 @@ Here are some examples of Top Kaggle solutions using this method:
 Here is the summary of [`Our Benchmarks Results`](https://target-permutation-importances.readthedocs.io/en/latest/benchmarks/). It is running null-importances with feature selection on multiple models and datasets. "better" means it is better than running feature selection with the model's built-in feature importances. We can see even **with default models' parameters** it shows its effectiveness.
 
 | model                  | n_dataset | n_better | better % |
-|------------------------|-----------|----------|----------|
+| ---------------------- | --------- | -------- | -------- |
 | CatBoostClassifier     | 10        | 6        | 60.0     |
 | CatBoostRegressor      | 12        | 8        | 66.67    |
 | LGBMClassifier         | 10        | 7        | 70.0     |
