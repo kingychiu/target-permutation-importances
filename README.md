@@ -29,8 +29,8 @@ Not to be confused with [sklearn.inspection.permutation_importance](https://scik
 this sklearn method is about feature permutation instead of target permutation.
 
 This method were originally proposed/implemented by:
-- [Permutation importance: a corrected feature importance measure](https://academic.oup.com/bioinformatics/article/26/10/1340/193348)
-- [Feature Selection with Null Importances
+- [[Paper] Permutation importance: a corrected feature importance measure](https://academic.oup.com/bioinformatics/article/26/10/1340/193348)
+- [[Kaggle Notebook] Feature Selection with Null Importances
 ](https://www.kaggle.com/code/ogrellier/feature-selection-with-null-importances/notebook)
 
 ---
@@ -142,8 +142,46 @@ You can find more detailed examples in the "Feature Selection Examples" section.
 
 ---
 
-## Advance Usage / Customization
-This package exposes `generic_compute` to allow customization.
+## Customization
+
+**Changing model or parameters**
+
+You can pick your own model by changing
+`model_cls`, `model_cls_params` and `model_fit_params`, for example, using with `LGBMClassifier` 
+with a `importance_type=gain` and `colsample_bytree=0.1`:
+
+```python
+result_df = tpi.compute(
+    model_cls=LGBMClassifier, # The constructor/class of the model.
+    model_cls_params={ # The parameters to pass to the model constructor. Update this based on your needs.
+        "n_jobs": -1,
+        "importance_type": "gain",
+        "colsample_bytree": 0.1,
+    },
+    model_fit_params={}, # The parameters to pass to the model fit method. Update this based on your needs.
+    X=Xpd, # pd.DataFrame, np.ndarray
+    y=data.target, # pd.Series, np.ndarray
+    num_actual_runs=2,
+    num_random_runs=10,
+    # Options: {compute_permutation_importance_by_subtraction, compute_permutation_importance_by_division}
+    # Or use your own function to calculate.
+    permutation_importance_calculator=tpi.compute_permutation_importance_by_subtraction,
+)
+```
+
+**Changing null importances calculation**
+You can pick your own calculation method by changing `permutation_importance_calculator`.
+There are 2 provided calculation:
+- `tpi.compute_permutation_importance_by_subtraction`
+- `tpi.compute_permutation_importance_by_division`
+
+You can also implement you own calculation function and pass it in. The function needs to follow 
+`PermutationImportanceCalculatorType` specification, you can find it in: 
+[API Reference](https://target-permutation-importances.readthedocs.io/en/latest/reference/)
+
+**Advance Customization**
+
+This package exposes `generic_compute` to allow advance customization.
 Read [`target_permutation_importances.__init__.py`](https://github.com/kingychiu/target-permutation-importances/blob/main/target_permutation_importances/__init__.py) for details.
 
 ---
