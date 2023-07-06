@@ -96,7 +96,7 @@ A/(R+1): compute_permutation_importance_by_division
 
 
 ## Binary Classification Results with XGBoost
-| dataset                                    | importances         | feature_reduction | test_score   |
+| dataset                                    | importances         | feature_reduction | test_f1   |
 |--------------------------------------------|---------------------|-------------------|--------------|
 | clf_cat/electricity.csv                    | **built-in (gain)** | **8->4**          | **0.910815** |
 | clf_cat/electricity.csv                    | **A-R**             | **8->4**          | **0.910815** |
@@ -130,7 +130,7 @@ A/(R+1): compute_permutation_importance_by_division
 | clf_num/MiniBooNE.csv                      | A/(R+1)             | 50->45            | 0.937386     |
 
 ## Regression Results with XGBoost
-| dataset                                         | importances         | feature_reduction | test_score           |
+| dataset                                         | importances         | feature_reduction | test_mse           |
 |-------------------------------------------------|---------------------|-------------------|----------------------|
 | reg_num/cpu_act.csv                             | built-in (gain)     | 21->17            | 5.946372             |
 | reg_num/cpu_act.csv                             | **A-R**             | **21->19**        | **5.82137**          |
@@ -171,7 +171,7 @@ A/(R+1): compute_permutation_importance_by_division
 
 
 ## Binary Classification Results with LightGBM
-| dataset                                    | importances         | feature_reduction | test_score   |
+| dataset                                    | importances         | feature_reduction | test_f1   |
 |--------------------------------------------|---------------------|-------------------|--------------|
 | clf_cat/electricity.csv                    | **built-in (gain)** | **8->5**          | **0.877175** |
 | clf_cat/electricity.csv                    | **A-R**             | **8->5**          | **0.877175** |
@@ -205,7 +205,7 @@ A/(R+1): compute_permutation_importance_by_division
 | clf_num/MiniBooNE.csv                      | **A/(R+1)**         | **50->37**        | **0.937139** |
 
 ## Regression Results with LightGBM
-| dataset                                         | importances         | feature_reduction | test_score           |
+| dataset                                         | importances         | feature_reduction | test_mse           |
 |-------------------------------------------------|---------------------|-------------------|----------------------|
 | reg_num/cpu_act.csv                             | built-in (gain)     | 21->17            | 5.946372             |
 | reg_num/cpu_act.csv                             | **A-R**             | **21->19**        | **5.82137**          |
@@ -246,7 +246,7 @@ A/(R+1): compute_permutation_importance_by_division
 
 
 ## Binary Classification Results with CatBoost
-| dataset                                    | importances         | feature_reduction | test_score   |
+| dataset                                    | importances         | feature_reduction | test_f1   |
 |--------------------------------------------|---------------------|-------------------|--------------|
 | clf_cat/electricity.csv                    | **built-in** | **8->3**          | **0.883178** |
 | clf_cat/electricity.csv                    | **A-R**             | **8->3**          | **0.883178** |
@@ -281,7 +281,7 @@ A/(R+1): compute_permutation_importance_by_division
 
 
 ## Regression Results with CatBoost
-| dataset                                         | importances         | feature_reduction | test_score          |
+| dataset                                         | importances         | feature_reduction | test_mse          |
 |-------------------------------------------------|---------------------|-------------------|---------------------|
 | reg_num/cpu_act.csv                             | built-in     | 21->16            | 5.104869            |
 | reg_num/cpu_act.csv                             | A-R                 | 21->21            | 5.137032            |
