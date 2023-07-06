@@ -41,7 +41,9 @@ This method were originally proposed/implemented by:
 
 ## Features
 1. Compute null importances with only one function call.
-2. Support models with `sklearn` interface, including `xgboost`, `catboost`, `lightgbm`.
+2. Support models with `sklearn` `feature_importances_` interface, including 
+   `RandomForestClassifier`, `RandomForestRegressor`, `XGBClassifier`. `XGBRegressor`, `LGBMClassifier`, `LGBMRegressor`,
+   `CatBoostClassifier` and `CatBoostRegressor` etc.
 3. Support `sklearn`'s `MultiOutputClassifier` or `MultiOutputRegressor` interface.
 4. Support data in `pandas.DataFrame` and `numpy.ndarray`
 5. Highly customizable with both the exposed `compute` and `generic_compute` functions. 
