@@ -11,6 +11,8 @@
 [[Documentation]](https://target-permutation-importances.readthedocs.io/en/latest/)
 [[API Reference]](https://target-permutation-importances.readthedocs.io/en/latest/reference/)
 
+---
+
 ## Overview
 Null Importances is normalized feature importance measures that can correct the feature importance bias.
 The method is based on repeated permutations of the outcome
@@ -40,9 +42,10 @@ This method were originally proposed/implemented by:
 ## Features
 1. Compute null importances with only one function call.
 2. Support models with `sklearn` interface, including `xgboost`, `catboost`, `lightgbm`.
-3. Support data in `pandas.DataFrame` and `numpy.ndarray`
-4. Highly customizable with both the exposed `compute` and `generic_compute` functions. 
-5. Proven effectiveness in Kaggle competitions and in [`Our Benchmarks Results`](https://target-permutation-importances.readthedocs.io/en/latest/benchmarks/).
+3. Support `sklearn`'s `MultiOutputClassifier` or `MultiOutputRegressor` interface.
+4. Support data in `pandas.DataFrame` and `numpy.ndarray`
+5. Highly customizable with both the exposed `compute` and `generic_compute` functions. 
+6. Proven effectiveness in Kaggle competitions and in [`Our Benchmarks Results`](https://target-permutation-importances.readthedocs.io/en/latest/benchmarks/).
 
 ---
 
@@ -95,7 +98,9 @@ beartype = "^0.14.1"
 ```
 ---
 
-## Basic Usage
+## Get Started
+
+**Standard models with `sklearn` interface**
 
 ```python
 # Import the function
@@ -106,10 +111,7 @@ import pandas as pd
 from sklearn.datasets import load_breast_cancer
 
 # Models
-from catboost import CatBoostClassifier
-from lightgbm import LGBMClassifier
 from sklearn.ensemble import RandomForestClassifier
-from xgboost import XGBClassifier
 
 data = load_breast_cancer()
 
@@ -153,6 +155,61 @@ Running 2 actual runs and 10 random runs
 11           mean radius    0.014346
 0             area error    0.000693
 
+```
+
+
+**With `sklearn`'s `MultiOutputClassifier` or `MultiOutputRegressor`**
+
+```python
+# Import the function
+import target_permutation_importances as tpi
+
+# Prepare a dataset
+import pandas as pd
+from sklearn.datasets import make_regression
+
+# Models
+from sklearn.ensemble import RandomForestRegressor
+from sklearn.multioutput import MultiOutputClassifier, MultiOutputRegressor
+
+# Multi target regression
+X, y = make_regression(
+    n_samples=100,
+    n_features=20,
+    n_targets=5,
+)
+
+# Compute permutation importances with default settings
+result_df = tpi.compute(
+    model_cls=MultiOutputRegressor,
+    model_cls_params={ # The constructor/class of MultiOutputRegressor
+        "estimator": RandomForestRegressor(n_estimators=2),
+    },
+    model_fit_params={}, # The parameters to pass to the model fit method. Update this based on your needs.
+    X=X, # pd.DataFrame, np.ndarray
+    y=y, # pd.Series, np.ndarray
+    num_actual_runs=2,
+    num_random_runs=10,
+    # Options: {compute_permutation_importance_by_subtraction, compute_permutation_importance_by_division}
+    # Or use your own function to calculate.
+    permutation_importance_calculator=tpi.compute_permutation_importance_by_subtraction,
+)
+
+print(result_df[["feature", "importance"]].sort_values("importance", ascending=False).head())
+```
+Fork above code from [Kaggle](https://www.kaggle.com/code/kingychiu/target-permutation-importances-basic-usage/notebook).
+
+Outputs:
+```
+Running 2 actual runs and 10 random runs
+100%|██████████| 2/2 [00:00<00:00,  4.97it/s]
+100%|██████████| 10/10 [00:01<00:00,  5.10it/s]
+    feature  importance
+19       19    0.233211
+10       10    0.058238
+0         0    0.049782
+17       17    0.031321
+2         2    0.028209
 ```
 
 You can find more detailed examples in the "Feature Selection Examples" section.
@@ -208,7 +265,8 @@ Read [`target_permutation_importances.__init__.py`](https://github.com/kingychiu
 ---
 
 ## Feature Selection Examples
-- [Feature Selection for Binary Classification](https://www.kaggle.com/code/kingychiu/feature-selection-for-binary-classification-task)
+- [Feature Selection for Binary Classification with RandomForestClassifier](https://www.kaggle.com/code/kingychiu/feature-selection-for-binary-classification-task)
+- [Feature Selection for Binary Classification with XGBClassifier](kaggle.com/code/kingychiu/feature-selection-for-binary-classification-xgb/notebook)
 
 ---
 
