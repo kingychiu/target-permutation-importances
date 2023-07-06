@@ -157,7 +157,7 @@ def test_compute_multi_label_classification_with_MultiOutputClassifier(
     model_cls, imp_func, xtype
 ):
     X, y = make_multilabel_classification(
-        n_samples=100, n_features=20, n_classes=5, n_labels=2
+        n_samples=500, n_features=20, n_classes=3, n_labels=3
     )
     if xtype is pd.DataFrame:
         X = pd.DataFrame(X, columns=[f"feature_{i}" for i in range(X.shape[1])])
@@ -227,7 +227,7 @@ def test_compute_multi_label_classification_with_MultiOutputRegressor(
     X, y = make_regression(
         n_samples=100,
         n_features=20,
-        n_targets=5,
+        n_targets=3,
     )
     if xtype is pd.DataFrame:
         X = pd.DataFrame(X, columns=[f"feature_{i}" for i in range(X.shape[1])])
