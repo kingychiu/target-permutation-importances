@@ -188,8 +188,7 @@ result_df = tpi.compute(
 
 Note: Tree models are greedy. Usually it is a good idea to introduce some randomness into the tree model by setting `colsample_*` params.
 It forces the model to explore the importances of different features. In other words, setting these
-parameters avoid some features are under representative in the importance calculation.
-
+parameters avoid a feature from being under-representative in the importance calculation because of having another highly correlated feature.
 **Changing null importances calculation**
 
 You can pick your own calculation method by changing `permutation_importance_calculator`.
