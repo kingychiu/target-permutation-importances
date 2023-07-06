@@ -44,6 +44,9 @@ This method were originally proposed/implemented by:
 4. Highly customizable with both the exposed `compute` and `generic_compute` functions. 
 5. Proven effectiveness in Kaggle competitions and in [`Our Benchmarks Results`](https://target-permutation-importances.readthedocs.io/en/latest/benchmarks/).
 
+---
+
+## Benchmarks
 Here are some examples of Top Kaggle solutions using this method:
 
 | Year | Competition                                                                                                                  | Medal | Link                                                                                                                                        |
@@ -66,7 +69,7 @@ Here is the summary of [`Our Benchmarks Results`](https://target-permutation-imp
 | XGBRegressor           | 12        | 5        | 41.67    |
 ---
 
-## Install
+## Installation
 
 ```
 pip install target-permutation-importances
