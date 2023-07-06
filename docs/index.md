@@ -165,7 +165,7 @@ You can find more detailed examples in the "Feature Selection Examples" section.
 
 You can pick your own model by changing
 `model_cls`, `model_cls_params` and `model_fit_params`, for example, using with `LGBMClassifier` 
-with a `importance_type=gain` and `colsample_bytree=0.1`:
+with a `importance_type=gain` and `colsample_bytree=0.5`:
 
 ```python
 result_df = tpi.compute(
@@ -173,7 +173,7 @@ result_df = tpi.compute(
     model_cls_params={ # The parameters to pass to the model constructor. Update this based on your needs.
         "n_jobs": -1,
         "importance_type": "gain",
-        "colsample_bytree": 0.1,
+        "colsample_bytree": 0.5,
     },
     model_fit_params={}, # The parameters to pass to the model fit method. Update this based on your needs.
     X=Xpd, # pd.DataFrame, np.ndarray
@@ -186,7 +186,12 @@ result_df = tpi.compute(
 )
 ```
 
+Note: Tree models are greedy. Usually it is a good idea to introduce some randomness into the tree model by setting `colsample_*` params.
+It forces the model to explore the importances of different features. In other words, setting these
+parameters avoid some features are under representative in the importance calculation.
+
 **Changing null importances calculation**
+
 You can pick your own calculation method by changing `permutation_importance_calculator`.
 There are 2 provided calculations:
 - `tpi.compute_permutation_importance_by_subtraction`
