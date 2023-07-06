@@ -1,4 +1,4 @@
-# Target Permutation Importances
+# Target Permutation Importances (Null Importances)
 
 [![image](https://img.shields.io/pypi/v/target-permutation-importances.svg)](https://pypi.python.org/pypi/target-permutation-importances)
 [![Downloads](https://static.pepy.tech/badge/target-permutation-importances)](https://pepy.tech/project/target-permutation-importances)
@@ -17,20 +17,40 @@ If a feature shows high importance to a model after the target vector is shuffle
 
 Overall, this package 
 
-1. Fit the given model class $M$ times to get $M$ actual feature importances of feature f: $A_f = [a_{f_1},a_{f_2}...a_{f_M}]$.
-2. Fit the given model class with shuffled targets for $N$ times to get $N$ feature random importances: $R_f = [r_{f_1},r_{f_2}...r_{f_N}]$.
+1. Fit the given model class $M$ times with different model's `random_state` to get $M$ actual feature importances of feature f: $A_f = [a_{f_1},a_{f_2}...a_{f_M}]$.
+2. Fit the given model class with different model's `random_state` and **shuffled targets** for $N$ times to get $N$ feature random importances: $R_f = [r_{f_1},r_{f_2}...r_{f_N}]$.
 3. Compute the final importances of a feature $f$ by various methods, such as:
     - $I_f = Avg(A_f) - Avg(R_f)$
     - $I_f = Avg(A_f) / (Avg(R_f) + 1)$
+
+We want $M \ge 1$ and $N \gg 1$. Having $M=1$ means the actual importances depends on only 1 model's `random_state` (Which is also fine).
 
 Not to be confused with [sklearn.inspection.permutation_importance](https://scikit-learn.org/stable/modules/generated/sklearn.inspection.permutation_importance.html#sklearn.inspection.permutation_importance),
 this sklearn method is about feature permutation instead of target permutation.
 
 This method were originally proposed/implemented by:
-- [Permutation importance: a corrected feature importance measure](https://academic.oup.com/bioinformatics/article/26/10/1340/193348)
-- [Feature Selection with Null Importances
+- [[Paper] Permutation importance: a corrected feature importance measure](https://academic.oup.com/bioinformatics/article/26/10/1340/193348)
+- [[Kaggle Notebook] Feature Selection with Null Importances
 ](https://www.kaggle.com/code/ogrellier/feature-selection-with-null-importances/notebook)
 
+---
+
+## Features
+1. Compute null importances with only one function call.
+2. Support models with `sklearn` interface, including `xgboost`, `catboost`, `lightgbm`.
+3. Support data in `pandas.DataFrame` and `numpy.ndarray`
+4. Highly customizable with both the exposed `compute` and `generic_compute` functions. 
+5. Proven effectiveness in Kaggle competitions and in [`Our Benchmarks Results`](https://target-permutation-importances.readthedocs.io/en/latest/benchmarks/).
+
+Here are some examples of Top Kaggle solutions using this method:
+
+| Year | Competition                                                                                                                  | Medal | Link                                                                                                                                        |
+| ---- | ---------------------------------------------------------------------------------------------------------------------------- | ----- | ------------------------------------------------------------------------------------------------------------------------------------------- |
+| 2023 | [Predict Student Performance from Game Play](https://www.kaggle.com/competitions/predict-student-performance-from-game-play) | Gold  | [3rd place solution](https://www.kaggle.com/competitions/predict-student-performance-from-game-play/discussion/420235)                      |
+| 2019 | [Elo Merchant Category Recommendation](https://www.kaggle.com/competitions/elo-merchant-category-recommendation/overview)    | Gold  | [16th place solution]([-play/discussion/420235](https://www.kaggle.com/competitions/elo-merchant-category-recommendation/discussion/82166)) |
+| 2018 | [Home Credit Default Risk](https://www.kaggle.com/competitions/home-credit-default-risk/overview)                            | Gold  | [10th place solution](https://www.kaggle.com/competitions/home-credit-default-risk/discussion/64598)                                        |
+
+---
 
 ## Install
 
@@ -56,7 +76,7 @@ pandas = "^1.5.3"
 tqdm = "^4.48.2"
 beartype = "^0.14.1"
 ```
-
+---
 
 ## Basic Usage
 
@@ -82,14 +102,17 @@ Xpd = pd.DataFrame(data.data, columns=data.feature_names)
 # Compute permutation importances with default settings
 result_df = tpi.compute(
     model_cls=RandomForestClassifier, # The constructor/class of the model.
-    model_cls_params={ # The parameters to pass to the model constructor.
-        "n_estimators": 1,
+    model_cls_params={ # The parameters to pass to the model constructor. Update this based on your needs.
+        "n_jobs": -1,
     },
-    model_fit_params={}, # The parameters to pass to the model fit method.
+    model_fit_params={}, # The parameters to pass to the model fit method. Update this based on your needs.
     X=Xpd, # pd.DataFrame, np.ndarray
     y=data.target, # pd.Series, np.ndarray
     num_actual_runs=2,
     num_random_runs=10,
+    # Options: {compute_permutation_importance_by_subtraction, compute_permutation_importance_by_division}
+    # Or use your own function to calculate.
+    permutation_importance_calculator=tpi.compute_permutation_importance_by_subtraction,
 )
 
 print(result_df[["feature", "importance"]].sort_values("importance", ascending=False).head())
@@ -99,58 +122,74 @@ Fork above code from [Kaggle](https://www.kaggle.com/code/kingychiu/target-permu
 Outputs:
 ```
 Running 2 actual runs and 10 random runs
-100%|██████████| 2/2 [00:00<00:00, 167.35it/s]
-100%|██████████| 10/10 [00:00<00:00, 163.71it/s]
-                feature  importance
-7   mean concave points    0.343365
-8        mean concavity    0.291501
-25      worst perimeter    0.021797
-10       mean perimeter    0.021520
-26         worst radius    0.008913
+100%|██████████| 2/2 [00:01<00:00,  1.62it/s]
+100%|██████████| 10/10 [00:06<00:00,  1.46it/s]
+                 feature  importance
+25       worst perimeter    0.117495
+22  worst concave points    0.089949
+26          worst radius    0.084632
+7    mean concave points    0.064289
+20            worst area    0.062485
+8         mean concavity    0.047122
+10        mean perimeter    0.029270
+5              mean area    0.014566
+11           mean radius    0.014346
+0             area error    0.000693
+
 ```
 
 You can find more detailed examples in the "Feature Selection Examples" section.
 
-## Advance Usage / Customization
-This package exposes `generic_compute` to allow customization.
+---
+
+## Customization
+
+**Changing model or parameters**
+
+You can pick your own model by changing
+`model_cls`, `model_cls_params` and `model_fit_params`, for example, using with `LGBMClassifier` 
+with a `importance_type=gain` and `colsample_bytree=0.1`:
+
+```python
+result_df = tpi.compute(
+    model_cls=LGBMClassifier, # The constructor/class of the model.
+    model_cls_params={ # The parameters to pass to the model constructor. Update this based on your needs.
+        "n_jobs": -1,
+        "importance_type": "gain",
+        "colsample_bytree": 0.1,
+    },
+    model_fit_params={}, # The parameters to pass to the model fit method. Update this based on your needs.
+    X=Xpd, # pd.DataFrame, np.ndarray
+    y=data.target, # pd.Series, np.ndarray
+    num_actual_runs=2,
+    num_random_runs=10,
+    # Options: {compute_permutation_importance_by_subtraction, compute_permutation_importance_by_division}
+    # Or use your own function to calculate.
+    permutation_importance_calculator=tpi.compute_permutation_importance_by_subtraction,
+)
+```
+
+**Changing null importances calculation**
+You can pick your own calculation method by changing `permutation_importance_calculator`.
+There are 2 provided calculations:
+- `tpi.compute_permutation_importance_by_subtraction`
+- `tpi.compute_permutation_importance_by_division`
+
+You can also implement you own calculation function and pass it in. The function needs to follow 
+`PermutationImportanceCalculatorType` specification, you can find it in
+[API Reference](https://target-permutation-importances.readthedocs.io/en/latest/reference/)
+
+**Advance Customization**
+
+This package exposes `generic_compute` to allow advance customization.
 Read [`target_permutation_importances.__init__.py`](https://github.com/kingychiu/target-permutation-importances/blob/main/target_permutation_importances/__init__.py) for details.
 
+---
 
 ## Feature Selection Examples
 - [Feature Selection for Binary Classification](https://www.kaggle.com/code/kingychiu/feature-selection-for-binary-classification-task)
 
-## Benchmarks
-
-Benchmark has been done with some tabular datasets from the [Tabular data learning benchmark](https://github.com/LeoGrin/tabular-benchmark/tree/main). It is also
-hosted on [Hugging Face](https://huggingface.co/datasets/inria-soda/tabular-benchmark).
-
-The following models with their default params are used in the benchmark:
-- `sklearn.ensemble.RandomForestClassifier`
-- `sklearn.ensemble.RandomForestRegressor`
-- `xgboost.XGBClassifier`
-- `xgboost.XGBRegressor`
-- `catboost.CatBoostClassifier`
-- `catboost.CatBoostRegressor`
-- `lightgbm.LGBMClassifier`
-- `lightgbm.LGBMRegressor`
-
-For the binary classification task, `sklearn.metrics.f1_score` is used for evaluation. For the regression task, `sklearn.metrics.mean_squared_error` is used for evaluation.
-
-The downloaded datasets are divided into 3 sections: `train`: 50%, `val`: 10%, `test`: 40%.
-Feature importance is calculated from the `train` set. Feature selection is done on the `val` set. 
-The final benchmark is evaluated on the `test` set. Therefore the `test` set is unseen to both the feature importance and selection process.
-
-
-Raw result data are in [`benchmarks/results`](https://github.com/kingychiu/target-permutation-importances/tree/main/benchmarks).
-
-## Kaggle Competitions
-Many Kaggle Competition top solutions involve this method, here are some examples
-
-| Year | Competition                                                                                                                  | Medal | Link                                                                                                                                        |
-| ---- | ---------------------------------------------------------------------------------------------------------------------------- | ----- | ------------------------------------------------------------------------------------------------------------------------------------------- |
-| 2023 | [Predict Student Performance from Game Play](https://www.kaggle.com/competitions/predict-student-performance-from-game-play) | Gold  | [3rd place solution](https://www.kaggle.com/competitions/predict-student-performance-from-game-play/discussion/420235)                      |
-| 2019 | [Elo Merchant Category Recommendation](https://www.kaggle.com/competitions/elo-merchant-category-recommendation/overview)    | Gold  | [16th place solution]([-play/discussion/420235](https://www.kaggle.com/competitions/elo-merchant-category-recommendation/discussion/82166)) |
-| 2018 | [Home Credit Default Risk](https://www.kaggle.com/competitions/home-credit-default-risk/overview)                            | Gold  | [10th place solution](https://www.kaggle.com/competitions/home-credit-default-risk/discussion/64598)                                        |
+---
 
 
 ## Development Setup and Contribution Guide
@@ -172,4 +211,6 @@ To run the benchmark locally on your machine, run `make run_tabular_benchmark` o
 
 Following the [Make Changes Guide from Github](https://github.com/github/docs/blob/main/CONTRIBUTING.md#make-changes)
 Before committing or merging, please run the linters defined in `make lint` and the tests defined in `make test`
+
+---
 

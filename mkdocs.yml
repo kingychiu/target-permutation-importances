@@ -6,6 +6,7 @@ theme: "readthedocs"
 
 nav:
   - "Introduction": index.md
+  - "Benchmarks": benchmarks.md
   - "API Reference": reference.md
 
 extra_javascript:
@@ -20,3 +21,4 @@ plugins:
   - search
   - autorefs
   - mkdocstrings
+  - table-reader

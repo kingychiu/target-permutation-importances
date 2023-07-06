@@ -1595,6 +1595,24 @@ Markdown = ">=3.3"
 mkdocs = ">=1.1"
 
 [[package]]
+name = "mkdocs-table-reader-plugin"
+version = "2.0.1"
+description = "MkDocs plugin to directly insert tables from files into markdown."
+category = "dev"
+optional = false
+python-versions = ">=3.6"
+files = [
+    {file = "mkdocs-table-reader-plugin-2.0.1.tar.gz", hash = "sha256:bfeb246a76c273c7745833be747e20b067abc3dafd720f658521ddf23b53cbf7"},
+    {file = "mkdocs_table_reader_plugin-2.0.1-py3-none-any.whl", hash = "sha256:e1701a5df1fd64a6ea331b3ec5fae74de618086db89bfb03eb1d67517d435059"},
+]
+
+[package.dependencies]
+mkdocs = ">=1.0"
+pandas = ">=1.1"
+PyYAML = ">=5.4.1"
+tabulate = ">=0.8.7"
+
+[[package]]
 name = "mkdocstrings"
 version = "0.22.0"
 description = "Automatic documentation from sources, for MkDocs."
@@ -2549,6 +2567,21 @@ files = [
 ]
 
 [[package]]
+name = "tabulate"
+version = "0.9.0"
+description = "Pretty-print tabular data"
+category = "dev"
+optional = false
+python-versions = ">=3.7"
+files = [
+    {file = "tabulate-0.9.0-py3-none-any.whl", hash = "sha256:024ca478df22e9340661486f85298cff5f6dcdba14f3813e8830015b9ed1948f"},
+    {file = "tabulate-0.9.0.tar.gz", hash = "sha256:0095b12bf5966de529c0feb1fa08671671b3368eec77d7ef7ab114be2c068b3c"},
+]
+
+[package.extras]
+widechars = ["wcwidth"]
+
+[[package]]
 name = "tenacity"
 version = "8.2.2"
 description = "Retry code until it succeeds"
@@ -2995,4 +3028,4 @@ testing = ["big-O", "flake8 (<5)", "jaraco.functools", "jaraco.itertools", "more
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.8"
-content-hash = "c2e44ec95db847a0638ba4b887ae8b63d0981816d453ed14de400e48e1c2dd9e"
+content-hash = "a281af2071589b4d01c3d393f395f0892b64f1e4859e56be5b576fe2176b3bf9"
