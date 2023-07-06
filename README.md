@@ -100,7 +100,7 @@ beartype = "^0.14.1"
 
 ## Get Started
 
-**Standard models with `sklearn` interface**
+### With models with standard `sklearn` interface
 
 ```python
 # Import the function
@@ -158,7 +158,7 @@ Running 2 actual runs and 10 random runs
 ```
 
 
-**With `sklearn`'s `MultiOutputClassifier` or `MultiOutputRegressor`**
+### With `sklearn.multioutput`
 
 ```python
 # Import the function
@@ -218,7 +218,7 @@ You can find more detailed examples in the "Feature Selection Examples" section.
 
 ## Customization
 
-**Changing model or parameters**
+### Changing model or parameters
 
 You can pick your own model by changing
 `model_cls`, `model_cls_params` and `model_fit_params`, for example, using with `LGBMClassifier` 
@@ -247,7 +247,7 @@ Note: Tree models are greedy. Usually it is a good idea to introduce some random
 It forces the model to explore the importances of different features. In other words, setting these
 parameters avoid a feature from being under-representative in the importance calculation because of having another highly correlated feature.
 
-**Changing null importances calculation**
+### Changing null importances calculation
 
 You can pick your own calculation method by changing `permutation_importance_calculator`.
 There are 2 provided calculations:
@@ -258,7 +258,7 @@ You can also implement you own calculation function and pass it in. The function
 `PermutationImportanceCalculatorType` specification, you can find it in
 [API Reference](https://target-permutation-importances.readthedocs.io/en/latest/reference/)
 
-**Advance Customization**
+### Advance Customization
 
 This package exposes `generic_compute` to allow advance customization.
 Read [`target_permutation_importances.__init__.py`](https://github.com/kingychiu/target-permutation-importances/blob/main/target_permutation_importances/__init__.py) for details.
