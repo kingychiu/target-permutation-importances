@@ -1,0 +1,31 @@
+dataset,importances,feature_reduction,test_score
+clf_cat/electricity.csv,**built-in (gain)**,**8->3**,**0.883178**
+clf_cat/electricity.csv,**A-R**,**8->3**,**0.883178**
+clf_cat/electricity.csv,**A/(R+1)**,**8->3**,**0.883178**
+clf_cat/eye_movements.csv,built-in (gain),23->23,0.628159
+clf_cat/eye_movements.csv,A-R,23->14,0.65817
+clf_cat/eye_movements.csv,**A/(R+1)**,**23->11**,**0.668376**
+clf_cat/covertype.csv,**built-in (gain)**,**54->24**,**0.913111**
+clf_cat/covertype.csv,A-R,54->54,0.91068
+clf_cat/covertype.csv,A/(R+1),54->38,0.912124
+clf_cat/albert.csv,built-in (gain),31->15,0.665236
+clf_cat/albert.csv,A-R,31->20,0.664977
+clf_cat/albert.csv,**A/(R+1)**,**31->16**,**0.666892**
+clf_cat/compas-two-years.csv,**built-in (gain)**,**11->7**,**0.675926**
+clf_cat/compas-two-years.csv,A-R,11->9,0.674587
+clf_cat/compas-two-years.csv,A/(R+1),11->11,0.673913
+clf_cat/default-of-credit-card-clients.csv,**built-in (gain)**,**21->21**,**0.690341**
+clf_cat/default-of-credit-card-clients.csv,A-R,21->20,0.688871
+clf_cat/default-of-credit-card-clients.csv,A/(R+1),21->15,0.687753
+clf_cat/road-safety.csv,built-in (gain),32->27,0.794
+clf_cat/road-safety.csv,A-R,32->30,0.794475
+clf_cat/road-safety.csv,**A/(R+1)**,**32->25**,**0.794574**
+clf_num/Bioresponse.csv,built-in (gain),419->290,0.781006
+clf_num/Bioresponse.csv,A-R,419->65,0.776184
+clf_num/Bioresponse.csv,**A/(R+1)**,**419->224**,**0.78903**
+clf_num/jannis.csv,built-in (gain),54->18,0.806811
+clf_num/jannis.csv,**A-R**,**54->28**,**0.808289**
+clf_num/jannis.csv,A/(R+1),54->19,0.807781
+clf_num/MiniBooNE.csv,built-in (gain),50->48,0.942751
+clf_num/MiniBooNE.csv,**A-R**,**50->46**,**0.943387**
+clf_num/MiniBooNE.csv,A/(R+1),50->44,0.943256

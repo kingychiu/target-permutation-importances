@@ -2,6 +2,8 @@ import os
 from typing import List
 
 import pandas as pd
+from catboost import CatBoostClassifier, CatBoostRegressor
+from lightgbm import LGBMClassifier, LGBMRegressor
 from sklearn.ensemble import RandomForestClassifier, RandomForestRegressor
 from sklearn.metrics import f1_score, mean_squared_error
 from sklearn.model_selection import train_test_split
@@ -27,11 +29,29 @@ score_funcs = {
     "binary_classification": [f1_score, True],
     "regression": [mean_squared_error, False],
 }
-result_path = "./benchmarks/results/xgboost_tabular_benchmark.csv"
+result_path = "./benchmarks/results/tabular_benchmark.csv"
+
+model_names = ["XGBoost", "LGBM", "CatBoost"]
+
+model_cls_dicts = {
+    "binary_classification": {
+        "RandomForest": (RandomForestClassifier, {"n_jobs": -1}),
+        "XGBoost": (XGBClassifier, {"n_jobs": -1, "importance_type": "gain"}),
+        "LGBM": (LGBMClassifier, {"n_jobs": -1, "importance_type": "gain"}),
+        "CatBoost": (CatBoostClassifier, {"verbose": False}),
+    },
+    "regression": {
+        "RandomForest": (RandomForestRegressor, {"n_jobs": -1}),
+        "XGBoost": (XGBRegressor, {"n_jobs": -1, "importance_type": "gain"}),
+        "LGBM": (LGBMRegressor, {"n_jobs": -1, "importance_type": "gain"}),
+        "CatBoost": (CatBoostRegressor, {"verbose": False}),
+    },
+}
 
 
 def run_selection(
     model_cls,
+    model_cls_params,
     importance_df,
     X_train,
     X_val,
@@ -48,7 +68,7 @@ def run_selection(
     for num_drop in range(len(original_features), 0, -1):
         selected_features = original_features[0:num_drop]
 
-        clf = model_cls(random_state=seed, n_jobs=-1)
+        clf = model_cls(random_state=seed, **model_cls_params)
         clf.fit(X_train[selected_features], y_train)
         val_preds = clf.predict(X_val[selected_features])
         score = score_func(y_val, val_preds)
@@ -60,28 +80,12 @@ def run_selection(
             best_features = selected_features
             print("Update best", best_score, len(selected_features))
 
-    clf = model_cls(random_state=seed)
+    clf = model_cls(random_state=seed, **model_cls_params)
     clf = clf.fit(X_train[best_features], y_train)
     val_preds = clf.predict(X_val[best_features])
     test_preds = clf.predict(X_test[best_features])
 
     return len(best_features), best_score, score_func(y_test, test_preds)
-
-
-def get_model_cls(name: str, task: str):
-    if task == "binary_classification":
-        if name == "RandomForest":
-            return RandomForestClassifier, {"n_jobs": -1}
-        elif name == "XGBoost":  # noqa
-            return XGBClassifier, {"n_jobs": -1, "importance_type": "gain"}
-        raise NotImplementedError
-    elif task == "regression":  # noqa
-        if name == "RandomForest":
-            return RandomForestRegressor, {"n_jobs": -1}
-        elif name == "XGBoost":  # noqa
-            return XGBRegressor, {"n_jobs": -1, "importance_type": "gain"}
-        raise NotImplementedError
-    raise NotImplementedError
 
 
 def write_report(reports: List):
@@ -128,7 +132,7 @@ def write_report(reports: List):
 
 
 reports = []
-for model_name in ["XGBoost"]:
+for model_name in model_names:
     for (
         name,
         task,
@@ -137,7 +141,7 @@ for model_name in ["XGBoost"]:
         df,
     ) in tabular_benchmark.get_classification_tabular_datasets():
         score_func, higher_is_better = score_funcs[task]
-        model_cls, model_cls_params = get_model_cls(model_name, task)
+        model_cls, model_cls_params = model_cls_dicts[task][model_name]
 
         print(f"==== Dataset: {name}, Num. of Features: {len(features)} ====")
         X = df[features]
@@ -159,15 +163,22 @@ for model_name in ["XGBoost"]:
         # Fit default random forest with X_train and y_train
         clf = model_cls(random_state=seed, **model_cls_params)
         clf.fit(X_train, y_train)
+
+        feature_attr = "feature_names_in_"
+        if "LGBM" in str(clf.__class__):
+            feature_attr = "feature_name_"
+        elif "Cat" in str(clf.__class__):
+            feature_attr = "feature_names_"
         importance_df = pd.DataFrame(
             {
-                "feature": clf.feature_names_in_,
+                "feature": getattr(clf, feature_attr),
                 "importance": clf.feature_importances_,
             }
         ).sort_values("importance", ascending=False, ignore_index=True)
 
         num_selected, val_score, test_score = run_selection(
             model_cls,
+            model_cls_params,
             importance_df,
             X_train,
             X_val,
@@ -183,7 +194,7 @@ for model_name in ["XGBoost"]:
                 "model": model_cls.__name__,
                 "dataset": name,
                 "task": task,
-                "importances": "built-in",
+                "importances": "built-in (gain)",
                 "num_features": len(features),
                 "selected_num": num_selected,
                 "score": score_func.__name__,
@@ -215,6 +226,7 @@ for model_name in ["XGBoost"]:
             )
             num_selected, val_score, test_score = run_selection(
                 model_cls,
+                model_cls_params,
                 importance_df,
                 X_train,
                 X_val,

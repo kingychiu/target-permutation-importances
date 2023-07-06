@@ -287,13 +287,15 @@ def compute(
     def _model_builder(is_random_run: bool, run_idx: int) -> Any:
         # Model random state should be different for each run for both
         # actual and random runs
-        model_cls_params["random_state"] = run_idx
-        return model_cls(**model_cls_params)
+        _model_cls_params = model_cls_params.copy()
+        _model_cls_params["random_state"] = run_idx
+        return model_cls(**_model_cls_params)
 
     def _model_fitter(model: Any, X: XType, y: YType) -> Any:
+        _model_fit_params = model_fit_params.copy()
         if "Cat" in str(model.__class__):
-            model_fit_params["verbose"] = False
-        return model.fit(X, y, **model_fit_params)
+            _model_fit_params["verbose"] = False
+        return model.fit(X, y, **_model_fit_params)
 
     def _model_importance_calculator(model: Any, X: XType, y: YType) -> pd.DataFrame:
         feature_attr = "feature_names_in_"
