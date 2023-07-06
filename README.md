@@ -86,7 +86,6 @@ Xpd = pd.DataFrame(data.data, columns=data.feature_names)
 result_df = tpi.compute(
     model_cls=RandomForestClassifier, # The constructor/class of the model.
     model_cls_params={ # The parameters to pass to the model constructor. Update this based on your needs.
-        "n_estimators": 1,
         "n_jobs": -1,
     },
     model_fit_params={}, # The parameters to pass to the model fit method. Update this based on your needs.
@@ -94,6 +93,9 @@ result_df = tpi.compute(
     y=data.target, # pd.Series, np.ndarray
     num_actual_runs=2,
     num_random_runs=10,
+    # Options: {compute_permutation_importance_by_subtraction, compute_permutation_importance_by_division}
+    # Or use your own function to calculate.
+    permutation_importance_calculator=tpi.compute_permutation_importance_by_subtraction,
 )
 
 print(result_df[["feature", "importance"]].sort_values("importance", ascending=False).head())
@@ -103,14 +105,20 @@ Fork above code from [Kaggle](https://www.kaggle.com/code/kingychiu/target-permu
 Outputs:
 ```
 Running 2 actual runs and 10 random runs
-100%|██████████| 2/2 [00:00<00:00, 167.35it/s]
-100%|██████████| 10/10 [00:00<00:00, 163.71it/s]
-                feature  importance
-7   mean concave points    0.343365
-8        mean concavity    0.291501
-25      worst perimeter    0.021797
-10       mean perimeter    0.021520
-26         worst radius    0.008913
+100%|██████████| 2/2 [00:01<00:00,  1.62it/s]
+100%|██████████| 10/10 [00:06<00:00,  1.46it/s]
+                 feature  importance
+25       worst perimeter    0.117495
+22  worst concave points    0.089949
+26          worst radius    0.084632
+7    mean concave points    0.064289
+20            worst area    0.062485
+8         mean concavity    0.047122
+10        mean perimeter    0.029270
+5              mean area    0.014566
+11           mean radius    0.014346
+0             area error    0.000693
+
 ```
 
 You can find more detailed examples in the "Feature Selection Examples" section.
