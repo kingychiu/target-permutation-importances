@@ -246,6 +246,15 @@ def generic_compute(
     )
 
 
+def _get_feature_names_attr(model: Any):
+    feature_attr = "feature_names_in_"
+    if "LGBM" in str(model.__class__):
+        feature_attr = "feature_name_"
+    elif "Cat" in str(model.__class__):
+        feature_attr = "feature_names_"
+    return feature_attr
+
+
 @beartype
 def compute(
     model_cls: Any,
@@ -288,7 +297,11 @@ def compute(
         # Model random state should be different for each run for both
         # actual and random runs
         _model_cls_params = model_cls_params.copy()
-        _model_cls_params["random_state"] = run_idx
+        if "MultiOutput" not in model_cls.__name__:
+            _model_cls_params["random_state"] = run_idx
+        else:
+            _model_cls_params["estimator"].random_state = run_idx
+
         return model_cls(**_model_cls_params)
 
     def _model_fitter(model: Any, X: XType, y: YType) -> Any:
@@ -298,21 +311,34 @@ def compute(
         return model.fit(X, y, **_model_fit_params)
 
     def _model_importance_calculator(model: Any, X: XType, y: YType) -> pd.DataFrame:
-        feature_attr = "feature_names_in_"
-        if "LGBM" in str(model.__class__):
-            feature_attr = "feature_name_"
-        elif "Cat" in str(model.__class__):
-            feature_attr = "feature_names_"
+        feature_names_attr = _get_feature_names_attr(model)
+        is_pd = isinstance(X, pd.DataFrame)
+        if "MultiOutput" not in str(model.__class__):
+            if is_pd:
+                features = getattr(model, feature_names_attr)
+            else:
+                features = list(range(0, X.shape[1]))
+            return pd.DataFrame(
+                {
+                    "feature": features,
+                    "importance": model.feature_importances_,
+                }
+            )
 
-        if isinstance(X, pd.DataFrame):
-            features = getattr(model, feature_attr)
-        else:
-            features = list(range(0, X.shape[1]))
+        features = []
+        feature_importances = np.zeros(X.shape[1])
+        for est in model.estimators_:
+            if is_pd:
+                feature_names_attr = _get_feature_names_attr(est)
+                features = getattr(est, feature_names_attr)
+            else:
+                features = list(range(0, X.shape[1]))
 
+            feature_importances += est.feature_importances_
         return pd.DataFrame(
             {
                 "feature": features,
-                "importance": model.feature_importances_,
+                "importance": feature_importances / len(model.estimators_),
             }
         )
 

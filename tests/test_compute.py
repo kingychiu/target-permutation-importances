@@ -9,8 +9,10 @@ from sklearn.datasets import (
     load_diabetes,
     load_wine,
     make_multilabel_classification,
+    make_regression,
 )
 from sklearn.ensemble import RandomForestClassifier, RandomForestRegressor
+from sklearn.multioutput import MultiOutputClassifier, MultiOutputRegressor
 from xgboost import XGBClassifier, XGBRegressor
 
 from target_permutation_importances import (
@@ -90,9 +92,7 @@ def test_compute_multi_class_classification(model_cls, imp_func, xtype):
 
     result_df = compute(
         model_cls=model_cls,
-        model_cls_params={
-            "n_estimators": 2,
-        },
+        model_cls_params={"n_estimators": 2},
         model_fit_params={},
         permutation_importance_calculator=imp_func,
         X=X,
@@ -152,6 +152,42 @@ def test_compute_multi_label_classification(model_cls, imp_func, xtype):
     assert result_df["importance"].isna().sum() == 0
 
 
+@pytest.mark.parametrize("model_cls,imp_func,xtype", test_compute_clf_scope)
+def test_compute_multi_label_classification_with_MultiOutputClassifier(
+    model_cls, imp_func, xtype
+):
+    X, y = make_multilabel_classification(
+        n_samples=100, n_features=20, n_classes=5, n_labels=2
+    )
+    if xtype is pd.DataFrame:
+        X = pd.DataFrame(X, columns=[f"feature_{i}" for i in range(X.shape[1])])
+    else:
+        X = X
+
+    result_df = compute(
+        model_cls=MultiOutputClassifier,
+        model_cls_params={
+            "estimator": model_cls(n_estimators=2),
+        },
+        model_fit_params={},
+        permutation_importance_calculator=imp_func,
+        X=X,
+        y=y,
+        num_actual_runs=5,
+        num_random_runs=5,
+    )
+    assert isinstance(result_df, pd.DataFrame)
+    assert result_df.shape[0] == X.shape[1]
+    assert "importance" in result_df.columns
+    assert "feature" in result_df.columns
+
+    if xtype is pd.DataFrame:
+        assert set(result_df["feature"].tolist()) == set(X.columns.tolist())
+    else:
+        assert set(result_df["feature"].tolist()) == set(range(X.shape[1]))
+    assert result_df["importance"].isna().sum() == 0
+
+
 @pytest.mark.parametrize("model_cls,imp_func,xtype", test_compute_reg_scope)
 def test_compute_regression(model_cls, imp_func, xtype):
     data = load_diabetes()
@@ -163,9 +199,7 @@ def test_compute_regression(model_cls, imp_func, xtype):
         X = data.data
     result_df = compute(
         model_cls=model_cls,
-        model_cls_params={
-            "n_estimators": 2,
-        },
+        model_cls_params={"n_estimators": 2},
         model_fit_params={},
         permutation_importance_calculator=imp_func,
         X=X,
@@ -184,6 +218,44 @@ def test_compute_regression(model_cls, imp_func, xtype):
     assert result_df["importance"].isna().sum() == 0
     assert result_df["std_actual_importance"].isna().sum() == 0
     assert result_df["std_random_importance"].mean() > 0
+
+
+@pytest.mark.parametrize("model_cls,imp_func,xtype", test_compute_reg_scope)
+def test_compute_multi_label_classification_with_MultiOutputRegressor(
+    model_cls, imp_func, xtype
+):
+    X, y = make_regression(
+        n_samples=100,
+        n_features=20,
+        n_targets=5,
+    )
+    if xtype is pd.DataFrame:
+        X = pd.DataFrame(X, columns=[f"feature_{i}" for i in range(X.shape[1])])
+    else:
+        X = X
+
+    result_df = compute(
+        model_cls=MultiOutputRegressor,
+        model_cls_params={
+            "estimator": model_cls(n_estimators=2),
+        },
+        model_fit_params={},
+        permutation_importance_calculator=imp_func,
+        X=X,
+        y=y,
+        num_actual_runs=5,
+        num_random_runs=5,
+    )
+    assert isinstance(result_df, pd.DataFrame)
+    assert result_df.shape[0] == X.shape[1]
+    assert "importance" in result_df.columns
+    assert "feature" in result_df.columns
+
+    if xtype is pd.DataFrame:
+        assert set(result_df["feature"].tolist()) == set(X.columns.tolist())
+    else:
+        assert set(result_df["feature"].tolist()) == set(range(X.shape[1]))
+    assert result_df["importance"].isna().sum() == 0
 
 
 def test_compute_permutation_importance():
