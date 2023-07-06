@@ -50,6 +50,18 @@ Here are some examples of Top Kaggle solutions using this method:
 | 2019 | [Elo Merchant Category Recommendation](https://www.kaggle.com/competitions/elo-merchant-category-recommendation/overview)    | Gold  | [16th place solution]([-play/discussion/420235](https://www.kaggle.com/competitions/elo-merchant-category-recommendation/discussion/82166)) |
 | 2018 | [Home Credit Default Risk](https://www.kaggle.com/competitions/home-credit-default-risk/overview)                            | Gold  | [10th place solution](https://www.kaggle.com/competitions/home-credit-default-risk/discussion/64598)                                        |
 
+Here is the summary of [`Our Benchmarks Results`](https://target-permutation-importances.readthedocs.io/en/latest/benchmarks/). It is running null-importances with feature selection on multiple models and datasets. "better" means it is better than running feature selection with the model's built-in feature importances. We can see even **with default models' parameters** it shows its effectiveness.
+
+| model                  | n_dataset | n_better | better % |
+|------------------------|-----------|----------|----------|
+| CatBoostClassifier     | 10        | 6        | 60.0     |
+| CatBoostRegressor      | 12        | 8        | 66.67    |
+| LGBMClassifier         | 10        | 7        | 70.0     |
+| LGBMRegressor          | 12        | 6        | 50.0     |
+| RandomForestClassifier | 10        | 9        | 90.0     |
+| RandomForestRegressor  | 12        | 7        | 58.33    |
+| XGBClassifier          | 10        | 5        | 50.0     |
+| XGBRegressor           | 12        | 5        | 41.67    |
 ---
 
 ## Install

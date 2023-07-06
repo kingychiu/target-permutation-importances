@@ -9,8 +9,22 @@ The downloaded datasets are divided into 3 sections: `train`: 50%, `val`: 10%, `
 Feature importance is calculated from the `train` set. Feature selection is done on the `val` set. 
 The final benchmark is evaluated on the `test` set. Therefore the `test` set is unseen to both the feature importance and selection process.
 
+Here is the summary of running null-importances with feature selection on multiple models and datasets. "better" means it is better than running feature selection with the model's built-in feature importances. We can see even with **with default models' parameters** it shows its effectiveness.
 
-Raw result data are in [`benchmarks/results`](https://github.com/kingychiu/target-permutation-importances/tree/main/benchmarks/results).
+| model                  | n_dataset | n_better | better % |
+|------------------------|-----------|----------|----------|
+| CatBoostClassifier     | 10        | 6        | 60.0     |
+| CatBoostRegressor      | 12        | 8        | 66.67    |
+| LGBMClassifier         | 10        | 7        | 70.0     |
+| LGBMRegressor          | 12        | 6        | 50.0     |
+| RandomForestClassifier | 10        | 9        | 90.0     |
+| RandomForestRegressor  | 12        | 7        | 58.33    |
+| XGBClassifier          | 10        | 5        | 50.0     |
+| XGBRegressor           | 12        | 5        | 41.67    |
+
+
+Below tables shows the raw results and the raw csv data are in [`benchmarks/results`](https://github.com/kingychiu/target-permutation-importances/tree/main/benchmarks/results).
+
 
 built-in: The baseline, it is the built-in importances from the model.
 A-R: compute_permutation_importance_by_subtraction
