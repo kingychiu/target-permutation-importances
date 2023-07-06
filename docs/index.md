@@ -171,12 +171,12 @@ result_df = tpi.compute(
 
 **Changing null importances calculation**
 You can pick your own calculation method by changing `permutation_importance_calculator`.
-There are 2 provided calculation:
+There are 2 provided calculations:
 - `tpi.compute_permutation_importance_by_subtraction`
 - `tpi.compute_permutation_importance_by_division`
 
 You can also implement you own calculation function and pass it in. The function needs to follow 
-`PermutationImportanceCalculatorType` specification, you can find it in: 
+`PermutationImportanceCalculatorType` specification, you can find it in
 [API Reference](https://target-permutation-importances.readthedocs.io/en/latest/reference/)
 
 **Advance Customization**
