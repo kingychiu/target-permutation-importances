@@ -22,4 +22,5 @@ publish:
 
 doc:
 	cp README.md docs/index.md
+	cp benchmarks/results.md docs/benchmarks.md
 	poetry run mkdocs serve
