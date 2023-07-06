@@ -1,4 +1,4 @@
-# Target Permutation Importances
+# Target Permutation Importances (Null Importances)
 
 [![image](https://img.shields.io/pypi/v/target-permutation-importances.svg)](https://pypi.python.org/pypi/target-permutation-importances)
 [![Downloads](https://static.pepy.tech/badge/target-permutation-importances)](https://pepy.tech/project/target-permutation-importances)
