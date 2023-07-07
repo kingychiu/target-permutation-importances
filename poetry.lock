@@ -784,6 +784,20 @@ files = [
 test = ["pytest (>=6)"]
 
 [[package]]
+name = "execnet"
+version = "2.0.0"
+description = "execnet: rapid multi-Python deployment"
+optional = false
+python-versions = ">=3.7"
+files = [
+    {file = "execnet-2.0.0-py3-none-any.whl", hash = "sha256:9e30983ff42c20bac5b18807910512058b12a79f6bccddd9ce813bf22b079a9c"},
+    {file = "execnet-2.0.0.tar.gz", hash = "sha256:c98d4317b0c8ddcfea75523d6ace65c694b606d00d74e7a22e5209093bb94798"},
+]
+
+[package.extras]
+testing = ["hatch", "pre-commit", "pytest", "tox"]
+
+[[package]]
 name = "filelock"
 version = "3.12.2"
 description = "A platform independent file lock."
@@ -2159,6 +2173,26 @@ pytest = ">=4.6"
 testing = ["fields", "hunter", "process-tests", "pytest-xdist", "six", "virtualenv"]
 
 [[package]]
+name = "pytest-xdist"
+version = "3.3.1"
+description = "pytest xdist plugin for distributed testing, most importantly across multiple CPUs"
+optional = false
+python-versions = ">=3.7"
+files = [
+    {file = "pytest-xdist-3.3.1.tar.gz", hash = "sha256:d5ee0520eb1b7bcca50a60a518ab7a7707992812c578198f8b44fdfac78e8c93"},
+    {file = "pytest_xdist-3.3.1-py3-none-any.whl", hash = "sha256:ff9daa7793569e6a68544850fd3927cd257cc03a7ef76c95e86915355e82b5f2"},
+]
+
+[package.dependencies]
+execnet = ">=1.1"
+pytest = ">=6.2.0"
+
+[package.extras]
+psutil = ["psutil (>=3.0)"]
+setproctitle = ["setproctitle"]
+testing = ["filelock"]
+
+[[package]]
 name = "python-dateutil"
 version = "2.8.2"
 description = "Extensions to the standard Python datetime module"
@@ -2921,4 +2955,4 @@ testing = ["big-O", "flake8 (<5)", "jaraco.functools", "jaraco.itertools", "more
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.8"
-content-hash = "a281af2071589b4d01c3d393f395f0892b64f1e4859e56be5b576fe2176b3bf9"
+content-hash = "e92dce9028bee8c0fd303167560af15b6018f34fdbbeab009778569170badb2a"

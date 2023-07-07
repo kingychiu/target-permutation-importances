@@ -28,18 +28,18 @@ IMP_FUNCS = [
     compute_permutation_importance_by_division,
 ]
 CLF_MODEL_CLS = [
-    (RandomForestClassifier, {"n_estimators": 2}),
-    (XGBClassifier, {"n_estimators": 2}),
+    (RandomForestClassifier, {"n_estimators": 2, "n_jobs": 1}),
+    (XGBClassifier, {"n_estimators": 2, "n_jobs": 1}),
     (CatBoostClassifier, {"n_estimators": 2}),
-    (LGBMClassifier, {"n_estimators": 2}),
+    (LGBMClassifier, {"n_estimators": 2, "n_jobs": 1}),
     (Lasso, {"max_iter": 2}),
     (LinearSVC, {"max_iter": 2}),
 ]
 REG_MODEL_CLS = [
-    (RandomForestRegressor, {"n_estimators": 2}),
-    (XGBRegressor, {"n_estimators": 2}),
+    (RandomForestRegressor, {"n_estimators": 2, "n_jobs": 1}),
+    (XGBRegressor, {"n_estimators": 2, "n_jobs": 1}),
     (CatBoostRegressor, {"n_estimators": 2}),
-    (LGBMRegressor, {"n_estimators": 2}),
+    (LGBMRegressor, {"n_estimators": 2, "n_jobs": 1}),
 ]
 X_TYPES = [pd.DataFrame, np.ndarray]
 test_compute_clf_scope = []

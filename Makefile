@@ -10,7 +10,9 @@ lint:
 	poetry run mypy target_permutation_importances
 
 test:
-	poetry run pytest --ignore=./tests/test_compute_cuml.py --cov=target_permutation_importances --no-cov-on-fail --cov-fail-under=100 --cov-report=term-missing:skip-covered ./tests
+	poetry run pytest --ignore=./tests/test_compute_cuml.py --cov=target_permutation_importances \
+	--no-cov-on-fail --cov-fail-under=100 --cov-report=term-missing:skip-covered \
+	-n auto ./tests
 
 test_cuml:
 	poetry run pytest --cov=target_permutation_importances --no-cov-on-fail --cov-report=term-missing:skip-covered ./tests/test_compute_cuml.py
