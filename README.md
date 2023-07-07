@@ -41,10 +41,15 @@ This method were originally proposed/implemented by:
 
 ## Features
 1. Compute null importances with only one function call.
-2. Support models with `sklearn` `feature_importances_` interface, including 
-   `RandomForestClassifier`, `RandomForestRegressor`, `XGBClassifier`. `XGBRegressor`, `LGBMClassifier`, `LGBMRegressor`,
-   `CatBoostClassifier` and `CatBoostRegressor` etc.
-3. Support `sklearn`'s `MultiOutputClassifier` or `MultiOutputRegressor` interface.
+2. Support tree models with sklearn's `feature_importances_` attribute, such as
+   - `RandomForestClassifier`, `RandomForestRegressor`, 
+   - `XGBClassifier`. `XGBRegressor`, 
+   - `LGBMClassifier`, `LGBMRegressor`,
+   - `CatBoostClassifier`, `CatBoostRegressor` etc.
+3. Support linear models with sklearn's `coef_` attribute, such as
+    - `Lasso`
+    - `LinearSVC`
+4. Support `sklearn`'s `MultiOutputClassifier` or `MultiOutputRegressor` interface.
 4. Support data in `pandas.DataFrame` and `numpy.ndarray`
 5. Highly customizable with both the exposed `compute` and `generic_compute` functions. 
 6. Proven effectiveness in Kaggle competitions and in [`Our Benchmarks Results`](https://target-permutation-importances.readthedocs.io/en/latest/benchmarks/).
@@ -102,7 +107,7 @@ beartype = "^0.14.1"
 
 ## Get Started
 
-### With models with standard `sklearn` interface
+### Tree Models with `feature_importances_` Attribute
 
 ```python
 # Import the function
@@ -158,6 +163,43 @@ Running 2 actual runs and 10 random runs
 0             area error    0.000693
 
 ```
+
+
+### Linear Models with `coef_` Attribute
+
+```python
+# Import the function
+import target_permutation_importances as tpi
+
+# Prepare a dataset
+import pandas as pd
+from sklearn.datasets import load_breast_cancer
+
+# Models
+from sklearn.linear import Lasso
+
+data = load_breast_cancer()
+
+# Convert to a pandas dataframe
+Xpd = pd.DataFrame(data.data, columns=data.feature_names)
+
+# Compute permutation importances with default settings
+result_df = tpi.compute(
+    model_cls=Lasso, # The constructor/class of the model.
+    model_cls_params={}, # The parameters to pass to the model constructor. Update this based on your needs.
+    model_fit_params={}, # The parameters to pass to the model fit method. Update this based on your needs.
+    X=Xpd, # pd.DataFrame, np.ndarray
+    y=data.target, # pd.Series, np.ndarray
+    num_actual_runs=1,
+    num_random_runs=10,
+    # Options: {compute_permutation_importance_by_subtraction, compute_permutation_importance_by_division}
+    # Or use your own function to calculate.
+    permutation_importance_calculator=tpi.compute_permutation_importance_by_subtraction,
+)
+
+print(result_df[["feature", "importance"]].sort_values("importance", ascending=False).head())
+```
+Fork above code from [Kaggle](https://www.kaggle.com/code/kingychiu/target-permutation-importances-basic-usage/notebook).
 
 
 ### With `sklearn.multioutput`

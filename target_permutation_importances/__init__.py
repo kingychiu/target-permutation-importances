@@ -255,6 +255,16 @@ def _get_feature_names_attr(model: Any):
     return feature_attr
 
 
+def _get_model_importances_attr(model: Any):
+    if hasattr(model, "feature_importances_"):
+        return "feature_importances_"
+    if hasattr(model, "coef_"):
+        return "coef_"
+    raise NotImplementedError(  # pragma: no cover
+        "Model does not have feature importances method"
+    )
+
+
 @beartype
 def compute(
     model_cls: Any,
@@ -313,15 +323,21 @@ def compute(
     def _model_importance_calculator(model: Any, X: XType, y: YType) -> pd.DataFrame:
         feature_names_attr = _get_feature_names_attr(model)
         is_pd = isinstance(X, pd.DataFrame)
+
         if "MultiOutput" not in str(model.__class__):
             if is_pd:
                 features = getattr(model, feature_names_attr)
             else:
                 features = list(range(0, X.shape[1]))
+
+            model_importances_attr = _get_model_importances_attr(model)
+            importances = getattr(model, model_importances_attr)
+            if len(importances.shape) > 1:
+                importances = importances.mean(axis=0)
             return pd.DataFrame(
                 {
                     "feature": features,
-                    "importance": model.feature_importances_,
+                    "importance": importances,
                 }
             )
 
@@ -334,7 +350,11 @@ def compute(
             else:
                 features = list(range(0, X.shape[1]))
 
-            feature_importances += est.feature_importances_
+            model_importances_attr = _get_model_importances_attr(est)
+            importances = getattr(est, model_importances_attr)
+            if len(importances.shape) > 1:  # pragma: no cover
+                importances = importances.mean(axis=0)
+            feature_importances += importances
         return pd.DataFrame(
             {
                 "feature": features,

@@ -12,7 +12,9 @@ from sklearn.datasets import (
     make_regression,
 )
 from sklearn.ensemble import RandomForestClassifier, RandomForestRegressor
+from sklearn.linear_model import Lasso
 from sklearn.multioutput import MultiOutputClassifier, MultiOutputRegressor
+from sklearn.svm import LinearSVC
 from xgboost import XGBClassifier, XGBRegressor
 
 from target_permutation_importances import (
@@ -26,12 +28,19 @@ IMP_FUNCS = [
     compute_permutation_importance_by_division,
 ]
 CLF_MODEL_CLS = [
-    RandomForestClassifier,
-    XGBClassifier,
-    CatBoostClassifier,
-    LGBMClassifier,
+    (RandomForestClassifier, {"n_estimators": 2}),
+    (XGBClassifier, {"n_estimators": 2}),
+    (CatBoostClassifier, {"n_estimators": 2}),
+    (LGBMClassifier, {"n_estimators": 2}),
+    (Lasso, {"max_iter": 2}),
+    (LinearSVC, {"max_iter": 2}),
 ]
-REG_MODEL_CLS = [RandomForestRegressor, XGBRegressor, CatBoostRegressor, LGBMRegressor]
+REG_MODEL_CLS = [
+    (RandomForestRegressor, {"n_estimators": 2}),
+    (XGBRegressor, {"n_estimators": 2}),
+    (CatBoostRegressor, {"n_estimators": 2}),
+    (LGBMRegressor, {"n_estimators": 2}),
+]
 X_TYPES = [pd.DataFrame, np.ndarray]
 test_compute_clf_scope = []
 for model_cls in CLF_MODEL_CLS:
@@ -56,10 +65,8 @@ def test_compute_binary_classification(model_cls, imp_func, xtype):
     else:
         X = data.data
     result_df = compute(
-        model_cls=model_cls,
-        model_cls_params={
-            "n_estimators": 2,
-        },
+        model_cls=model_cls[0],
+        model_cls_params=model_cls[1],
         model_fit_params={},
         permutation_importance_calculator=imp_func,
         X=X,
@@ -91,8 +98,8 @@ def test_compute_multi_class_classification(model_cls, imp_func, xtype):
         X = data.data
 
     result_df = compute(
-        model_cls=model_cls,
-        model_cls_params={"n_estimators": 2},
+        model_cls=model_cls[0],
+        model_cls_params=model_cls[1],
         model_fit_params={},
         permutation_importance_calculator=imp_func,
         X=X,
@@ -115,23 +122,26 @@ def test_compute_multi_class_classification(model_cls, imp_func, xtype):
 @pytest.mark.parametrize("model_cls,imp_func,xtype", test_compute_clf_scope)
 def test_compute_multi_label_classification(model_cls, imp_func, xtype):
     X, y = make_multilabel_classification(
-        n_samples=100, n_features=20, n_classes=5, n_labels=2
+        n_samples=500, n_features=20, n_classes=5, n_labels=2
     )
     if xtype is pd.DataFrame:
         X = pd.DataFrame(X, columns=[f"feature_{i}" for i in range(X.shape[1])])
     else:
         X = X
 
-    model_cls_params = {
-        "n_estimators": 2,
-    }
-    if "Cat" in model_cls.__name__:
+    model_cls_params = model_cls[1].copy()
+    if "Cat" in model_cls[0].__name__:
         model_cls_params["objective"] = "MultiLogloss"
-    elif "LGBM" in model_cls.__name__:
-        return  # LGBMClassifier does not support multi-label classification
+    # LGBMClassifier does not support multi-label classification
+    elif (
+        "LGBM" in model_cls[0].__name__
+        or "Lasso" in model_cls[0].__name__
+        or "LinearSVC" in model_cls[0].__name__
+    ):
+        return
 
     result_df = compute(
-        model_cls=model_cls,
+        model_cls=model_cls[0],
         model_cls_params=model_cls_params,
         model_fit_params={},
         permutation_importance_calculator=imp_func,
@@ -164,10 +174,13 @@ def test_compute_multi_label_classification_with_MultiOutputClassifier(
     else:
         X = X
 
+    if "Lasso" in model_cls[0].__name__ or "LinearSVC" in model_cls[0].__name__:
+        return
+
     result_df = compute(
         model_cls=MultiOutputClassifier,
         model_cls_params={
-            "estimator": model_cls(n_estimators=2),
+            "estimator": model_cls[0](**model_cls[1]),
         },
         model_fit_params={},
         permutation_importance_calculator=imp_func,
@@ -198,8 +211,8 @@ def test_compute_regression(model_cls, imp_func, xtype):
     else:
         X = data.data
     result_df = compute(
-        model_cls=model_cls,
-        model_cls_params={"n_estimators": 2},
+        model_cls=model_cls[0],
+        model_cls_params=model_cls[1],
         model_fit_params={},
         permutation_importance_calculator=imp_func,
         X=X,
@@ -237,7 +250,7 @@ def test_compute_multi_label_classification_with_MultiOutputRegressor(
     result_df = compute(
         model_cls=MultiOutputRegressor,
         model_cls_params={
-            "estimator": model_cls(n_estimators=2),
+            "estimator": model_cls[0](**model_cls[1]),
         },
         model_fit_params={},
         permutation_importance_calculator=imp_func,
