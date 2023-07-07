@@ -8,8 +8,8 @@ from beartype.typing import Any, Dict, List, Protocol, Union, runtime_checkable
 from tqdm import tqdm
 from typing_extensions import Annotated
 
-XType = Union[np.ndarray, pd.DataFrame, "cupy.ndarray"]  # type: ignore
-YType = Union[np.ndarray, pd.Series, "cupy.ndarray"]  # type: ignore
+XType = Union[np.ndarray, pd.DataFrame]
+YType = Union[np.ndarray, pd.Series]
 PositiveInt = Annotated[int, vale.Is[lambda x: x > 0]]
 
 
