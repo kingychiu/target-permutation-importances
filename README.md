@@ -176,7 +176,7 @@ import pandas as pd
 from sklearn.datasets import load_breast_cancer
 
 # Models
-from sklearn.linear import Lasso
+from sklearn.svm import LinearSVC
 
 data = load_breast_cancer()
 
@@ -185,8 +185,8 @@ Xpd = pd.DataFrame(data.data, columns=data.feature_names)
 
 # Compute permutation importances with default settings
 result_df = tpi.compute(
-    model_cls=Lasso, # The constructor/class of the model.
-    model_cls_params={}, # The parameters to pass to the model constructor. Update this based on your needs.
+    model_cls=LinearSVC, # The constructor/class of the model.
+    model_cls_params={"max_iter": 1000}, # The parameters to pass to the model constructor. Update this based on your needs.
     model_fit_params={}, # The parameters to pass to the model fit method. Update this based on your needs.
     X=Xpd, # pd.DataFrame, np.ndarray
     y=data.target, # pd.Series, np.ndarray
@@ -197,7 +197,7 @@ result_df = tpi.compute(
     permutation_importance_calculator=tpi.compute_permutation_importance_by_subtraction,
 )
 
-print(result_df[["feature", "importance"]].sort_values("importance", ascending=False).head())
+print(result_df[["feature", "importance"]].sort_values("importance", ascending=False).head(10))
 ```
 Fork above code from [Kaggle](https://www.kaggle.com/code/kingychiu/target-permutation-importances-basic-usage/notebook).
 

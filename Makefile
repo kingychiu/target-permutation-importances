@@ -23,7 +23,7 @@ build:
 	poetry build
 
 publish_test:
-	twine upload --repository testpypi dist/*
+	poetry run twine upload --repository testpypi dist/*
 
 publish:
 	poetry publish

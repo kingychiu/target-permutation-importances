@@ -331,7 +331,7 @@ def compute(
                 features = list(range(0, X.shape[1]))
 
             model_importances_attr = _get_model_importances_attr(model)
-            importances = getattr(model, model_importances_attr)
+            importances = np.abs(getattr(model, model_importances_attr))
             if len(importances.shape) > 1:
                 importances = importances.mean(axis=0)
             return pd.DataFrame(
@@ -351,7 +351,7 @@ def compute(
                 features = list(range(0, X.shape[1]))
 
             model_importances_attr = _get_model_importances_attr(est)
-            importances = getattr(est, model_importances_attr)
+            importances = np.abs(getattr(est, model_importances_attr))
             if len(importances.shape) > 1:  # pragma: no cover
                 importances = importances.mean(axis=0)
             feature_importances += importances
