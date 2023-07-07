@@ -201,6 +201,20 @@ print(result_df[["feature", "importance"]].sort_values("importance", ascending=F
 ```
 Fork above code from [Kaggle](https://www.kaggle.com/code/kingychiu/target-permutation-importances-basic-usage/notebook).
 
+Outputs:
+```
+              feature  importance
+10     mean perimeter    0.067352
+29      worst texture    0.029602
+11        mean radius    0.029509
+26       worst radius    0.026499
+21  worst compactness    0.010139
+23    worst concavity    0.009149
+25    worst perimeter    0.008779
+14       mean texture    0.007845
+0          area error    0.007540
+20         worst area    0.004508
+```
 
 ### With `sklearn.multioutput`
 
