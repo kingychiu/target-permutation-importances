@@ -26,7 +26,7 @@ Overall, this package
 3. Compute the final importances of a feature $f$ by various methods, such as:
     - $I_f = Avg(A_f) - Avg(R_f)$
     - $I_f = Avg(A_f) / (Avg(R_f) + 1)$
-    - $I_f = Distance_{wasserstein}(A_f, R_f)$
+    - $I_f = Wasserstein Distance(A_f, R_f)$
 
 We want $M \ge 1$ and $N \gg 1$. Having $M=1$ means the actual importances depends on only 1 model's `random_state` (Which is also fine).
 
