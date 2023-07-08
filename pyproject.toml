@@ -1,6 +1,6 @@
 [project]
 name = "target-permutation-importances"
-version = "1.0.17"
+version = "1.0.18a1"
 description = "Compute (Target) Permutation Importances of a machine learning model"
 authors = [{name = "Anthony Chiu", email = "kingychiu@gmail.com"}]
 maintainers = [{name = "Anthony Chiu", email = "kingychiu@gmail.com"}]
@@ -25,7 +25,7 @@ classifiers = [
 
 [tool.poetry]
 name = "target-permutation-importances"
-version = "1.0.17"
+version = "1.0.18a1"
 description = "Compute (Target) Permutation Importances of a machine learning model"
 authors = ["Anthony Chiu <kingychiu@gmail.com>"]
 maintainers = ["Anthony Chiu <kingychiu@gmail.com>"]
@@ -60,7 +60,7 @@ numpy = "^1.21.0"
 pandas = "^1.5.3"
 tqdm = "^4.48.2"
 beartype = "^0.14.1"
-
+scipy = "^1.9"
 
 [tool.poetry.group.dev.dependencies]
 ruff = "^0.0.275"

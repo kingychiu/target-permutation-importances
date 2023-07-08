@@ -26,6 +26,7 @@ Overall, this package
 3. Compute the final importances of a feature $f$ by various methods, such as:
     - $I_f = Avg(A_f) - Avg(R_f)$
     - $I_f = Avg(A_f) / (Avg(R_f) + 1)$
+    - $I_f = Distance_{wasserstein}(A_f, R_f)$
 
 We want $M \ge 1$ and $N \gg 1$. Having $M=1$ means the actual importances depends on only 1 model's `random_state` (Which is also fine).
 
@@ -311,6 +312,7 @@ You can pick your own calculation method by changing `permutation_importance_cal
 There are 2 provided calculations:
 - `tpi.compute_permutation_importance_by_subtraction`
 - `tpi.compute_permutation_importance_by_division`
+- `tpi.compute_permutation_importance_by_wasserstein_distance`
 
 You can also implement you own calculation function and pass it in. The function needs to follow 
 `PermutationImportanceCalculatorType` specification, you can find it in

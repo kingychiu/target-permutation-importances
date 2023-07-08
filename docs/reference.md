@@ -25,3 +25,9 @@
     options:
       show_source: true
       heading_level: 3
+</br>
+## compute_permutation_importance_by_wasserstein_distance
+::: target_permutation_importances.compute_permutation_importance_by_wasserstein_distance
+    options:
+      show_source: true
+      heading_level: 3

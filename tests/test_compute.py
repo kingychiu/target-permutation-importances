@@ -4,6 +4,7 @@ import pytest
 from beartype import roar
 from catboost import CatBoostClassifier, CatBoostRegressor
 from lightgbm import LGBMClassifier, LGBMRegressor
+from scipy.stats import wasserstein_distance  # type: ignore
 from sklearn.datasets import (
     load_breast_cancer,
     load_diabetes,
@@ -21,11 +22,13 @@ from target_permutation_importances import (
     compute,
     compute_permutation_importance_by_division,
     compute_permutation_importance_by_subtraction,
+    compute_permutation_importance_by_wasserstein_distance,
 )
 
 IMP_FUNCS = [
     compute_permutation_importance_by_subtraction,
     compute_permutation_importance_by_division,
+    compute_permutation_importance_by_wasserstein_distance,
 ]
 CLF_MODEL_CLS = [
     (RandomForestClassifier, {"n_estimators": 2, "n_jobs": 1}),
@@ -311,6 +314,21 @@ def test_compute_permutation_importance():
         (1 + 3) / 2 / ((4 + 2 + 2) / 3 + 1),
         (2 + 1) / 2 / ((2 + 1 + 5) / 3 + 1),
     ]
+
+    result_df = compute_permutation_importance_by_wasserstein_distance(
+        actual_importance_dfs, random_importance_dfs
+    )
+    assert result_df["feature"].tolist() == ["a", "b"]
+    assert result_df["mean_actual_importance"].tolist() == [(1 + 3) / 2, (2 + 1) / 2]
+    assert result_df["mean_random_importance"].tolist() == [
+        (4 + 2 + 2) / 3,
+        (2 + 1 + 5) / 3,
+    ]
+    assert result_df["wasserstein_distance"].tolist() == [
+        wasserstein_distance([1, 3], [4, 2, 2]),
+        wasserstein_distance([2, 1], [2, 1, 5]),
+    ]
+    assert (result_df["importance"] == result_df["wasserstein_distance"]).all()
 
 
 def test_invalid_compute():

@@ -5,6 +5,7 @@ import numpy as np
 import pandas as pd
 from beartype import beartype, vale
 from beartype.typing import Any, Dict, List, Protocol, Union, runtime_checkable
+from scipy.stats import wasserstein_distance  # type: ignore
 from tqdm import tqdm
 from typing_extensions import Annotated
 
@@ -178,6 +179,81 @@ def compute_permutation_importance_by_division(
             "mean_random_importance",
             "std_actual_importance",
             "std_random_importance",
+        ]
+    ].reset_index()
+
+
+def compute_permutation_importance_by_wasserstein_distance(
+    actual_importance_dfs: List[pd.DataFrame], random_importance_dfs: List[pd.DataFrame]
+) -> pd.DataFrame:
+    """
+    Given a list of actual importance DataFrames and a list of random importance compute
+    the permutation importance by $I_f = wasserstein_distance(A_f, R_f)$
+
+    Args:
+        actual_importance_dfs (List[pd.DataFrame]): list of random importance DataFrames with columns ["feature", "importance"]
+        random_importance_dfs (List[pd.DataFrame]): list of random importance DataFrames with columns ["feature", "importance"]
+
+    Returns:
+        pd.DataFrame: The return DataFrame with columns ["feature", "importance"]
+    """
+    # Calculate the mean importance
+    actual_importance_df = pd.concat(actual_importance_dfs)
+    mean_actual_importance_df = actual_importance_df.groupby("feature").mean()
+    std_actual_importance_df = actual_importance_df.groupby("feature").std()
+
+    # Calculate the mean random importance
+    random_importance_df = pd.concat(random_importance_dfs)
+    mean_random_importance_df = random_importance_df.groupby("feature").mean()
+    std_random_importance_df = random_importance_df.groupby("feature").std()
+
+    # Calculate the wasserstein_distance
+    distances = {}
+    for f in random_importance_df["feature"].unique():
+        distances[f] = wasserstein_distance(
+            actual_importance_df[actual_importance_df["feature"] == f][
+                "importance"
+            ].to_numpy(),
+            random_importance_df[random_importance_df["feature"] == f][
+                "importance"
+            ].to_numpy(),
+        )
+    mean_actual_importance_df[
+        "wasserstein_distance"
+    ] = mean_actual_importance_df.index.map(distances)
+
+    # Sort by feature name to make sure the order is the same
+    mean_actual_importance_df = mean_actual_importance_df.sort_index()
+    std_actual_importance_df = std_actual_importance_df.sort_index()
+    mean_random_importance_df = mean_random_importance_df.sort_index()
+    std_random_importance_df = std_random_importance_df.sort_index()
+
+    assert (mean_random_importance_df.index == mean_actual_importance_df.index).all()
+
+    # Calculate the signal to noise ratio
+    mean_actual_importance_df["mean_actual_importance"] = mean_actual_importance_df[
+        "importance"
+    ]
+    mean_actual_importance_df["std_actual_importance"] = std_actual_importance_df[
+        "importance"
+    ]
+    mean_actual_importance_df["mean_random_importance"] = mean_random_importance_df[
+        "importance"
+    ]
+    mean_actual_importance_df["std_random_importance"] = std_random_importance_df[
+        "importance"
+    ]
+    mean_actual_importance_df["importance"] = mean_actual_importance_df[
+        "wasserstein_distance"
+    ]
+    return mean_actual_importance_df[
+        [
+            "importance",
+            "mean_actual_importance",
+            "mean_random_importance",
+            "std_actual_importance",
+            "std_random_importance",
+            "wasserstein_distance",
         ]
     ].reset_index()
 

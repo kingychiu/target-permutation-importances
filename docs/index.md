@@ -26,6 +26,7 @@ Overall, this package
 3. Compute the final importances of a feature $f$ by various methods, such as:
     - $I_f = Avg(A_f) - Avg(R_f)$
     - $I_f = Avg(A_f) / (Avg(R_f) + 1)$
+    - $I_f = Distance_{wasserstein}(A_f, R_f)$
 
 We want $M \ge 1$ and $N \gg 1$. Having $M=1$ means the actual importances depends on only 1 model's `random_state` (Which is also fine).
 
@@ -176,7 +177,7 @@ import pandas as pd
 from sklearn.datasets import load_breast_cancer
 
 # Models
-from sklearn.linear import Lasso
+from sklearn.svm import LinearSVC
 
 data = load_breast_cancer()
 
@@ -185,8 +186,8 @@ Xpd = pd.DataFrame(data.data, columns=data.feature_names)
 
 # Compute permutation importances with default settings
 result_df = tpi.compute(
-    model_cls=Lasso, # The constructor/class of the model.
-    model_cls_params={}, # The parameters to pass to the model constructor. Update this based on your needs.
+    model_cls=LinearSVC, # The constructor/class of the model.
+    model_cls_params={"max_iter": 1000}, # The parameters to pass to the model constructor. Update this based on your needs.
     model_fit_params={}, # The parameters to pass to the model fit method. Update this based on your needs.
     X=Xpd, # pd.DataFrame, np.ndarray
     y=data.target, # pd.Series, np.ndarray
@@ -197,10 +198,24 @@ result_df = tpi.compute(
     permutation_importance_calculator=tpi.compute_permutation_importance_by_subtraction,
 )
 
-print(result_df[["feature", "importance"]].sort_values("importance", ascending=False).head())
+print(result_df[["feature", "importance"]].sort_values("importance", ascending=False).head(10))
 ```
 Fork above code from [Kaggle](https://www.kaggle.com/code/kingychiu/target-permutation-importances-basic-usage/notebook).
 
+Outputs:
+```
+              feature  importance
+10     mean perimeter    0.067352
+29      worst texture    0.029602
+11        mean radius    0.029509
+26       worst radius    0.026499
+21  worst compactness    0.010139
+23    worst concavity    0.009149
+25    worst perimeter    0.008779
+14       mean texture    0.007845
+0          area error    0.007540
+20         worst area    0.004508
+```
 
 ### With `sklearn.multioutput`
 
@@ -297,6 +312,7 @@ You can pick your own calculation method by changing `permutation_importance_cal
 There are 2 provided calculations:
 - `tpi.compute_permutation_importance_by_subtraction`
 - `tpi.compute_permutation_importance_by_division`
+- `tpi.compute_permutation_importance_by_wasserstein_distance`
 
 You can also implement you own calculation function and pass it in. The function needs to follow 
 `PermutationImportanceCalculatorType` specification, you can find it in
