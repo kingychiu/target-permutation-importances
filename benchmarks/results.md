@@ -81,9 +81,12 @@ The table below also shows the effectiveness of different importances calculatio
 
 
 built-in: The baseline, it is the built-in importances from the model.
-A-R: compute_permutation_importance_by_subtraction
-A/(R+1): compute_permutation_importance_by_division
-Wasserstein: compute_permutation_importance_by_wasserstein_distance
+
+A-R: `compute_permutation_importance_by_subtraction`
+
+A/(R+1): `compute_permutation_importance_by_division`
+
+Wasserstein: `compute_permutation_importance_by_wasserstein_distance`
 
 Below tables shows the raw results and the raw csv data are in [`benchmarks/results`](https://github.com/kingychiu/target-permutation-importances/tree/main/benchmarks/results).
 
