@@ -13,14 +13,17 @@ from target_permutation_importances import (
     compute,
     compute_permutation_importance_by_division,
     compute_permutation_importance_by_subtraction,
+    compute_permutation_importance_by_wasserstein_distance,
 )
 
 from . import tabular_benchmark
 
 # Configurations
 seed = 2023
-num_actual_runs = 5
+num_actual_runs = 10
 num_random_runs = 50
+shuffle_feature_order = True
+
 train_ratio = 0.5
 valid_ratio = 0.1
 test_ratio = 0.4
@@ -31,20 +34,43 @@ score_funcs = {
 }
 result_path = "./benchmarks/results/tabular_benchmark.csv"
 
-model_names = ["XGBoost", "LGBM", "CatBoost"]
+model_names = [
+    # "RandomForest",
+    # "XGBoost",
+    # "LGBM",
+    "CatBoost",
+]
 
 model_cls_dicts = {
     "binary_classification": {
         "RandomForest": (RandomForestClassifier, {"n_jobs": -1}),
-        "XGBoost": (XGBClassifier, {"n_jobs": -1, "importance_type": "gain"}),
-        "LGBM": (LGBMClassifier, {"n_jobs": -1, "importance_type": "gain"}),
-        "CatBoost": (CatBoostClassifier, {"verbose": False}),
+        "XGBoost": (
+            XGBClassifier,
+            {"n_jobs": -1, "importance_type": "gain"},
+        ),
+        "LGBM": (
+            LGBMClassifier,
+            {"n_jobs": -1, "importance_type": "gain"},
+        ),
+        "CatBoost": (
+            CatBoostClassifier,
+            {"verbose": False},
+        ),
     },
     "regression": {
         "RandomForest": (RandomForestRegressor, {"n_jobs": -1}),
-        "XGBoost": (XGBRegressor, {"n_jobs": -1, "importance_type": "gain"}),
-        "LGBM": (LGBMRegressor, {"n_jobs": -1, "importance_type": "gain"}),
-        "CatBoost": (CatBoostRegressor, {"verbose": False}),
+        "XGBoost": (
+            XGBRegressor,
+            {"n_jobs": -1, "importance_type": "gain"},
+        ),
+        "LGBM": (
+            LGBMRegressor,
+            {"n_jobs": -1, "importance_type": "gain"},
+        ),
+        "CatBoost": (
+            CatBoostRegressor,
+            {"verbose": False},
+        ),
     },
 }
 
@@ -194,7 +220,7 @@ for model_name in model_names:
                 "model": model_cls.__name__,
                 "dataset": name,
                 "task": task,
-                "importances": "built-in (gain)",
+                "importances": "built-in",
                 "num_features": len(features),
                 "selected_num": num_selected,
                 "score": score_func.__name__,
@@ -207,20 +233,26 @@ for model_name in model_names:
         compute_variants = [
             ("A-R", compute_permutation_importance_by_subtraction),
             ("A/(R+1)", compute_permutation_importance_by_division),
+            ("Wasserstein", compute_permutation_importance_by_wasserstein_distance),
         ]
 
-        for variant_name, func in compute_variants:
-            print("X_train shape", X_train.shape, "y_train shape", y_train.shape)
-            importance_df = compute(
-                model_cls=model_cls,
-                model_cls_params=model_cls_params,
-                model_fit_params={},
-                X=X_train,
-                y=y_train,
-                num_actual_runs=num_actual_runs,
-                num_random_runs=num_random_runs,
-                permutation_importance_calculator=func,
-            )
+        importance_dfs = compute(
+            model_cls=model_cls,
+            model_cls_params=model_cls_params,
+            model_fit_params={},
+            X=X_train,
+            y=y_train,
+            num_actual_runs=num_actual_runs,
+            num_random_runs=num_random_runs,
+            permutation_importance_calculator=[
+                compute_variant[1] for compute_variant in compute_variants
+            ],
+            shuffle_feature_order=shuffle_feature_order,
+        )
+
+        for variant_name, importance_df in zip(
+            [compute_variant[0] for compute_variant in compute_variants], importance_dfs
+        ):
             importance_df = importance_df.sort_values(
                 "importance", ascending=False, ignore_index=True
             )

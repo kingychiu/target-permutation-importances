@@ -1,353 +1,279 @@
 model,dataset,task,importances,num_features,selected_num,score,val_score,test_score,is_best,% Change from baseline
-RandomForestClassifier,clf_cat/electricity.csv,binary_classification,built-in,8,2,f1_score,0.885562,0.894008,False,0.0
+RandomForestClassifier,clf_cat/electricity.csv,binary_classification,built-in (gain),8,2,f1_score,0.885562,0.894008,False,0.0
 RandomForestClassifier,clf_cat/electricity.csv,binary_classification,A-R,8,4,f1_score,0.900837,0.903448,True,1.055919
 RandomForestClassifier,clf_cat/electricity.csv,binary_classification,A/(R+1),8,2,f1_score,0.885562,0.894008,False,0.0
 RandomForestClassifier,clf_cat/electricity.csv,binary_classification,Wasserstein,8,8,f1_score,0.882202,0.886164,False,-0.877397
-RandomForestClassifier,clf_cat/eye_movements.csv,binary_classification,built-in,23,22,f1_score,0.634085,0.616902,False,0.0
+RandomForestClassifier,clf_cat/eye_movements.csv,binary_classification,built-in (gain),23,22,f1_score,0.634085,0.616902,False,0.0
 RandomForestClassifier,clf_cat/eye_movements.csv,binary_classification,A-R,23,11,f1_score,0.675127,0.663573,True,7.565383
 RandomForestClassifier,clf_cat/eye_movements.csv,binary_classification,A/(R+1),23,23,f1_score,0.638783,0.613378,False,-0.571241
 RandomForestClassifier,clf_cat/eye_movements.csv,binary_classification,Wasserstein,23,22,f1_score,0.645649,0.616098,False,-0.130329
-RandomForestClassifier,clf_cat/covertype.csv,binary_classification,built-in,54,26,f1_score,0.953603,0.955826,False,0.0
+RandomForestClassifier,clf_cat/covertype.csv,binary_classification,built-in (gain),54,26,f1_score,0.953603,0.955826,False,0.0
 RandomForestClassifier,clf_cat/covertype.csv,binary_classification,A-R,54,52,f1_score,0.957313,0.958779,True,0.308947
 RandomForestClassifier,clf_cat/covertype.csv,binary_classification,A/(R+1),54,25,f1_score,0.954386,0.956147,False,0.033584
 RandomForestClassifier,clf_cat/covertype.csv,binary_classification,Wasserstein,54,28,f1_score,0.952958,0.954931,False,-0.093636
-RandomForestClassifier,clf_cat/albert.csv,binary_classification,built-in,31,22,f1_score,0.646978,0.65181,False,0.0
+RandomForestClassifier,clf_cat/albert.csv,binary_classification,built-in (gain),31,22,f1_score,0.646978,0.65181,False,0.0
 RandomForestClassifier,clf_cat/albert.csv,binary_classification,A-R,31,22,f1_score,0.648787,0.651038,False,-0.118439
 RandomForestClassifier,clf_cat/albert.csv,binary_classification,A/(R+1),31,28,f1_score,0.644288,0.656057,False,0.65157
 RandomForestClassifier,clf_cat/albert.csv,binary_classification,Wasserstein,31,28,f1_score,0.643882,0.656968,True,0.791335
-RandomForestClassifier,clf_cat/compas-two-years.csv,binary_classification,built-in,11,10,f1_score,0.638554,0.631631,False,0.0
+RandomForestClassifier,clf_cat/compas-two-years.csv,binary_classification,built-in (gain),11,10,f1_score,0.638554,0.631631,False,0.0
 RandomForestClassifier,clf_cat/compas-two-years.csv,binary_classification,A-R,11,2,f1_score,0.641509,0.658924,True,4.321036
 RandomForestClassifier,clf_cat/compas-two-years.csv,binary_classification,A/(R+1),11,8,f1_score,0.638723,0.63761,False,0.946597
 RandomForestClassifier,clf_cat/compas-two-years.csv,binary_classification,Wasserstein,11,8,f1_score,0.64,0.630445,False,-0.187768
-RandomForestClassifier,clf_cat/default-of-credit-card-clients.csv,binary_classification,built-in,21,18,f1_score,0.717674,0.670973,False,0.0
+RandomForestClassifier,clf_cat/default-of-credit-card-clients.csv,binary_classification,built-in (gain),21,18,f1_score,0.717674,0.670973,False,0.0
 RandomForestClassifier,clf_cat/default-of-credit-card-clients.csv,binary_classification,A-R,21,17,f1_score,0.715822,0.682581,True,1.730025
 RandomForestClassifier,clf_cat/default-of-credit-card-clients.csv,binary_classification,A/(R+1),21,21,f1_score,0.715918,0.676039,False,0.755023
 RandomForestClassifier,clf_cat/default-of-credit-card-clients.csv,binary_classification,Wasserstein,21,21,f1_score,0.72278,0.676729,False,0.857859
-RandomForestClassifier,clf_cat/road-safety.csv,binary_classification,built-in,32,31,f1_score,0.798248,0.789492,False,0.0
+RandomForestClassifier,clf_cat/road-safety.csv,binary_classification,built-in (gain),32,31,f1_score,0.798248,0.789492,False,0.0
 RandomForestClassifier,clf_cat/road-safety.csv,binary_classification,A-R,32,30,f1_score,0.799335,0.788183,False,-0.165803
 RandomForestClassifier,clf_cat/road-safety.csv,binary_classification,A/(R+1),32,32,f1_score,0.801297,0.790758,False,0.160356
 RandomForestClassifier,clf_cat/road-safety.csv,binary_classification,Wasserstein,32,32,f1_score,0.798807,0.790862,True,0.173529
-RandomForestClassifier,clf_num/Bioresponse.csv,binary_classification,built-in,419,295,f1_score,0.809384,0.768577,False,0.0
+RandomForestClassifier,clf_num/Bioresponse.csv,binary_classification,built-in (gain),419,295,f1_score,0.809384,0.768577,False,0.0
 RandomForestClassifier,clf_num/Bioresponse.csv,binary_classification,A-R,419,80,f1_score,0.817391,0.764124,False,-0.579382
 RandomForestClassifier,clf_num/Bioresponse.csv,binary_classification,A/(R+1),419,300,f1_score,0.815029,0.767705,False,-0.113456
 RandomForestClassifier,clf_num/Bioresponse.csv,binary_classification,Wasserstein,419,60,f1_score,0.825581,0.769556,True,0.127378
-RandomForestClassifier,clf_num/jannis.csv,binary_classification,built-in,54,22,f1_score,0.798847,0.795777,False,0.0
+RandomForestClassifier,clf_num/jannis.csv,binary_classification,built-in (gain),54,22,f1_score,0.798847,0.795777,False,0.0
 RandomForestClassifier,clf_num/jannis.csv,binary_classification,A-R,54,28,f1_score,0.796742,0.798353,True,0.323709
 RandomForestClassifier,clf_num/jannis.csv,binary_classification,A/(R+1),54,27,f1_score,0.79932,0.797567,False,0.224937
 RandomForestClassifier,clf_num/jannis.csv,binary_classification,Wasserstein,54,51,f1_score,0.782933,0.78659,False,-1.154469
-RandomForestClassifier,clf_num/MiniBooNE.csv,binary_classification,built-in,50,33,f1_score,0.937769,0.930573,False,0.0
+RandomForestClassifier,clf_num/MiniBooNE.csv,binary_classification,built-in (gain),50,33,f1_score,0.937769,0.930573,False,0.0
 RandomForestClassifier,clf_num/MiniBooNE.csv,binary_classification,A-R,50,42,f1_score,0.938275,0.930107,False,-0.050077
 RandomForestClassifier,clf_num/MiniBooNE.csv,binary_classification,A/(R+1),50,45,f1_score,0.938468,0.930059,False,-0.055235
 RandomForestClassifier,clf_num/MiniBooNE.csv,binary_classification,Wasserstein,50,50,f1_score,0.936675,0.931065,True,0.052871
-RandomForestRegressor,reg_num/cpu_act.csv,regression,built-in,21,20,mean_squared_error,5.993286,6.005464,False,0.0
+RandomForestRegressor,reg_num/cpu_act.csv,regression,built-in (gain),21,20,mean_squared_error,5.993286,6.005464,False,0.0
 RandomForestRegressor,reg_num/cpu_act.csv,regression,A-R,21,20,mean_squared_error,5.991055,6.009862,False,0.073233
 RandomForestRegressor,reg_num/cpu_act.csv,regression,A/(R+1),21,19,mean_squared_error,5.977049,5.976787,True,-0.477515
 RandomForestRegressor,reg_num/cpu_act.csv,regression,Wasserstein,21,18,mean_squared_error,6.004697,6.044395,False,0.64826
-RandomForestRegressor,reg_num/pol.csv,regression,built-in,26,16,mean_squared_error,0.248389,0.273401,False,0.0
+RandomForestRegressor,reg_num/pol.csv,regression,built-in (gain),26,16,mean_squared_error,0.248389,0.273401,False,0.0
 RandomForestRegressor,reg_num/pol.csv,regression,A-R,26,26,mean_squared_error,0.260385,0.277991,False,1.678853
 RandomForestRegressor,reg_num/pol.csv,regression,A/(R+1),26,12,mean_squared_error,0.24896,0.278584,False,1.89575
 RandomForestRegressor,reg_num/pol.csv,regression,Wasserstein,26,14,mean_squared_error,0.248268,0.271883,True,-0.555228
-RandomForestRegressor,reg_num/elevators.csv,regression,built-in,16,7,mean_squared_error,7.215366,8.044735,False,0.0
+RandomForestRegressor,reg_num/elevators.csv,regression,built-in (gain),16,7,mean_squared_error,7.215366,8.044735,False,0.0
 RandomForestRegressor,reg_num/elevators.csv,regression,A-R,16,15,mean_squared_error,7.412631,8.34646,False,3.75059
 RandomForestRegressor,reg_num/elevators.csv,regression,A/(R+1),16,6,mean_squared_error,7.137361,7.884783,True,-1.988282
 RandomForestRegressor,reg_num/elevators.csv,regression,Wasserstein,16,14,mean_squared_error,7.48791,8.37675,False,4.127109
-RandomForestRegressor,reg_num/wine_quality.csv,regression,built-in,11,11,mean_squared_error,0.410937,0.410926,False,0.0
+RandomForestRegressor,reg_num/wine_quality.csv,regression,built-in (gain),11,11,mean_squared_error,0.410937,0.410926,False,0.0
 RandomForestRegressor,reg_num/wine_quality.csv,regression,A-R,11,10,mean_squared_error,0.408906,0.40895,True,-0.480865
 RandomForestRegressor,reg_num/wine_quality.csv,regression,A/(R+1),11,11,mean_squared_error,0.410734,0.411228,False,0.073493
 RandomForestRegressor,reg_num/wine_quality.csv,regression,Wasserstein,11,11,mean_squared_error,0.416419,0.41206,False,0.275962
-RandomForestRegressor,reg_num/Ailerons.csv,regression,built-in,33,12,mean_squared_error,2.545249,2.827377,False,0.0
+RandomForestRegressor,reg_num/Ailerons.csv,regression,built-in (gain),33,12,mean_squared_error,2.545249,2.827377,False,0.0
 RandomForestRegressor,reg_num/Ailerons.csv,regression,A-R,33,29,mean_squared_error,2.538132,2.810824,True,-0.585454
 RandomForestRegressor,reg_num/Ailerons.csv,regression,A/(R+1),33,12,mean_squared_error,2.524034,2.821326,False,-0.214015
 RandomForestRegressor,reg_num/Ailerons.csv,regression,Wasserstein,33,32,mean_squared_error,2.586807,2.841721,False,0.507325
-RandomForestRegressor,reg_num/yprop_4_1.csv,regression,built-in,42,26,mean_squared_error,67443.762392,75403.649647,False,0.0
+RandomForestRegressor,reg_num/yprop_4_1.csv,regression,built-in (gain),42,26,mean_squared_error,67443.762392,75403.649647,False,0.0
 RandomForestRegressor,reg_num/yprop_4_1.csv,regression,A-R,42,41,mean_squared_error,67868.007416,74837.199659,True,-0.751224
 RandomForestRegressor,reg_num/yprop_4_1.csv,regression,A/(R+1),42,30,mean_squared_error,67349.68344,75175.03063,False,-0.303194
 RandomForestRegressor,reg_num/yprop_4_1.csv,regression,Wasserstein,42,29,mean_squared_error,66696.288932,75796.896781,False,0.521523
-RandomForestRegressor,reg_num/superconduct.csv,regression,built-in,79,53,mean_squared_error,48849.168321,54470.492359,False,0.0
+RandomForestRegressor,reg_num/superconduct.csv,regression,built-in (gain),79,53,mean_squared_error,48849.168321,54470.492359,False,0.0
 RandomForestRegressor,reg_num/superconduct.csv,regression,A-R,79,68,mean_squared_error,48561.887322,54068.62626,False,-0.737768
 RandomForestRegressor,reg_num/superconduct.csv,regression,A/(R+1),79,56,mean_squared_error,48937.515702,54584.570517,False,0.209431
 RandomForestRegressor,reg_num/superconduct.csv,regression,Wasserstein,79,69,mean_squared_error,49014.369425,54009.203279,True,-0.84686
-RandomForestRegressor,reg_cat/topo_2_1.csv,regression,built-in,255,217,mean_squared_error,67021.36571,76175.864005,False,0.0
+RandomForestRegressor,reg_cat/topo_2_1.csv,regression,built-in (gain),255,217,mean_squared_error,67021.36571,76175.864005,False,0.0
 RandomForestRegressor,reg_cat/topo_2_1.csv,regression,A-R,255,254,mean_squared_error,67180.561218,76311.964795,False,0.178667
 RandomForestRegressor,reg_cat/topo_2_1.csv,regression,A/(R+1),255,79,mean_squared_error,66789.243956,76059.172223,False,-0.153187
 RandomForestRegressor,reg_cat/topo_2_1.csv,regression,Wasserstein,255,165,mean_squared_error,66918.027096,75797.079183,True,-0.49725
-RandomForestRegressor,reg_cat/Mercedes_Benz_Greener_Manufacturing.csv,regression,built-in,359,6,mean_squared_error,155528.314878,177937.918395,True,0.0
+RandomForestRegressor,reg_cat/Mercedes_Benz_Greener_Manufacturing.csv,regression,built-in (gain),359,6,mean_squared_error,155528.314878,177937.918395,True,0.0
 RandomForestRegressor,reg_cat/Mercedes_Benz_Greener_Manufacturing.csv,regression,A-R,359,195,mean_squared_error,142539.992923,183867.243148,False,3.332244
 RandomForestRegressor,reg_cat/Mercedes_Benz_Greener_Manufacturing.csv,regression,A/(R+1),359,6,mean_squared_error,155528.314878,177937.918395,True,0.0
 RandomForestRegressor,reg_cat/Mercedes_Benz_Greener_Manufacturing.csv,regression,Wasserstein,359,96,mean_squared_error,158922.024633,195247.864875,False,9.728082
-RandomForestRegressor,reg_cat/house_sales.csv,regression,built-in,17,16,mean_squared_error,113706.177265,110072.875485,True,0.0
+RandomForestRegressor,reg_cat/house_sales.csv,regression,built-in (gain),17,16,mean_squared_error,113706.177265,110072.875485,True,0.0
 RandomForestRegressor,reg_cat/house_sales.csv,regression,A-R,17,17,mean_squared_error,114548.232063,110141.291334,False,0.062155
 RandomForestRegressor,reg_cat/house_sales.csv,regression,A/(R+1),17,17,mean_squared_error,114111.979196,110404.08618,False,0.300901
 RandomForestRegressor,reg_cat/house_sales.csv,regression,Wasserstein,17,17,mean_squared_error,114114.987379,110078.623402,False,0.005222
-RandomForestRegressor,reg_cat/nyc-taxi-green-dec-2016.csv,regression,built-in,16,15,mean_squared_error,9975.916119,10585.637729,True,0.0
+RandomForestRegressor,reg_cat/nyc-taxi-green-dec-2016.csv,regression,built-in (gain),16,15,mean_squared_error,9975.916119,10585.637729,True,0.0
 RandomForestRegressor,reg_cat/nyc-taxi-green-dec-2016.csv,regression,A-R,16,4,mean_squared_error,9810.945688,10758.481089,False,1.63281
 RandomForestRegressor,reg_cat/nyc-taxi-green-dec-2016.csv,regression,A/(R+1),16,16,mean_squared_error,9963.228317,10590.967684,False,0.050351
 RandomForestRegressor,reg_cat/nyc-taxi-green-dec-2016.csv,regression,Wasserstein,16,16,mean_squared_error,9974.108873,10600.876808,False,0.14396
-RandomForestRegressor,reg_cat/Allstate_Claims_Severity.csv,regression,built-in,124,113,mean_squared_error,993847762.706974,1002055785.041467,True,0.0
+RandomForestRegressor,reg_cat/Allstate_Claims_Severity.csv,regression,built-in (gain),124,113,mean_squared_error,993847762.706974,1002055785.041467,True,0.0
 RandomForestRegressor,reg_cat/Allstate_Claims_Severity.csv,regression,A-R,124,124,mean_squared_error,996343108.062152,1003062488.299886,False,0.100464
 RandomForestRegressor,reg_cat/Allstate_Claims_Severity.csv,regression,A/(R+1),124,93,mean_squared_error,993851535.34726,1003238483.814182,False,0.118027
 RandomForestRegressor,reg_cat/Allstate_Claims_Severity.csv,regression,Wasserstein,124,84,mean_squared_error,994082423.181379,1002670828.551967,False,0.061378
-XGBClassifier,clf_cat/electricity.csv,binary_classification,built-in,8,4,f1_score,0.90475,0.910815,True,0.0
+XGBClassifier,clf_cat/electricity.csv,binary_classification,built-in (gain),8,4,f1_score,0.90475,0.910815,True,0.0
 XGBClassifier,clf_cat/electricity.csv,binary_classification,A-R,8,4,f1_score,0.90475,0.910815,True,0.0
 XGBClassifier,clf_cat/electricity.csv,binary_classification,A/(R+1),8,4,f1_score,0.90475,0.910815,True,0.0
 XGBClassifier,clf_cat/electricity.csv,binary_classification,Wasserstein,8,8,f1_score,0.897501,0.901493,False,-1.023479
-XGBClassifier,clf_cat/eye_movements.csv,binary_classification,built-in,23,2,f1_score,0.6795,0.647699,False,0.0
+XGBClassifier,clf_cat/eye_movements.csv,binary_classification,built-in (gain),23,2,f1_score,0.6795,0.647699,False,0.0
 XGBClassifier,clf_cat/eye_movements.csv,binary_classification,A-R,23,1,f1_score,0.6795,0.647699,False,0.0
 XGBClassifier,clf_cat/eye_movements.csv,binary_classification,A/(R+1),23,10,f1_score,0.685644,0.685209,True,5.79127
 XGBClassifier,clf_cat/eye_movements.csv,binary_classification,Wasserstein,23,1,f1_score,0.6795,0.647699,False,0.0
-XGBClassifier,clf_cat/covertype.csv,binary_classification,built-in,54,40,f1_score,0.890147,0.891799,True,0.0
+XGBClassifier,clf_cat/covertype.csv,binary_classification,built-in (gain),54,40,f1_score,0.890147,0.891799,True,0.0
 XGBClassifier,clf_cat/covertype.csv,binary_classification,A-R,54,53,f1_score,0.889487,0.890788,False,-0.113366
 XGBClassifier,clf_cat/covertype.csv,binary_classification,A/(R+1),54,40,f1_score,0.890147,0.891799,True,0.0
 XGBClassifier,clf_cat/covertype.csv,binary_classification,Wasserstein,54,54,f1_score,0.885785,0.887196,False,-0.516148
-XGBClassifier,clf_cat/albert.csv,binary_classification,built-in,31,11,f1_score,0.646604,0.651735,False,0.0
+XGBClassifier,clf_cat/albert.csv,binary_classification,built-in (gain),31,11,f1_score,0.646604,0.651735,False,0.0
 XGBClassifier,clf_cat/albert.csv,binary_classification,A-R,31,20,f1_score,0.649514,0.653106,True,0.210362
 XGBClassifier,clf_cat/albert.csv,binary_classification,A/(R+1),31,11,f1_score,0.646604,0.651735,False,0.0
 XGBClassifier,clf_cat/albert.csv,binary_classification,Wasserstein,31,25,f1_score,0.647099,0.643385,False,-1.281196
-XGBClassifier,clf_cat/compas-two-years.csv,binary_classification,built-in,11,4,f1_score,0.657315,0.66599,False,0.0
+XGBClassifier,clf_cat/compas-two-years.csv,binary_classification,built-in (gain),11,4,f1_score,0.657315,0.66599,False,0.0
 XGBClassifier,clf_cat/compas-two-years.csv,binary_classification,A-R,11,2,f1_score,0.649541,0.690587,True,3.693299
 XGBClassifier,clf_cat/compas-two-years.csv,binary_classification,A/(R+1),11,5,f1_score,0.657315,0.66599,False,0.0
 XGBClassifier,clf_cat/compas-two-years.csv,binary_classification,Wasserstein,11,6,f1_score,0.657315,0.66599,False,0.0
-XGBClassifier,clf_cat/default-of-credit-card-clients.csv,binary_classification,built-in,21,17,f1_score,0.720119,0.677356,False,0.0
+XGBClassifier,clf_cat/default-of-credit-card-clients.csv,binary_classification,built-in (gain),21,17,f1_score,0.720119,0.677356,False,0.0
 XGBClassifier,clf_cat/default-of-credit-card-clients.csv,binary_classification,A-R,21,15,f1_score,0.715026,0.676268,False,-0.160625
 XGBClassifier,clf_cat/default-of-credit-card-clients.csv,binary_classification,A/(R+1),21,16,f1_score,0.713109,0.680071,False,0.400823
 XGBClassifier,clf_cat/default-of-credit-card-clients.csv,binary_classification,Wasserstein,21,19,f1_score,0.72047,0.685076,True,1.139726
-XGBClassifier,clf_cat/road-safety.csv,binary_classification,built-in,32,20,f1_score,0.798014,0.792338,True,0.0
+XGBClassifier,clf_cat/road-safety.csv,binary_classification,built-in (gain),32,20,f1_score,0.798014,0.792338,True,0.0
 XGBClassifier,clf_cat/road-safety.csv,binary_classification,A-R,32,30,f1_score,0.79738,0.789321,False,-0.380772
 XGBClassifier,clf_cat/road-safety.csv,binary_classification,A/(R+1),32,27,f1_score,0.796618,0.790174,False,-0.273116
 XGBClassifier,clf_cat/road-safety.csv,binary_classification,Wasserstein,32,31,f1_score,0.792734,0.78271,False,-1.215138
-XGBClassifier,clf_num/Bioresponse.csv,binary_classification,built-in,419,82,f1_score,0.810496,0.740794,False,0.0
+XGBClassifier,clf_num/Bioresponse.csv,binary_classification,built-in (gain),419,82,f1_score,0.810496,0.740794,False,0.0
 XGBClassifier,clf_num/Bioresponse.csv,binary_classification,A-R,419,67,f1_score,0.815029,0.763121,True,3.013928
 XGBClassifier,clf_num/Bioresponse.csv,binary_classification,A/(R+1),419,68,f1_score,0.804878,0.745468,False,0.630945
 XGBClassifier,clf_num/Bioresponse.csv,binary_classification,Wasserstein,419,130,f1_score,0.816092,0.754958,False,1.912003
-XGBClassifier,clf_num/jannis.csv,binary_classification,built-in,54,17,f1_score,0.79271,0.793181,False,0.0
+XGBClassifier,clf_num/jannis.csv,binary_classification,built-in (gain),54,17,f1_score,0.79271,0.793181,False,0.0
 XGBClassifier,clf_num/jannis.csv,binary_classification,A-R,54,26,f1_score,0.797059,0.796462,True,0.413651
 XGBClassifier,clf_num/jannis.csv,binary_classification,A/(R+1),54,26,f1_score,0.797059,0.796462,True,0.413651
 XGBClassifier,clf_num/jannis.csv,binary_classification,Wasserstein,54,52,f1_score,0.78295,0.784297,False,-1.120047
-XGBClassifier,clf_num/MiniBooNE.csv,binary_classification,built-in,50,45,f1_score,0.942004,0.937386,False,0.0
+XGBClassifier,clf_num/MiniBooNE.csv,binary_classification,built-in (gain),50,45,f1_score,0.942004,0.937386,False,0.0
 XGBClassifier,clf_num/MiniBooNE.csv,binary_classification,A-R,50,38,f1_score,0.941988,0.937817,False,0.045979
 XGBClassifier,clf_num/MiniBooNE.csv,binary_classification,A/(R+1),50,47,f1_score,0.942575,0.93797,True,0.062301
 XGBClassifier,clf_num/MiniBooNE.csv,binary_classification,Wasserstein,50,48,f1_score,0.94062,0.936908,False,-0.050993
-XGBRegressor,reg_num/cpu_act.csv,regression,built-in,21,17,mean_squared_error,5.136127,5.946372,False,0.0
+XGBRegressor,reg_num/cpu_act.csv,regression,built-in (gain),21,17,mean_squared_error,5.136127,5.946372,False,0.0
 XGBRegressor,reg_num/cpu_act.csv,regression,A-R,21,18,mean_squared_error,5.320814,5.654754,True,-4.904133
 XGBRegressor,reg_num/cpu_act.csv,regression,A/(R+1),21,18,mean_squared_error,5.248437,5.679894,False,-4.481354
 XGBRegressor,reg_num/cpu_act.csv,regression,Wasserstein,21,21,mean_squared_error,5.492485,5.752541,False,-3.259651
-XGBRegressor,reg_num/pol.csv,regression,built-in,26,15,mean_squared_error,0.259323,0.305836,False,0.0
+XGBRegressor,reg_num/pol.csv,regression,built-in (gain),26,15,mean_squared_error,0.259323,0.305836,False,0.0
 XGBRegressor,reg_num/pol.csv,regression,A-R,26,25,mean_squared_error,0.267708,0.300197,False,-1.843799
 XGBRegressor,reg_num/pol.csv,regression,A/(R+1),26,15,mean_squared_error,0.257968,0.305665,False,-0.055912
 XGBRegressor,reg_num/pol.csv,regression,Wasserstein,26,26,mean_squared_error,0.272492,0.296534,True,-3.041499
-XGBRegressor,reg_num/elevators.csv,regression,built-in,16,15,mean_squared_error,5.711931,5.715875,False,0.0
+XGBRegressor,reg_num/elevators.csv,regression,built-in (gain),16,15,mean_squared_error,5.711931,5.715875,False,0.0
 XGBRegressor,reg_num/elevators.csv,regression,A-R,16,16,mean_squared_error,5.748806,5.799774,False,1.467824
 XGBRegressor,reg_num/elevators.csv,regression,A/(R+1),16,13,mean_squared_error,5.637296,5.598146,True,-2.059685
 XGBRegressor,reg_num/elevators.csv,regression,Wasserstein,16,16,mean_squared_error,5.714046,5.76182,False,0.803814
-XGBRegressor,reg_num/wine_quality.csv,regression,built-in,11,10,mean_squared_error,0.422769,0.463778,False,0.0
+XGBRegressor,reg_num/wine_quality.csv,regression,built-in (gain),11,10,mean_squared_error,0.422769,0.463778,False,0.0
 XGBRegressor,reg_num/wine_quality.csv,regression,A-R,11,11,mean_squared_error,0.439437,0.45338,False,-2.242021
 XGBRegressor,reg_num/wine_quality.csv,regression,A/(R+1),11,11,mean_squared_error,0.437729,0.453376,False,-2.242883
 XGBRegressor,reg_num/wine_quality.csv,regression,Wasserstein,11,11,mean_squared_error,0.439747,0.449631,True,-3.050382
-XGBRegressor,reg_num/Ailerons.csv,regression,built-in,33,21,mean_squared_error,2.490969,2.771169,True,0.0
+XGBRegressor,reg_num/Ailerons.csv,regression,built-in (gain),33,21,mean_squared_error,2.490969,2.771169,True,0.0
 XGBRegressor,reg_num/Ailerons.csv,regression,A-R,33,24,mean_squared_error,2.51629,2.779444,False,0.29861
 XGBRegressor,reg_num/Ailerons.csv,regression,A/(R+1),33,22,mean_squared_error,2.490402,2.807877,False,1.32464
 XGBRegressor,reg_num/Ailerons.csv,regression,Wasserstein,33,26,mean_squared_error,2.649546,2.880596,False,3.948767
-XGBRegressor,reg_num/yprop_4_1.csv,regression,built-in,42,2,mean_squared_error,72015.048182,78997.96633,True,0.0
+XGBRegressor,reg_num/yprop_4_1.csv,regression,built-in (gain),42,2,mean_squared_error,72015.048182,78997.96633,True,0.0
 XGBRegressor,reg_num/yprop_4_1.csv,regression,A-R,42,2,mean_squared_error,72015.048182,78997.96633,True,0.0
 XGBRegressor,reg_num/yprop_4_1.csv,regression,A/(R+1),42,2,mean_squared_error,72015.048182,78997.96633,True,0.0
 XGBRegressor,reg_num/yprop_4_1.csv,regression,Wasserstein,42,1,mean_squared_error,73453.136854,80189.002714,False,1.50768
-XGBRegressor,reg_num/superconduct.csv,regression,built-in,79,40,mean_squared_error,52686.911631,58619.061023,False,0.0
+XGBRegressor,reg_num/superconduct.csv,regression,built-in (gain),79,40,mean_squared_error,52686.911631,58619.061023,False,0.0
 XGBRegressor,reg_num/superconduct.csv,regression,A-R,79,36,mean_squared_error,52253.360028,58742.531663,False,0.210632
 XGBRegressor,reg_num/superconduct.csv,regression,A/(R+1),79,39,mean_squared_error,52355.390166,58312.179595,True,-0.523518
 XGBRegressor,reg_num/superconduct.csv,regression,Wasserstein,79,73,mean_squared_error,52413.494573,58888.372081,False,0.459426
-XGBRegressor,reg_cat/topo_2_1.csv,regression,built-in,255,169,mean_squared_error,74744.865746,85043.995838,False,0.0
+XGBRegressor,reg_cat/topo_2_1.csv,regression,built-in (gain),255,169,mean_squared_error,74744.865746,85043.995838,False,0.0
 XGBRegressor,reg_cat/topo_2_1.csv,regression,A-R,255,115,mean_squared_error,73224.312798,84843.36509,True,-0.235914
 XGBRegressor,reg_cat/topo_2_1.csv,regression,A/(R+1),255,180,mean_squared_error,75251.098832,85421.986381,False,0.444465
 XGBRegressor,reg_cat/topo_2_1.csv,regression,Wasserstein,255,176,mean_squared_error,74852.046735,87021.271777,False,2.325004
-XGBRegressor,reg_cat/Mercedes_Benz_Greener_Manufacturing.csv,regression,built-in,359,7,mean_squared_error,147203.539657,175536.434647,True,0.0
+XGBRegressor,reg_cat/Mercedes_Benz_Greener_Manufacturing.csv,regression,built-in (gain),359,7,mean_squared_error,147203.539657,175536.434647,True,0.0
 XGBRegressor,reg_cat/Mercedes_Benz_Greener_Manufacturing.csv,regression,A-R,359,82,mean_squared_error,145227.374984,179004.576184,False,1.975739
 XGBRegressor,reg_cat/Mercedes_Benz_Greener_Manufacturing.csv,regression,A/(R+1),359,13,mean_squared_error,147203.539657,175536.434647,True,0.0
 XGBRegressor,reg_cat/Mercedes_Benz_Greener_Manufacturing.csv,regression,Wasserstein,359,14,mean_squared_error,144953.005006,175717.216092,False,0.102988
-XGBRegressor,reg_cat/house_sales.csv,regression,built-in,17,17,mean_squared_error,108787.606108,105445.807214,True,0.0
+XGBRegressor,reg_cat/house_sales.csv,regression,built-in (gain),17,17,mean_squared_error,108787.606108,105445.807214,True,0.0
 XGBRegressor,reg_cat/house_sales.csv,regression,A-R,17,16,mean_squared_error,108382.417945,107369.173579,False,1.824033
 XGBRegressor,reg_cat/house_sales.csv,regression,A/(R+1),17,17,mean_squared_error,108778.32879,105474.801274,False,0.027497
 XGBRegressor,reg_cat/house_sales.csv,regression,Wasserstein,17,17,mean_squared_error,109031.452831,105647.831015,False,0.19159
-XGBRegressor,reg_cat/nyc-taxi-green-dec-2016.csv,regression,built-in,16,7,mean_squared_error,10684.2758,11361.646796,False,0.0
+XGBRegressor,reg_cat/nyc-taxi-green-dec-2016.csv,regression,built-in (gain),16,7,mean_squared_error,10684.2758,11361.646796,False,0.0
 XGBRegressor,reg_cat/nyc-taxi-green-dec-2016.csv,regression,A-R,16,7,mean_squared_error,10679.502747,11361.5967,True,-0.000441
 XGBRegressor,reg_cat/nyc-taxi-green-dec-2016.csv,regression,A/(R+1),16,7,mean_squared_error,10681.205302,11361.944294,False,0.002618
 XGBRegressor,reg_cat/nyc-taxi-green-dec-2016.csv,regression,Wasserstein,16,4,mean_squared_error,10836.743378,11586.532828,False,1.979344
-XGBRegressor,reg_cat/Allstate_Claims_Severity.csv,regression,built-in,124,69,mean_squared_error,923264174.517638,928207411.901454,True,0.0
+XGBRegressor,reg_cat/Allstate_Claims_Severity.csv,regression,built-in (gain),124,69,mean_squared_error,923264174.517638,928207411.901454,True,0.0
 XGBRegressor,reg_cat/Allstate_Claims_Severity.csv,regression,A-R,124,112,mean_squared_error,918916384.372364,928486398.650217,False,0.030057
 XGBRegressor,reg_cat/Allstate_Claims_Severity.csv,regression,A/(R+1),124,73,mean_squared_error,923062768.017228,930825046.195666,False,0.28201
 XGBRegressor,reg_cat/Allstate_Claims_Severity.csv,regression,Wasserstein,124,124,mean_squared_error,926603737.063645,929893696.608902,False,0.181671
-LGBMClassifier,clf_cat/electricity.csv,binary_classification,built-in,8,5,f1_score,0.876171,0.877175,True,0.0
+LGBMClassifier,clf_cat/electricity.csv,binary_classification,built-in (gain),8,5,f1_score,0.876171,0.877175,True,0.0
 LGBMClassifier,clf_cat/electricity.csv,binary_classification,A-R,8,5,f1_score,0.876171,0.877175,True,0.0
 LGBMClassifier,clf_cat/electricity.csv,binary_classification,A/(R+1),8,5,f1_score,0.876171,0.877175,True,0.0
 LGBMClassifier,clf_cat/electricity.csv,binary_classification,Wasserstein,8,5,f1_score,0.876171,0.877175,True,0.0
-LGBMClassifier,clf_cat/eye_movements.csv,binary_classification,built-in,23,23,f1_score,0.633416,0.632579,False,0.0
+LGBMClassifier,clf_cat/eye_movements.csv,binary_classification,built-in (gain),23,23,f1_score,0.633416,0.632579,False,0.0
 LGBMClassifier,clf_cat/eye_movements.csv,binary_classification,A-R,23,12,f1_score,0.687422,0.668197,False,5.630601
 LGBMClassifier,clf_cat/eye_movements.csv,binary_classification,A/(R+1),23,13,f1_score,0.679901,0.666667,False,5.388734
 LGBMClassifier,clf_cat/eye_movements.csv,binary_classification,Wasserstein,23,6,f1_score,0.668311,0.668401,True,5.66285
-LGBMClassifier,clf_cat/covertype.csv,binary_classification,built-in,54,19,f1_score,0.852634,0.851571,True,0.0
+LGBMClassifier,clf_cat/covertype.csv,binary_classification,built-in (gain),54,19,f1_score,0.852634,0.851571,True,0.0
 LGBMClassifier,clf_cat/covertype.csv,binary_classification,A-R,54,25,f1_score,0.851024,0.85109,False,-0.056484
 LGBMClassifier,clf_cat/covertype.csv,binary_classification,A/(R+1),54,43,f1_score,0.849657,0.847426,False,-0.486747
 LGBMClassifier,clf_cat/covertype.csv,binary_classification,Wasserstein,54,25,f1_score,0.851024,0.85109,False,-0.056484
-LGBMClassifier,clf_cat/albert.csv,binary_classification,built-in,31,14,f1_score,0.658603,0.665288,False,0.0
+LGBMClassifier,clf_cat/albert.csv,binary_classification,built-in (gain),31,14,f1_score,0.658603,0.665288,False,0.0
 LGBMClassifier,clf_cat/albert.csv,binary_classification,A-R,31,19,f1_score,0.662608,0.666948,False,0.249516
 LGBMClassifier,clf_cat/albert.csv,binary_classification,A/(R+1),31,17,f1_score,0.665656,0.667958,True,0.40133
 LGBMClassifier,clf_cat/albert.csv,binary_classification,Wasserstein,31,22,f1_score,0.658069,0.663828,False,-0.219454
-LGBMClassifier,clf_cat/compas-two-years.csv,binary_classification,built-in,11,3,f1_score,0.650307,0.655332,False,0.0
+LGBMClassifier,clf_cat/compas-two-years.csv,binary_classification,built-in (gain),11,3,f1_score,0.650307,0.655332,False,0.0
 LGBMClassifier,clf_cat/compas-two-years.csv,binary_classification,A-R,11,4,f1_score,0.654545,0.66972,True,2.195528
 LGBMClassifier,clf_cat/compas-two-years.csv,binary_classification,A/(R+1),11,4,f1_score,0.654545,0.66972,True,2.195528
 LGBMClassifier,clf_cat/compas-two-years.csv,binary_classification,Wasserstein,11,4,f1_score,0.654545,0.66972,True,2.195528
-LGBMClassifier,clf_cat/default-of-credit-card-clients.csv,binary_classification,built-in,21,20,f1_score,0.727136,0.689504,False,0.0
+LGBMClassifier,clf_cat/default-of-credit-card-clients.csv,binary_classification,built-in (gain),21,20,f1_score,0.727136,0.689504,False,0.0
 LGBMClassifier,clf_cat/default-of-credit-card-clients.csv,binary_classification,A-R,21,14,f1_score,0.728647,0.689751,True,0.035823
 LGBMClassifier,clf_cat/default-of-credit-card-clients.csv,binary_classification,A/(R+1),21,14,f1_score,0.728647,0.689751,True,0.035823
 LGBMClassifier,clf_cat/default-of-credit-card-clients.csv,binary_classification,Wasserstein,21,21,f1_score,0.723753,0.684882,False,-0.670337
-LGBMClassifier,clf_cat/road-safety.csv,binary_classification,built-in,32,23,f1_score,0.798187,0.792133,False,0.0
+LGBMClassifier,clf_cat/road-safety.csv,binary_classification,built-in (gain),32,23,f1_score,0.798187,0.792133,False,0.0
 LGBMClassifier,clf_cat/road-safety.csv,binary_classification,A-R,32,21,f1_score,0.798975,0.791898,False,-0.029667
 LGBMClassifier,clf_cat/road-safety.csv,binary_classification,A/(R+1),32,27,f1_score,0.798496,0.792048,False,-0.010731
 LGBMClassifier,clf_cat/road-safety.csv,binary_classification,Wasserstein,32,19,f1_score,0.799247,0.792245,True,0.014139
-LGBMClassifier,clf_num/Bioresponse.csv,binary_classification,built-in,419,22,f1_score,0.812865,0.752857,False,0.0
+LGBMClassifier,clf_num/Bioresponse.csv,binary_classification,built-in (gain),419,22,f1_score,0.812865,0.752857,False,0.0
 LGBMClassifier,clf_num/Bioresponse.csv,binary_classification,A-R,419,416,f1_score,0.812865,0.762108,True,1.228786
 LGBMClassifier,clf_num/Bioresponse.csv,binary_classification,A/(R+1),419,260,f1_score,0.804665,0.757295,False,0.589488
 LGBMClassifier,clf_num/Bioresponse.csv,binary_classification,Wasserstein,419,60,f1_score,0.810811,0.753395,False,0.071461
-LGBMClassifier,clf_num/jannis.csv,binary_classification,built-in,54,24,f1_score,0.798516,0.797305,False,0.0
+LGBMClassifier,clf_num/jannis.csv,binary_classification,built-in (gain),54,24,f1_score,0.798516,0.797305,False,0.0
 LGBMClassifier,clf_num/jannis.csv,binary_classification,A-R,54,25,f1_score,0.797286,0.798759,False,0.182364
 LGBMClassifier,clf_num/jannis.csv,binary_classification,A/(R+1),54,24,f1_score,0.797698,0.800101,True,0.350681
 LGBMClassifier,clf_num/jannis.csv,binary_classification,Wasserstein,54,32,f1_score,0.795516,0.797517,False,0.02659
-LGBMClassifier,clf_num/MiniBooNE.csv,binary_classification,built-in,50,40,f1_score,0.941606,0.936987,False,0.0
+LGBMClassifier,clf_num/MiniBooNE.csv,binary_classification,built-in (gain),50,40,f1_score,0.941606,0.936987,False,0.0
 LGBMClassifier,clf_num/MiniBooNE.csv,binary_classification,A-R,50,37,f1_score,0.941415,0.937139,False,0.016222
 LGBMClassifier,clf_num/MiniBooNE.csv,binary_classification,A/(R+1),50,37,f1_score,0.941415,0.937139,False,0.016222
 LGBMClassifier,clf_num/MiniBooNE.csv,binary_classification,Wasserstein,50,45,f1_score,0.941319,0.93793,True,0.100642
-LGBMRegressor,reg_num/cpu_act.csv,regression,built-in,21,15,mean_squared_error,4.928715,5.125908,True,0.0
+LGBMRegressor,reg_num/cpu_act.csv,regression,built-in (gain),21,15,mean_squared_error,4.928715,5.125908,True,0.0
 LGBMRegressor,reg_num/cpu_act.csv,regression,A-R,21,21,mean_squared_error,5.055207,5.188476,False,1.220623
 LGBMRegressor,reg_num/cpu_act.csv,regression,A/(R+1),21,21,mean_squared_error,5.055207,5.188049,False,1.212293
 LGBMRegressor,reg_num/cpu_act.csv,regression,Wasserstein,21,18,mean_squared_error,5.000747,5.158656,False,0.638872
-LGBMRegressor,reg_num/pol.csv,regression,built-in,26,13,mean_squared_error,0.27553,0.274706,False,0.0
+LGBMRegressor,reg_num/pol.csv,regression,built-in (gain),26,13,mean_squared_error,0.27553,0.274706,False,0.0
 LGBMRegressor,reg_num/pol.csv,regression,A-R,26,25,mean_squared_error,0.270173,0.278663,False,1.440449
 LGBMRegressor,reg_num/pol.csv,regression,A/(R+1),26,14,mean_squared_error,0.274334,0.278948,False,1.544196
 LGBMRegressor,reg_num/pol.csv,regression,Wasserstein,26,14,mean_squared_error,0.270886,0.26098,True,-4.996615
-LGBMRegressor,reg_num/elevators.csv,regression,built-in,16,16,mean_squared_error,5.375183,5.510428,False,0.0
+LGBMRegressor,reg_num/elevators.csv,regression,built-in (gain),16,16,mean_squared_error,5.375183,5.510428,False,0.0
 LGBMRegressor,reg_num/elevators.csv,regression,A-R,16,16,mean_squared_error,5.375183,5.510406,True,-0.000399
 LGBMRegressor,reg_num/elevators.csv,regression,A/(R+1),16,16,mean_squared_error,5.375183,5.510406,True,-0.000399
 LGBMRegressor,reg_num/elevators.csv,regression,Wasserstein,16,16,mean_squared_error,5.375183,5.510406,True,-0.000399
-LGBMRegressor,reg_num/wine_quality.csv,regression,built-in,11,11,mean_squared_error,0.416694,0.437608,True,0.0
+LGBMRegressor,reg_num/wine_quality.csv,regression,built-in (gain),11,11,mean_squared_error,0.416694,0.437608,True,0.0
 LGBMRegressor,reg_num/wine_quality.csv,regression,A-R,11,11,mean_squared_error,0.416694,0.437608,True,0.0
 LGBMRegressor,reg_num/wine_quality.csv,regression,A/(R+1),11,11,mean_squared_error,0.416694,0.437608,True,0.0
 LGBMRegressor,reg_num/wine_quality.csv,regression,Wasserstein,11,11,mean_squared_error,0.416694,0.437608,True,0.0
-LGBMRegressor,reg_num/Ailerons.csv,regression,built-in,33,22,mean_squared_error,2.447081,2.600292,False,0.0
+LGBMRegressor,reg_num/Ailerons.csv,regression,built-in (gain),33,22,mean_squared_error,2.447081,2.600292,False,0.0
 LGBMRegressor,reg_num/Ailerons.csv,regression,A-R,33,29,mean_squared_error,2.419991,2.57817,False,-0.850751
 LGBMRegressor,reg_num/Ailerons.csv,regression,A/(R+1),33,27,mean_squared_error,2.386644,2.560278,True,-1.538827
 LGBMRegressor,reg_num/Ailerons.csv,regression,Wasserstein,33,28,mean_squared_error,2.472444,2.595686,False,-0.177134
-LGBMRegressor,reg_num/yprop_4_1.csv,regression,built-in,42,29,mean_squared_error,67427.932239,75930.237995,True,0.0
+LGBMRegressor,reg_num/yprop_4_1.csv,regression,built-in (gain),42,29,mean_squared_error,67427.932239,75930.237995,True,0.0
 LGBMRegressor,reg_num/yprop_4_1.csv,regression,A-R,42,34,mean_squared_error,67511.01958,76201.666859,False,0.357471
 LGBMRegressor,reg_num/yprop_4_1.csv,regression,A/(R+1),42,31,mean_squared_error,67752.117335,76186.560793,False,0.337577
 LGBMRegressor,reg_num/yprop_4_1.csv,regression,Wasserstein,42,19,mean_squared_error,66911.691027,76494.373796,False,0.742966
-LGBMRegressor,reg_num/superconduct.csv,regression,built-in,79,55,mean_squared_error,58875.380721,63228.223091,False,0.0
+LGBMRegressor,reg_num/superconduct.csv,regression,built-in (gain),79,55,mean_squared_error,58875.380721,63228.223091,False,0.0
 LGBMRegressor,reg_num/superconduct.csv,regression,A-R,79,76,mean_squared_error,58729.745166,62647.41587,True,-0.918589
 LGBMRegressor,reg_num/superconduct.csv,regression,A/(R+1),79,70,mean_squared_error,58365.006092,62806.379162,False,-0.667177
 LGBMRegressor,reg_num/superconduct.csv,regression,Wasserstein,79,70,mean_squared_error,59227.960197,63367.083612,False,0.219618
-LGBMRegressor,reg_cat/topo_2_1.csv,regression,built-in,255,84,mean_squared_error,67413.247398,77167.225165,False,0.0
+LGBMRegressor,reg_cat/topo_2_1.csv,regression,built-in (gain),255,84,mean_squared_error,67413.247398,77167.225165,False,0.0
 LGBMRegressor,reg_cat/topo_2_1.csv,regression,A-R,255,32,mean_squared_error,67760.904904,78130.633542,False,1.248468
 LGBMRegressor,reg_cat/topo_2_1.csv,regression,A/(R+1),255,153,mean_squared_error,67329.611673,77161.555463,True,-0.007347
 LGBMRegressor,reg_cat/topo_2_1.csv,regression,Wasserstein,255,232,mean_squared_error,67003.695866,77395.701091,False,0.296079
-LGBMRegressor,reg_cat/Mercedes_Benz_Greener_Manufacturing.csv,regression,built-in,359,87,mean_squared_error,147035.287933,189609.18945,False,0.0
+LGBMRegressor,reg_cat/Mercedes_Benz_Greener_Manufacturing.csv,regression,built-in (gain),359,87,mean_squared_error,147035.287933,189609.18945,False,0.0
 LGBMRegressor,reg_cat/Mercedes_Benz_Greener_Manufacturing.csv,regression,A-R,359,14,mean_squared_error,146228.452928,174764.764814,True,-7.828958
 LGBMRegressor,reg_cat/Mercedes_Benz_Greener_Manufacturing.csv,regression,A/(R+1),359,69,mean_squared_error,144840.575596,191855.328702,False,1.184615
 LGBMRegressor,reg_cat/Mercedes_Benz_Greener_Manufacturing.csv,regression,Wasserstein,359,183,mean_squared_error,148209.443011,191374.726273,False,0.931145
-LGBMRegressor,reg_cat/house_sales.csv,regression,built-in,17,14,mean_squared_error,103361.155208,97213.085621,False,0.0
+LGBMRegressor,reg_cat/house_sales.csv,regression,built-in (gain),17,14,mean_squared_error,103361.155208,97213.085621,False,0.0
 LGBMRegressor,reg_cat/house_sales.csv,regression,A-R,17,14,mean_squared_error,101843.911322,96600.951963,True,-0.629682
 LGBMRegressor,reg_cat/house_sales.csv,regression,A/(R+1),17,11,mean_squared_error,102588.904288,96625.662916,False,-0.604263
 LGBMRegressor,reg_cat/house_sales.csv,regression,Wasserstein,17,12,mean_squared_error,103589.139097,100009.945837,False,2.877041
-LGBMRegressor,reg_cat/nyc-taxi-green-dec-2016.csv,regression,built-in,16,5,mean_squared_error,13117.528732,13655.984718,False,0.0
+LGBMRegressor,reg_cat/nyc-taxi-green-dec-2016.csv,regression,built-in (gain),16,5,mean_squared_error,13117.528732,13655.984718,False,0.0
 LGBMRegressor,reg_cat/nyc-taxi-green-dec-2016.csv,regression,A-R,16,6,mean_squared_error,13097.047632,13632.35428,False,-0.173041
 LGBMRegressor,reg_cat/nyc-taxi-green-dec-2016.csv,regression,A/(R+1),16,8,mean_squared_error,13099.944256,13623.652139,True,-0.236765
 LGBMRegressor,reg_cat/nyc-taxi-green-dec-2016.csv,regression,Wasserstein,16,6,mean_squared_error,13097.047632,13632.35428,False,-0.173041
-LGBMRegressor,reg_cat/Allstate_Claims_Severity.csv,regression,built-in,124,82,mean_squared_error,914469511.241378,918539118.574563,True,0.0
+LGBMRegressor,reg_cat/Allstate_Claims_Severity.csv,regression,built-in (gain),124,82,mean_squared_error,914469511.241378,918539118.574563,True,0.0
 LGBMRegressor,reg_cat/Allstate_Claims_Severity.csv,regression,A-R,124,78,mean_squared_error,915380724.899519,919651444.584081,False,0.121097
 LGBMRegressor,reg_cat/Allstate_Claims_Severity.csv,regression,A/(R+1),124,102,mean_squared_error,915088764.284585,919303774.163119,False,0.083247
 LGBMRegressor,reg_cat/Allstate_Claims_Severity.csv,regression,Wasserstein,124,95,mean_squared_error,915348893.796145,918926264.810142,False,0.042148
-CatBoostClassifier,clf_cat/electricity.csv,binary_classification,built-in,8,3,f1_score,0.882338,0.883178,True,0.0
+CatBoostClassifier,clf_cat/electricity.csv,binary_classification,built-in (gain),8,3,f1_score,0.882338,0.883178,True,0.0
 CatBoostClassifier,clf_cat/electricity.csv,binary_classification,A-R,8,3,f1_score,0.882338,0.883178,True,0.0
 CatBoostClassifier,clf_cat/electricity.csv,binary_classification,A/(R+1),8,3,f1_score,0.882338,0.883178,True,0.0
 CatBoostClassifier,clf_cat/electricity.csv,binary_classification,Wasserstein,8,8,f1_score,0.881902,0.883155,False,-0.002621
-CatBoostClassifier,clf_cat/eye_movements.csv,binary_classification,built-in,23,23,f1_score,0.634207,0.628159,False,0.0
+CatBoostClassifier,clf_cat/eye_movements.csv,binary_classification,built-in (gain),23,23,f1_score,0.634207,0.628159,False,0.0
 CatBoostClassifier,clf_cat/eye_movements.csv,binary_classification,A-R,23,14,f1_score,0.669988,0.64964,False,3.419672
 CatBoostClassifier,clf_cat/eye_movements.csv,binary_classification,A/(R+1),23,5,f1_score,0.66823,0.656049,True,4.439985
 CatBoostClassifier,clf_cat/eye_movements.csv,binary_classification,Wasserstein,23,22,f1_score,0.639303,0.625205,False,-0.470305
-CatBoostClassifier,clf_cat/covertype.csv,binary_classification,built-in,54,24,f1_score,0.91313,0.913111,True,0.0
+CatBoostClassifier,clf_cat/covertype.csv,binary_classification,built-in (gain),54,24,f1_score,0.91313,0.913111,True,0.0
 CatBoostClassifier,clf_cat/covertype.csv,binary_classification,A-R,54,54,f1_score,0.910414,0.910959,False,-0.235586
 CatBoostClassifier,clf_cat/covertype.csv,binary_classification,A/(R+1),54,35,f1_score,0.912073,0.912809,False,-0.033068
 CatBoostClassifier,clf_cat/covertype.csv,binary_classification,Wasserstein,54,30,f1_score,0.913693,0.913034,False,-0.008363
-CatBoostClassifier,clf_cat/albert.csv,binary_classification,built-in,31,15,f1_score,0.656271,0.665236,False,0.0
-CatBoostClassifier,clf_cat/albert.csv,binary_classification,A-R,31,24,f1_score,0.659847,0.66661,False,0.206648
-CatBoostClassifier,clf_cat/albert.csv,binary_classification,A/(R+1),31,18,f1_score,0.662483,0.6679,True,0.400543
-CatBoostClassifier,clf_cat/albert.csv,binary_classification,Wasserstein,31,31,f1_score,0.655943,0.666891,False,0.248866
-CatBoostClassifier,clf_cat/compas-two-years.csv,binary_classification,built-in,11,7,f1_score,0.663934,0.675926,True,0.0
-CatBoostClassifier,clf_cat/compas-two-years.csv,binary_classification,A-R,11,10,f1_score,0.650307,0.674274,False,-0.244415
-CatBoostClassifier,clf_cat/compas-two-years.csv,binary_classification,A/(R+1),11,9,f1_score,0.65587,0.675244,False,-0.100819
-CatBoostClassifier,clf_cat/compas-two-years.csv,binary_classification,Wasserstein,11,7,f1_score,0.662526,0.674286,False,-0.242661
-CatBoostClassifier,clf_cat/default-of-credit-card-clients.csv,binary_classification,built-in,21,21,f1_score,0.734255,0.690341,False,0.0
-CatBoostClassifier,clf_cat/default-of-credit-card-clients.csv,binary_classification,A-R,21,21,f1_score,0.735226,0.689137,False,-0.174385
-CatBoostClassifier,clf_cat/default-of-credit-card-clients.csv,binary_classification,A/(R+1),21,21,f1_score,0.740741,0.689978,False,-0.052622
-CatBoostClassifier,clf_cat/default-of-credit-card-clients.csv,binary_classification,Wasserstein,21,20,f1_score,0.737165,0.69052,True,0.025871
-CatBoostClassifier,clf_cat/road-safety.csv,binary_classification,built-in,32,27,f1_score,0.799826,0.794,True,0.0
-CatBoostClassifier,clf_cat/road-safety.csv,binary_classification,A-R,32,28,f1_score,0.801975,0.793317,False,-0.08603
-CatBoostClassifier,clf_cat/road-safety.csv,binary_classification,A/(R+1),32,22,f1_score,0.801391,0.791271,False,-0.343626
-CatBoostClassifier,clf_cat/road-safety.csv,binary_classification,Wasserstein,32,30,f1_score,0.800626,0.79264,False,-0.171279
-CatBoostClassifier,clf_num/Bioresponse.csv,binary_classification,built-in,419,290,f1_score,0.79646,0.781006,False,0.0
-CatBoostClassifier,clf_num/Bioresponse.csv,binary_classification,A-R,419,419,f1_score,0.791667,0.786373,False,0.687182
-CatBoostClassifier,clf_num/Bioresponse.csv,binary_classification,A/(R+1),419,206,f1_score,0.801187,0.784507,False,0.448225
-CatBoostClassifier,clf_num/Bioresponse.csv,binary_classification,Wasserstein,419,386,f1_score,0.795252,0.787368,True,0.814595
-CatBoostClassifier,clf_num/jannis.csv,binary_classification,built-in,54,18,f1_score,0.802984,0.806811,False,0.0
-CatBoostClassifier,clf_num/jannis.csv,binary_classification,A-R,54,26,f1_score,0.80217,0.80771,False,0.1115
-CatBoostClassifier,clf_num/jannis.csv,binary_classification,A/(R+1),54,22,f1_score,0.802036,0.810063,True,0.403089
-CatBoostClassifier,clf_num/jannis.csv,binary_classification,Wasserstein,54,49,f1_score,0.795124,0.801057,False,-0.713146
-CatBoostClassifier,clf_num/MiniBooNE.csv,binary_classification,built-in,50,48,f1_score,0.9468,0.942751,False,0.0
-CatBoostClassifier,clf_num/MiniBooNE.csv,binary_classification,A-R,50,46,f1_score,0.947354,0.943224,True,0.050186
-CatBoostClassifier,clf_num/MiniBooNE.csv,binary_classification,A/(R+1),50,45,f1_score,0.947582,0.942883,False,0.014033
-CatBoostClassifier,clf_num/MiniBooNE.csv,binary_classification,Wasserstein,50,50,f1_score,0.946631,0.943038,False,0.030425
-CatBoostRegressor,reg_num/cpu_act.csv,regression,built-in,21,16,mean_squared_error,4.578297,5.104869,True,0.0
-CatBoostRegressor,reg_num/cpu_act.csv,regression,A-R,21,21,mean_squared_error,4.57481,5.13585,False,0.606897
-CatBoostRegressor,reg_num/cpu_act.csv,regression,A/(R+1),21,20,mean_squared_error,4.583793,5.1915,False,1.697037
-CatBoostRegressor,reg_num/cpu_act.csv,regression,Wasserstein,21,21,mean_squared_error,4.609239,5.127099,False,0.435476
-CatBoostRegressor,reg_num/pol.csv,regression,built-in,26,15,mean_squared_error,0.230654,0.271039,False,0.0
-CatBoostRegressor,reg_num/pol.csv,regression,A-R,26,25,mean_squared_error,0.241697,0.271706,False,0.245901
-CatBoostRegressor,reg_num/pol.csv,regression,A/(R+1),26,20,mean_squared_error,0.230099,0.26218,False,-3.268644
-CatBoostRegressor,reg_num/pol.csv,regression,Wasserstein,26,20,mean_squared_error,0.22055,0.260988,True,-3.70862
-CatBoostRegressor,reg_num/elevators.csv,regression,built-in,16,15,mean_squared_error,4.214763,4.324409,False,0.0
-CatBoostRegressor,reg_num/elevators.csv,regression,A-R,16,15,mean_squared_error,4.250023,4.34998,False,0.591334
-CatBoostRegressor,reg_num/elevators.csv,regression,A/(R+1),16,16,mean_squared_error,4.216249,4.321757,True,-0.061319
-CatBoostRegressor,reg_num/elevators.csv,regression,Wasserstein,16,16,mean_squared_error,4.241333,4.35382,False,0.680124
-CatBoostRegressor,reg_num/wine_quality.csv,regression,built-in,11,11,mean_squared_error,0.4011,0.433982,False,0.0
-CatBoostRegressor,reg_num/wine_quality.csv,regression,A-R,11,11,mean_squared_error,0.403566,0.428414,True,-1.283012
-CatBoostRegressor,reg_num/wine_quality.csv,regression,A/(R+1),11,10,mean_squared_error,0.408531,0.433384,False,-0.137661
-CatBoostRegressor,reg_num/wine_quality.csv,regression,Wasserstein,11,11,mean_squared_error,0.404555,0.433185,False,-0.183701
-CatBoostRegressor,reg_num/Ailerons.csv,regression,built-in,33,28,mean_squared_error,2.374598,2.42977,False,0.0
-CatBoostRegressor,reg_num/Ailerons.csv,regression,A-R,33,28,mean_squared_error,2.337503,2.41639,True,-0.550638
-CatBoostRegressor,reg_num/Ailerons.csv,regression,A/(R+1),33,24,mean_squared_error,2.301576,2.440884,False,0.457414
-CatBoostRegressor,reg_num/Ailerons.csv,regression,Wasserstein,33,19,mean_squared_error,2.348984,2.45879,False,1.194384
-CatBoostRegressor,reg_num/yprop_4_1.csv,regression,built-in,42,29,mean_squared_error,66974.953051,75892.248828,False,0.0
-CatBoostRegressor,reg_num/yprop_4_1.csv,regression,A-R,42,41,mean_squared_error,67311.867742,75664.082657,False,-0.300645
-CatBoostRegressor,reg_num/yprop_4_1.csv,regression,A/(R+1),42,28,mean_squared_error,66895.69329,75348.084082,True,-0.717023
-CatBoostRegressor,reg_num/yprop_4_1.csv,regression,Wasserstein,42,32,mean_squared_error,67202.364136,75485.168192,False,-0.536393
-CatBoostRegressor,reg_num/superconduct.csv,regression,built-in,79,67,mean_squared_error,53373.017688,57399.093773,True,0.0
-CatBoostRegressor,reg_num/superconduct.csv,regression,A-R,79,73,mean_squared_error,53502.545045,57487.193807,False,0.153487
-CatBoostRegressor,reg_num/superconduct.csv,regression,A/(R+1),79,63,mean_squared_error,53454.314786,57478.518356,False,0.138373
-CatBoostRegressor,reg_num/superconduct.csv,regression,Wasserstein,79,75,mean_squared_error,53019.840731,57710.629917,False,0.542754
-CatBoostRegressor,reg_cat/topo_2_1.csv,regression,built-in,255,176,mean_squared_error,67923.665547,75530.315952,True,0.0
-CatBoostRegressor,reg_cat/topo_2_1.csv,regression,A-R,255,240,mean_squared_error,68245.876075,76035.257684,False,0.668529
-CatBoostRegressor,reg_cat/topo_2_1.csv,regression,A/(R+1),255,226,mean_squared_error,67808.517709,76258.199946,False,0.963698
-CatBoostRegressor,reg_cat/topo_2_1.csv,regression,Wasserstein,255,210,mean_squared_error,67223.116607,76661.935034,False,1.498232
-CatBoostRegressor,reg_cat/Mercedes_Benz_Greener_Manufacturing.csv,regression,built-in,359,338,mean_squared_error,146432.984266,189052.696626,False,0.0
-CatBoostRegressor,reg_cat/Mercedes_Benz_Greener_Manufacturing.csv,regression,A-R,359,10,mean_squared_error,144866.951563,174728.12932,True,-7.577024
-CatBoostRegressor,reg_cat/Mercedes_Benz_Greener_Manufacturing.csv,regression,A/(R+1),359,9,mean_squared_error,144867.823231,174846.635809,False,-7.514339
-CatBoostRegressor,reg_cat/Mercedes_Benz_Greener_Manufacturing.csv,regression,Wasserstein,359,318,mean_squared_error,147542.626782,189125.782494,False,0.038659
-CatBoostRegressor,reg_cat/house_sales.csv,regression,built-in,17,16,mean_squared_error,96121.694397,91482.325955,False,0.0
-CatBoostRegressor,reg_cat/house_sales.csv,regression,A-R,17,16,mean_squared_error,96472.806158,91295.138498,False,-0.204616
-CatBoostRegressor,reg_cat/house_sales.csv,regression,A/(R+1),17,16,mean_squared_error,95875.175752,91173.085911,True,-0.338033
-CatBoostRegressor,reg_cat/house_sales.csv,regression,Wasserstein,17,17,mean_squared_error,96219.657972,91505.900609,False,0.02577
-CatBoostRegressor,reg_cat/nyc-taxi-green-dec-2016.csv,regression,built-in,16,12,mean_squared_error,12116.804859,12548.48941,True,0.0
-CatBoostRegressor,reg_cat/nyc-taxi-green-dec-2016.csv,regression,A-R,16,16,mean_squared_error,12176.456049,12596.921199,False,0.385957
-CatBoostRegressor,reg_cat/nyc-taxi-green-dec-2016.csv,regression,A/(R+1),16,16,mean_squared_error,12120.332563,12577.487796,False,0.231091
-CatBoostRegressor,reg_cat/nyc-taxi-green-dec-2016.csv,regression,Wasserstein,16,16,mean_squared_error,12188.653965,12633.541154,False,0.677785
-CatBoostRegressor,reg_cat/Allstate_Claims_Severity.csv,regression,built-in,124,106,mean_squared_error,901845602.639616,905710139.82245,False,0.0
-CatBoostRegressor,reg_cat/Allstate_Claims_Severity.csv,regression,A-R,124,124,mean_squared_error,904045867.834102,906265053.899284,False,0.061268
-CatBoostRegressor,reg_cat/Allstate_Claims_Severity.csv,regression,A/(R+1),124,106,mean_squared_error,902920292.282279,905170209.556065,True,-0.059614
-CatBoostRegressor,reg_cat/Allstate_Claims_Severity.csv,regression,Wasserstein,124,120,mean_squared_error,902858411.877795,905989468.489141,False,0.030841
+CatBoostClassifier,clf_cat/albert.csv,binary_classification,built-in (gain),31,15,f1_score,0.656271,0.665236,False,0.0
+CatBoostClassifier,clf_cat/albert.csv,binary_classification,A-R,31,24,f1_score,0.659847,0.66661,True,0.206648

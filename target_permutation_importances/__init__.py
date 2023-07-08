@@ -281,12 +281,14 @@ def generic_compute(
     model_builder: ModelBuilderType,
     model_fitter: ModelFitterType,
     model_importance_calculator: ModelImportanceCalculatorType,
-    permutation_importance_calculator: PermutationImportanceCalculatorType,
+    permutation_importance_calculator: Union[
+        PermutationImportanceCalculatorType, List[PermutationImportanceCalculatorType]
+    ],
     X_builder: XBuilderType,
     y_builder: YBuilderType,
     num_actual_runs: PositiveInt = 2,
     num_random_runs: PositiveInt = 10,
-) -> pd.DataFrame:
+) -> Union[pd.DataFrame, List[pd.DataFrame]]:
     run_params = {
         "model_builder": model_builder,
         "model_fitter": model_fitter,
@@ -317,6 +319,11 @@ def generic_compute(
         )
 
     # Calculate the permutation importance
+    if isinstance(permutation_importance_calculator, list):
+        return [
+            calc(actual_importance_dfs, random_importance_dfs)
+            for calc in permutation_importance_calculator
+        ]
     return permutation_importance_calculator(
         actual_importance_dfs, random_importance_dfs
     )
@@ -350,8 +357,11 @@ def compute(
     y: YType,
     num_actual_runs: PositiveInt = 2,
     num_random_runs: PositiveInt = 10,
-    permutation_importance_calculator: PermutationImportanceCalculatorType = compute_permutation_importance_by_subtraction,
-) -> pd.DataFrame:
+    permutation_importance_calculator: Union[
+        PermutationImportanceCalculatorType, List[PermutationImportanceCalculatorType]
+    ] = compute_permutation_importance_by_subtraction,
+    shuffle_feature_order: bool = False,
+) -> Union[pd.DataFrame, List[pd.DataFrame]]:
     """
     Compute the permutation importance of a model given a dataset.
 
@@ -370,6 +380,15 @@ def compute(
     """
 
     def _x_builder(is_random_run: bool, run_idx: int) -> XType:
+        if shuffle_feature_order:
+            if isinstance(X, pd.DataFrame):
+                # Shuffle the columns
+                rng = np.random.default_rng(seed=run_idx)
+                shuffled_columns = rng.permutation(X.columns)
+                return X[shuffled_columns]
+            raise NotImplementedError(
+                "Only support pd.DataFrame when shuffle_feature_order=True"
+            )
         return X
 
     def _y_builder(is_random_run: bool, run_idx: int) -> YType:

@@ -1,9 +1,9 @@
 model,n_dataset,n_better,better %
 CatBoostClassifier,10,6,60.0
 CatBoostRegressor,12,8,66.67
-LGBMClassifier,10,7,70.0
-LGBMRegressor,12,6,50.0
-RandomForestClassifier,10,9,90.0
-RandomForestRegressor,12,7,58.33
-XGBClassifier,10,5,50.0
-XGBRegressor,12,5,41.67
+LGBMClassifier,10,8,80.0
+LGBMRegressor,12,8,66.67
+RandomForestClassifier,10,10,100.0
+RandomForestRegressor,12,8,66.67
+XGBClassifier,10,7,70.0
+XGBRegressor,12,7,58.33

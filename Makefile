@@ -20,6 +20,10 @@ test_cuml:
 run_tabular_benchmark:
 	poetry run python -m benchmarks.run_tabular_benchmark
 
+process_run_tabular_benchmark:
+	poetry run python -m benchmarks.process_result_csv
+
+
 build:
 	rm -rf dist
 	poetry build

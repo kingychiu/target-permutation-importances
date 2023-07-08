@@ -1,37 +1,49 @@
 dataset,importances,feature_reduction,test_score
-reg_num/cpu_act.csv,built-in (gain),21->17,5.946372
-reg_num/cpu_act.csv,**A-R**,**21->19**,**5.82137**
-reg_num/cpu_act.csv,A/(R+1),21->17,5.946372
-reg_num/pol.csv,**built-in (gain)**,**26->15**,**0.305836**
-reg_num/pol.csv,A-R,26->24,0.308747
-reg_num/pol.csv,**A/(R+1)**,**26->15**,**0.305836**
-reg_num/elevators.csv,built-in (gain),16->15,5.715875
-reg_num/elevators.csv,**A-R**,**16->13**,**5.495379**
-reg_num/elevators.csv,A/(R+1),16->15,5.715875
-reg_num/wine_quality.csv,built-in (gain),11->10,0.463778
-reg_num/wine_quality.csv,**A-R**,**11->11**,**0.453146**
-reg_num/wine_quality.csv,A/(R+1),11->10,0.463778
-reg_num/Ailerons.csv,**built-in (gain)**,**33->21**,**2.771169**
-reg_num/Ailerons.csv,A-R,33->26,2.782902
-reg_num/Ailerons.csv,**A/(R+1)**,**33->21**,**2.771169**
-reg_num/yprop_4_1.csv,**built-in (gain)**,**42->2**,**78997.96633**
+reg_num/cpu_act.csv,built-in,21->17,5.946372
+reg_num/cpu_act.csv,**A-R**,**21->18**,**5.654754**
+reg_num/cpu_act.csv,A/(R+1),21->18,5.679894
+reg_num/cpu_act.csv,Wasserstein,21->21,5.752541
+reg_num/pol.csv,built-in,26->15,0.305836
+reg_num/pol.csv,A-R,26->25,0.300197
+reg_num/pol.csv,A/(R+1),26->15,0.305665
+reg_num/pol.csv,**Wasserstein**,**26->26**,**0.296534**
+reg_num/elevators.csv,built-in,16->15,5.715875
+reg_num/elevators.csv,A-R,16->16,5.799774
+reg_num/elevators.csv,**A/(R+1)**,**16->13**,**5.598146**
+reg_num/elevators.csv,Wasserstein,16->16,5.76182
+reg_num/wine_quality.csv,built-in,11->10,0.463778
+reg_num/wine_quality.csv,A-R,11->11,0.45338
+reg_num/wine_quality.csv,A/(R+1),11->11,0.453376
+reg_num/wine_quality.csv,**Wasserstein**,**11->11**,**0.449631**
+reg_num/Ailerons.csv,**built-in**,**33->21**,**2.771169**
+reg_num/Ailerons.csv,A-R,33->24,2.779444
+reg_num/Ailerons.csv,A/(R+1),33->22,2.807877
+reg_num/Ailerons.csv,Wasserstein,33->26,2.880596
+reg_num/yprop_4_1.csv,**built-in**,**42->2**,**78997.96633**
 reg_num/yprop_4_1.csv,**A-R**,**42->2**,**78997.96633**
 reg_num/yprop_4_1.csv,**A/(R+1)**,**42->2**,**78997.96633**
-reg_num/superconduct.csv,**built-in (gain)**,**79->40**,**58619.061023**
-reg_num/superconduct.csv,A-R,79->61,59136.747286
-reg_num/superconduct.csv,A/(R+1),79->40,58669.737431
-reg_cat/topo_2_1.csv,**built-in (gain)**,**255->169**,**85043.995838**
-reg_cat/topo_2_1.csv,A-R,255->198,85098.089041
-reg_cat/topo_2_1.csv,**A/(R+1)**,**255->169**,**85043.995838**
-reg_cat/Mercedes_Benz_Greener_Manufacturing.csv,built-in (gain),359->7,175536.434647
-reg_cat/Mercedes_Benz_Greener_Manufacturing.csv,**A-R**,**359->10**,**174892.772843**
-reg_cat/Mercedes_Benz_Greener_Manufacturing.csv,A/(R+1),359->7,175536.434647
-reg_cat/house_sales.csv,**built-in (gain)**,**17->17**,**105445.807214**
-reg_cat/house_sales.csv,A-R,17->16,107314.46122
-reg_cat/house_sales.csv,**A/(R+1)**,**17->17**,**105445.807214**
-reg_cat/nyc-taxi-green-dec-2016.csv,built-in (gain),16->7,11361.646796
+reg_num/yprop_4_1.csv,Wasserstein,42->1,80189.002714
+reg_num/superconduct.csv,built-in,79->40,58619.061023
+reg_num/superconduct.csv,A-R,79->36,58742.531663
+reg_num/superconduct.csv,**A/(R+1)**,**79->39**,**58312.179595**
+reg_num/superconduct.csv,Wasserstein,79->73,58888.372081
+reg_cat/topo_2_1.csv,built-in,255->169,85043.995838
+reg_cat/topo_2_1.csv,**A-R**,**255->115**,**84843.36509**
+reg_cat/topo_2_1.csv,A/(R+1),255->180,85421.986381
+reg_cat/topo_2_1.csv,Wasserstein,255->176,87021.271777
+reg_cat/Mercedes_Benz_Greener_Manufacturing.csv,**built-in**,**359->7**,**175536.434647**
+reg_cat/Mercedes_Benz_Greener_Manufacturing.csv,A-R,359->82,179004.576184
+reg_cat/Mercedes_Benz_Greener_Manufacturing.csv,**A/(R+1)**,**359->13**,**175536.434647**
+reg_cat/Mercedes_Benz_Greener_Manufacturing.csv,Wasserstein,359->14,175717.216092
+reg_cat/house_sales.csv,**built-in**,**17->17**,**105445.807214**
+reg_cat/house_sales.csv,A-R,17->16,107369.173579
+reg_cat/house_sales.csv,A/(R+1),17->17,105474.801274
+reg_cat/house_sales.csv,Wasserstein,17->17,105647.831015
+reg_cat/nyc-taxi-green-dec-2016.csv,built-in,16->7,11361.646796
 reg_cat/nyc-taxi-green-dec-2016.csv,**A-R**,**16->7**,**11361.5967**
-reg_cat/nyc-taxi-green-dec-2016.csv,A/(R+1),16->7,11361.646796
-reg_cat/Allstate_Claims_Severity.csv,**built-in (gain)**,**124->69**,**928207411.901454**
-reg_cat/Allstate_Claims_Severity.csv,A-R,124->115,930074469.019719
-reg_cat/Allstate_Claims_Severity.csv,**A/(R+1)**,**124->69**,**928207411.901454**
+reg_cat/nyc-taxi-green-dec-2016.csv,A/(R+1),16->7,11361.944294
+reg_cat/nyc-taxi-green-dec-2016.csv,Wasserstein,16->4,11586.532828
+reg_cat/Allstate_Claims_Severity.csv,**built-in**,**124->69**,**928207411.901454**
+reg_cat/Allstate_Claims_Severity.csv,A-R,124->112,928486398.650217
+reg_cat/Allstate_Claims_Severity.csv,A/(R+1),124->73,930825046.195666
+reg_cat/Allstate_Claims_Severity.csv,Wasserstein,124->124,929893696.608902
