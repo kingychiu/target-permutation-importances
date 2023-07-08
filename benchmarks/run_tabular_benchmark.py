@@ -253,7 +253,7 @@ for model_name in model_names:
         for variant_name, importance_df in zip(
             [compute_variant[0] for compute_variant in compute_variants], importance_dfs
         ):
-            importance_df = importance_df.sort_values(
+            importance_df = importance_df.sort_values(  # noqa
                 "importance", ascending=False, ignore_index=True
             )
             num_selected, val_score, test_score = run_selection(

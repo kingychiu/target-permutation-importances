@@ -23,7 +23,7 @@ stat_df["better %"] = (100 * stat_df["better %"]).round(2)
 stat_df.to_csv("./benchmarks/results/stat.csv", index=True)
 
 stat_df = (
-    df[df["is_best"] == True]
+    df[df["is_best"]]
     .groupby(["task"])["importances"]
     .value_counts(normalize=True)
     .reset_index(name="the best %")

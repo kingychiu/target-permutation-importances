@@ -357,10 +357,10 @@ def compute(
     y: YType,
     num_actual_runs: PositiveInt = 2,
     num_random_runs: PositiveInt = 10,
+    shuffle_feature_order: bool = False,
     permutation_importance_calculator: Union[
         PermutationImportanceCalculatorType, List[PermutationImportanceCalculatorType]
     ] = compute_permutation_importance_by_subtraction,
-    shuffle_feature_order: bool = False,
 ) -> Union[pd.DataFrame, List[pd.DataFrame]]:
     """
     Compute the permutation importance of a model given a dataset.
@@ -373,6 +373,7 @@ def compute(
         y (pd.Series, np.ndarray): The target vector.
         num_actual_runs (int): Number of actual runs. Defaults to 2.
         num_random_runs (int): Number of random runs. Defaults to 10.
+        shuffle_feature_order (bool): Whether to shuffle the feature order for each run (only for X being pd.DataFrame). Defaults to False.
         permutation_importance_calculator: The function to compute the final importance. Defaults to compute_permutation_importance_by_subtraction.
 
     Returns:
@@ -386,7 +387,7 @@ def compute(
                 rng = np.random.default_rng(seed=run_idx)
                 shuffled_columns = rng.permutation(X.columns)
                 return X[shuffled_columns]
-            raise NotImplementedError(
+            raise NotImplementedError(  # pragma: no cover
                 "Only support pd.DataFrame when shuffle_feature_order=True"
             )
         return X
