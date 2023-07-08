@@ -328,7 +328,7 @@ Read [`target_permutation_importances.__init__.py`](https://github.com/kingychiu
 
 ## Feature Selection Examples
 - [Feature Selection for Binary Classification with RandomForestClassifier](https://www.kaggle.com/code/kingychiu/feature-selection-for-binary-classification-task)
-- [Feature Selection for Binary Classification with XGBClassifier](kaggle.com/code/kingychiu/feature-selection-for-binary-classification-xgb/notebook)
+- [Feature Selection for Binary Classification with XGBClassifier](https://www.kaggle.com/code/kingychiu/feature-selection-for-binary-classification-xgb/notebook)
 
 ---
 
