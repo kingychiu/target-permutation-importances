@@ -1,8 +1,8 @@
 import numpy as np
 import pandas as pd
 from beartype import vale
-from beartype.typing import Any, List, Protocol, Union, runtime_checkable
-from typing_extensions import Annotated
+from beartype.typing import Any, List, Union, runtime_checkable
+from typing_extensions import Annotated, Protocol
 
 XType = Union[np.ndarray, pd.DataFrame]
 YType = Union[np.ndarray, pd.Series]

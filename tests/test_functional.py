@@ -18,7 +18,7 @@ from sklearn.multioutput import MultiOutputClassifier, MultiOutputRegressor
 from sklearn.svm import LinearSVC
 from xgboost import XGBClassifier, XGBRegressor
 
-from target_permutation_importances import (
+from target_permutation_importances.functional import (
     compute,
     compute_permutation_importance_by_division,
     compute_permutation_importance_by_subtraction,

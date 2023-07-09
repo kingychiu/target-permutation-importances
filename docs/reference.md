@@ -1,13 +1,15 @@
 # API Reference
 
 ## Functional APIs
-::: target_permutation_importances
+::: target_permutation_importances.functional
     handler: python
     options:
+      show_signature_annotations: true
       members:
       - compute
       - generic_compute
       show_root_heading: false
+      show_root_toc_entry: false
       show_source: true
       heading_level: 3
 
@@ -15,6 +17,9 @@
 ::: target_permutation_importances.typing
     handler: python
     options:
+      show_bases: false
+      show_signature_annotations: true
+      filters: []
       members:
       - XType
       - YType
@@ -25,6 +30,7 @@
       - ModelImportanceCalculatorType
       - PermutationImportanceCalculatorType
       show_root_heading: false
+      show_root_toc_entry: false
       show_source: true
       heading_level: 3
 

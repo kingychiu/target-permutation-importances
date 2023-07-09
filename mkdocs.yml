@@ -46,8 +46,11 @@ plugins:
           - https://installer.readthedocs.io/en/stable/objects.inv  # demonstration purpose in the docs
           - https://mkdocstrings.github.io/autorefs/objects.inv
           options:
+            filters: []
             separate_signature: true
             merge_init_into_class: true
+            show_symbol_type_heading: true
+            show_symbol_type_toc: true
             # docstring_options:
             #   ignore_init_summary: true
 
