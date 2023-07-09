@@ -84,7 +84,7 @@ class TargetPermutationImportances:
             selector = SelectFromModel(
                 estimator=ranker, prefit=True, threshold=result_df["importance"].max()
             ).fit(Xpd, data.target)
-            selected_x = selector.transform(X)
+            selected_x = selector.transform(Xpd)
             print(selected_x.shape)
             ```
         """

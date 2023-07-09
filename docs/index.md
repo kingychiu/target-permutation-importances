@@ -371,7 +371,7 @@ print(result_df[["feature", "importance"]].sort_values("importance", ascending=F
 selector = SelectFromModel(
     estimator=ranker, prefit=True, threshold=result_df["importance"].max()
 ).fit(Xpd, data.target)
-selected_x = selector.transform(X)
+selected_x = selector.transform(Xpd)
 print(selected_x.shape)
 ```
 Fork above code from [Kaggle](https://www.kaggle.com/code/kingychiu/target-permutation-importances-basic-usage/notebook).
