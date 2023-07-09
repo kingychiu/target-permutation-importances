@@ -74,7 +74,6 @@ class TargetPermutationImportances:
                 X=Xpd, # pd.DataFrame, np.ndarray
                 y=data.target, # pd.Series, np.ndarray
                 # And other fit parameters for the model.
-                n_jobs=-1,
             )
             # Get the feature importances as a pandas dataframe
             result_df = ranker.feature_importances_df_
