@@ -99,6 +99,12 @@ def test_compute_binary_classification_and_SelectFromModel(model_cls, imp_func, 
     assert set(selected_features) == set(best_n_features)
 
     if xtype is pd.DataFrame:
+        assert (
+            X[sorted(best_n_features)] - X[sorted(selected_features)]
+        ).sum().sum() == 0
         assert (X[selected_features] - selected_x).sum().sum() == 0
     else:
+        assert (
+            X[:, sorted(best_n_features)] - X[:, sorted(selected_features)]
+        ).sum().sum() == 0
         assert (X[:, selected_features] - selected_x).sum().sum() == 0
