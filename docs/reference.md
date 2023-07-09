@@ -1,7 +1,7 @@
 # API Reference
 
 ## Class APIs
-::: target_permutation_importances.class_wrapper
+::: target_permutation_importances.sklearn_wrapper
     handler: python
     options:
       show_signature_annotations: true

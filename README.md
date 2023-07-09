@@ -350,16 +350,16 @@ ranker = tpi.TargetPermutationImportances(
     model_cls_params={ # The parameters to pass to the model constructor. Update this based on your needs.
         "n_jobs": -1,
     },
-)
-ranker.fit(
-    X=Xpd, # pd.DataFrame, np.ndarray
-    y=data.target, # pd.Series, np.ndarray
     num_actual_runs=2,
     num_random_runs=10,
     shuffle_feature_order=False,
     # Options: {compute_permutation_importance_by_subtraction, compute_permutation_importance_by_division}
     # Or use your own function to calculate.
     permutation_importance_calculator=tpi.compute_permutation_importance_by_subtraction,
+)
+ranker.fit(
+    X=Xpd, # pd.DataFrame, np.ndarray
+    y=data.target, # pd.Series, np.ndarray
     # And other fit parameters for the model.
     n_jobs=-1,
 )

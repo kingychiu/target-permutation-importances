@@ -10,12 +10,12 @@ from sklearn.linear_model import Lasso
 from sklearn.svm import LinearSVC
 from xgboost import XGBClassifier
 
-from target_permutation_importances.class_wrapper import TargetPermutationImportances
 from target_permutation_importances.functional import (
     compute_permutation_importance_by_division,
     compute_permutation_importance_by_subtraction,
     compute_permutation_importance_by_wasserstein_distance,
 )
+from target_permutation_importances.sklearn_wrapper import TargetPermutationImportances
 
 IMP_FUNCS = [
     compute_permutation_importance_by_subtraction,
@@ -51,14 +51,14 @@ def test_compute_binary_classification_and_SelectFromModel(model_cls, imp_func, 
     ranker = TargetPermutationImportances(
         model_cls=model_cls[0],
         model_cls_params=model_cls[1],
-    )
-    ranker.fit(
-        X=X,
-        y=data.target,
         permutation_importance_calculator=imp_func,
         num_actual_runs=5,
         num_random_runs=5,
         shuffle_feature_order=xtype is pd.DataFrame,
+    )
+    ranker.fit(
+        X=X,
+        y=data.target,
     )
     result_df = ranker.feature_importances_df_
     assert isinstance(result_df, pd.DataFrame)
