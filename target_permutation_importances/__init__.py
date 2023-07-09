@@ -244,6 +244,23 @@ def generic_compute(
     num_actual_runs: PositiveInt = 2,
     num_random_runs: PositiveInt = 10,
 ) -> Union[pd.DataFrame, List[pd.DataFrame]]:
+    """
+    The generic compute function allows customization of the computation. It is used by the `compute` function.
+
+    Args:
+        model_builder (ModelBuilderType): A function that return a model.
+        model_fitter (ModelFitterType): A function that fit a model.
+        model_importance_calculator (ModelImportanceCalculatorType): A function that compute the importance of a model.
+        permutation_importance_calculator (Union[ PermutationImportanceCalculatorType, List[PermutationImportanceCalculatorType] ]):
+            A function or list of functions that compute the final permutation importance.
+        X_builder (XBuilderType): A function that return the X data.
+        y_builder (YBuilderType): A function that return the y data.
+        num_actual_runs (PositiveInt, optional): Number of actual runs. Defaults to 2.
+        num_random_runs (PositiveInt, optional): Number of random runs. Defaults to 10.
+
+    Returns:
+        The return DataFrame(s) contain columns ["feature", "importance"]
+    """
     run_params = {
         "model_builder": model_builder,
         "model_fitter": model_fitter,
