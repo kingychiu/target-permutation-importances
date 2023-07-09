@@ -325,7 +325,7 @@ Read the followings for details:
 ## Get Started (scikit-learn APIs)
 
 
-`TargetPermutationImportances` follows scikit-learn interfaces and support scikit-learn feature selection method such as `SelectFromModel`:
+`TargetPermutationImportancesWrapper` follows scikit-learn interfaces and support scikit-learn feature selection method such as `SelectFromModel`:
 
 ```python
 # Import the function
@@ -345,31 +345,30 @@ data = load_breast_cancer()
 Xpd = pd.DataFrame(data.data, columns=data.feature_names)
 
 # Compute permutation importances with default settings
-ranker = tpi.TargetPermutationImportances(
+wrapped_model = tpi.TargetPermutationImportancesWrapper(
     model_cls=RandomForestClassifier, # The constructor/class of the model.
     model_cls_params={ # The parameters to pass to the model constructor. Update this based on your needs.
         "n_jobs": -1,
     },
     num_actual_runs=2,
     num_random_runs=10,
-    shuffle_feature_order=False,
     # Options: {compute_permutation_importance_by_subtraction, compute_permutation_importance_by_division}
     # Or use your own function to calculate.
     permutation_importance_calculator=tpi.compute_permutation_importance_by_subtraction,
 )
-ranker.fit(
+wrapped_model.fit(
     X=Xpd, # pd.DataFrame, np.ndarray
     y=data.target, # pd.Series, np.ndarray
     # And other fit parameters for the model.
 )
 # Get the feature importances as a pandas dataframe
-result_df = ranker.feature_importances_df_
+result_df = wrapped_model.feature_importances_df
 print(result_df[["feature", "importance"]].sort_values("importance", ascending=False).head())
 
 
-# Select features with sklearn feature selectors
+# Select top-5 features with sklearn `SelectFromModel`
 selector = SelectFromModel(
-    estimator=ranker, prefit=True, threshold=result_df["importance"].max()
+    estimator=wrapped_model, prefit=True, max_features=5, threshold=-np.inf
 ).fit(Xpd, data.target)
 selected_x = selector.transform(Xpd)
 print(selected_x.shape)

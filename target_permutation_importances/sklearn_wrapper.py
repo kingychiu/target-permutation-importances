@@ -3,7 +3,7 @@ The Sklearn Class Wrappers
 """
 import numpy as np
 import pandas as pd
-from beartype.typing import Any, Dict
+from beartype.typing import Any, Dict, List, Union
 
 from target_permutation_importances.functional import (
     compute,
@@ -17,7 +17,7 @@ from target_permutation_importances.typing import (
 )
 
 
-class TargetPermutationImportances:
+class TargetPermutationImportancesWrapper:
     def __init__(
         self,
         model_cls: Any,
@@ -58,31 +58,30 @@ class TargetPermutationImportances:
             Xpd = pd.DataFrame(data.data, columns=data.feature_names)
 
             # Compute permutation importances with default settings
-            ranker = tpi.TargetPermutationImportances(
+            wrapped_model = tpi.TargetPermutationImportancesWrapper(
                 model_cls=RandomForestClassifier, # The constructor/class of the model.
                 model_cls_params={ # The parameters to pass to the model constructor. Update this based on your needs.
                     "n_jobs": -1,
                 },
                 num_actual_runs=2,
                 num_random_runs=10,
-                shuffle_feature_order=False,
                 # Options: {compute_permutation_importance_by_subtraction, compute_permutation_importance_by_division}
                 # Or use your own function to calculate.
                 permutation_importance_calculator=tpi.compute_permutation_importance_by_subtraction,
             )
-            ranker.fit(
+            wrapped_model.fit(
                 X=Xpd, # pd.DataFrame, np.ndarray
                 y=data.target, # pd.Series, np.ndarray
                 # And other fit parameters for the model.
             )
             # Get the feature importances as a pandas dataframe
-            result_df = ranker.feature_importances_df_
+            result_df = wrapped_model.feature_importances_df
             print(result_df[["feature", "importance"]].sort_values("importance", ascending=False).head())
 
 
-            # Select features with sklearn feature selectors
+            # Select top-5 features with sklearn `SelectFromModel`
             selector = SelectFromModel(
-                estimator=ranker, prefit=True, threshold=result_df["importance"].max()
+                estimator=wrapped_model, prefit=True, max_features=5, threshold=-np.inf
             ).fit(Xpd, data.target)
             selected_x = selector.transform(Xpd)
             print(selected_x.shape)
@@ -90,22 +89,43 @@ class TargetPermutationImportances:
         """
         self.model_cls = model_cls
         self.model_cls_params = model_cls_params
+        self.model = self.model_cls(**self.model_cls_params)
         self.num_actual_runs = num_actual_runs
         self.num_random_runs = num_random_runs
         self.shuffle_feature_order = shuffle_feature_order
         self.permutation_importance_calculator = permutation_importance_calculator
 
-        self.n_features_in_ = 0
-        self.feature_names_in_ = np.zeros(0)
-        self.feature_importances_ = np.zeros(0)
-        self.feature_importances_df_ = pd.DataFrame()
+    def _process_feature_importances_df(
+        self,
+        feature_importances_df: pd.DataFrame,
+        feature_order: Union[List, np.ndarray],
+    ):
+        feature_importances_df = (
+            feature_importances_df.set_index("feature")
+            .loc[feature_order]
+            .reset_index()
+            .rename(columns={"index": "feature"})
+        )
+
+        # Make sure the importance is positive
+        feature_importances_df["raw_importance"] = feature_importances_df["importance"]
+        if feature_importances_df["importance"].min() < 0:
+            feature_importances_df["importance"] -= feature_importances_df[
+                "importance"
+            ].min()
+        assert feature_importances_df["importance"].min() >= 0
+
+        self.feature_importances_df = feature_importances_df
+        self.n_features_in_ = feature_importances_df.shape[0]
+        self.feature_names_in_ = feature_importances_df["feature"].to_numpy()
+        self.feature_importances_ = feature_importances_df["importance"].to_numpy()
 
     def fit(
         self,
         X: XType,
         y: YType,
         **fit_params,
-    ) -> "TargetPermutationImportances":
+    ) -> "TargetPermutationImportancesWrapper":
         """
         Compute the permutation importance of a model given a dataset.
 
@@ -129,17 +149,16 @@ class TargetPermutationImportances:
             result = result[0]
 
         if isinstance(X, pd.DataFrame):
-            # Sort back feature order of the importance dataframe
-            result = (
-                result.set_index("feature")
-                .loc[X.columns]
-                .reset_index()
-                .rename(columns={"index": "feature"})
-            )
-
-        self.feature_importances_df_ = result
-        self.n_features_in_ = result.shape[0]
-        self.feature_names_in_ = result["feature"].to_numpy()
-        self.feature_importances_ = result["importance"].to_numpy()
-
+            self._process_feature_importances_df(result, X.columns.to_list())
+        else:
+            self._process_feature_importances_df(result, list(range(X.shape[1])))
         return self
+
+    def predict(self, X: XType) -> np.ndarray:
+        """
+        Predict using the wrapped model.
+
+        Args:
+            X: The input data.
+        """
+        return self.model.predict(X)

@@ -6,7 +6,7 @@
     options:
       show_signature_annotations: true
       members:
-      - TargetPermutationImportances
+      - TargetPermutationImportancesWrapper
       show_root_heading: false
       show_root_toc_entry: false
       show_source: true

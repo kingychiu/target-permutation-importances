@@ -6,5 +6,5 @@ from target_permutation_importances.functional import (
     generic_compute,
 )
 from target_permutation_importances.sklearn_wrapper import (  # type: ignore
-    TargetPermutationImportances,
+    TargetPermutationImportancesWrapper,
 )

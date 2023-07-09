@@ -15,7 +15,9 @@ from target_permutation_importances.functional import (
     compute_permutation_importance_by_subtraction,
     compute_permutation_importance_by_wasserstein_distance,
 )
-from target_permutation_importances.sklearn_wrapper import TargetPermutationImportances
+from target_permutation_importances.sklearn_wrapper import (
+    TargetPermutationImportancesWrapper,
+)
 
 IMP_FUNCS = [
     compute_permutation_importance_by_subtraction,
@@ -48,19 +50,18 @@ def test_compute_binary_classification_and_SelectFromModel(model_cls, imp_func, 
     else:
         X = data.data
 
-    ranker = TargetPermutationImportances(
+    wrapped_model = TargetPermutationImportancesWrapper(
         model_cls=model_cls[0],
         model_cls_params=model_cls[1],
         permutation_importance_calculator=imp_func,
         num_actual_runs=5,
         num_random_runs=5,
-        shuffle_feature_order=xtype is pd.DataFrame,
     )
-    ranker.fit(
+    wrapped_model.fit(
         X=X,
         y=data.target,
     )
-    result_df = ranker.feature_importances_df_
+    result_df = wrapped_model.feature_importances_df
     assert isinstance(result_df, pd.DataFrame)
     assert result_df.shape[0] == X.shape[1]
     assert "importance" in result_df.columns
@@ -73,20 +74,29 @@ def test_compute_binary_classification_and_SelectFromModel(model_cls, imp_func, 
     assert result_df["importance"].isna().sum() == 0
     assert result_df["std_random_importance"].mean() > 0
 
-    assert (ranker.feature_importances_ == result_df["importance"].to_numpy()).all()
-    assert (ranker.feature_names_in_ == result_df["feature"].to_numpy()).all()
-    assert ranker.n_features_in_ == result_df.shape[0]
+    assert (
+        wrapped_model.feature_importances_ == result_df["importance"].to_numpy()
+    ).all()
+    assert (wrapped_model.feature_names_in_ == result_df["feature"].to_numpy()).all()
+    assert wrapped_model.n_features_in_ == result_df.shape[0]
 
     # Test with SelectFromModel prefit=True
     selector = SelectFromModel(
-        estimator=ranker, prefit=True, threshold=result_df["importance"].max()
+        estimator=wrapped_model, prefit=True, max_features=5, threshold=-np.inf
     ).fit(X, data.target)
-    assert selector.threshold_
+
     assert len(selector.get_support()) == X.shape[1]
 
     selected_x = selector.transform(X)
     selected_features = selector.get_feature_names_out()
+    assert len(selected_features) == 5  # noqa
     assert selected_x.shape[1] == len(selected_features)
+    # Assert the best 5 features are selected
+    best_n_features = result_df.sort_values("importance", ascending=False)["feature"][
+        :5
+    ]
+
+    assert set(selected_features) == set(best_n_features)
 
     if xtype is pd.DataFrame:
         assert (X[selected_features] - selected_x).sum().sum() == 0
