@@ -155,12 +155,3 @@ class TargetPermutationImportancesWrapper:
         else:
             self._process_feature_importances_df(result, list(range(X.shape[1])))
         return self
-
-    def predict(self, X: XType) -> np.ndarray:
-        """
-        Predict using the wrapped model.
-
-        Args:
-            X: The input data.
-        """
-        return self.model.predict(X)
