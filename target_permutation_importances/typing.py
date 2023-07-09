@@ -76,7 +76,7 @@ class ModelFitterType(Protocol):  # pragma: no cover
 
 
 @runtime_checkable
-class ModelImportanceCalculatorType(Protocol):  # pragma: no cover
+class ModelImportanceGetter(Protocol):  # pragma: no cover
     """
     A function/callable computes the feature importances of a fitted model. This function is called once per run (actual and random)
 

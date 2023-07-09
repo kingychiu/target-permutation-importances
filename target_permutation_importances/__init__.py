@@ -5,3 +5,7 @@ from target_permutation_importances.functional import (  # noqa
     compute_permutation_importance_by_wasserstein_distance,
     generic_compute,
 )
+
+from target_permutation_importances.sklearn_wrapper import (
+    TargetPermutationImportances,
+)  # noqa

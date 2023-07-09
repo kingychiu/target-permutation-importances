@@ -42,18 +42,11 @@ This method were originally proposed/implemented by:
 
 ## Features
 1. Compute null importances with only one function call.
-2. Support tree models with sklearn's `feature_importances_` attribute, such as
-   - `RandomForestClassifier`, `RandomForestRegressor`, 
-   - `XGBClassifier`. `XGBRegressor`, 
-   - `LGBMClassifier`, `LGBMRegressor`,
-   - `CatBoostClassifier`, `CatBoostRegressor` etc.
-3. Support linear models with sklearn's `coef_` attribute, such as
-    - `Lasso`
-    - `LinearSVC`
-4. Support `sklearn`'s `MultiOutputClassifier` or `MultiOutputRegressor` interface.
-4. Support data in `pandas.DataFrame` and `numpy.ndarray`
-5. Highly customizable with both the exposed `compute` and `generic_compute` functions. 
-6. Proven effectiveness in Kaggle competitions and in [`Our Benchmarks Results`](https://target-permutation-importances.readthedocs.io/en/latest/benchmarks/).
+2. Support models that provide information about feature importance (e.g. coef_, feature_importances_), such as `RandomForestClassifier`, `RandomForestRegressor`, `XGBClassifier`. `XGBRegressor`, `LGBMClassifier`, `LGBMRegressor`,`CatBoostClassifier`, `CatBoostRegressor`, `Lasso`, `LinearSVC`, etc.
+1. Support `sklearn`'s `MultiOutputClassifier` or `MultiOutputRegressor` interface.
+2. Support data in `pandas.DataFrame` and `numpy.ndarray`
+3. Highly customizable with both the exposed `compute` and `generic_compute` functions. 
+4. Proven effectiveness in Kaggle competitions and in [`Our Benchmarks Results`](https://target-permutation-importances.readthedocs.io/en/latest/benchmarks/).
 
 ---
 
@@ -70,7 +63,7 @@ Below show the benchmark results of running null-importances with feature select
 
 
 | model                  | n_dataset | n_better | better % |
-|------------------------|-----------|----------|----------|
+| ---------------------- | --------- | -------- | -------- |
 | RandomForestClassifier | 10        | 10       | 100.0    |
 | RandomForestRegressor  | 12        | 8        | 66.67    |
 | XGBClassifier          | 10        | 7        | 70.0     |
@@ -107,7 +100,7 @@ beartype = "^0.14.1"
 ```
 ---
 
-## Get Started
+## Get Started (Functional APIs)
 
 ### Tree Models with `feature_importances_` Attribute
 
@@ -274,11 +267,10 @@ Running 2 actual runs and 10 random runs
 
 You can find more detailed examples in the "Feature Selection Examples" section.
 
----
 
-## Customization
+### Customization
 
-### Changing model or parameters
+#### Changing model or parameters
 
 You can pick your own model by changing
 `model_cls`, `model_cls_params` and `model_fit_params`, for example, using with `LGBMClassifier` 
@@ -307,10 +299,11 @@ Note: Tree models are greedy. Usually it is a good idea to introduce some random
 It forces the model to explore the importances of different features. In other words, setting these
 parameters avoid a feature from being under-representative in the importance calculation because of having another highly correlated feature.
 
-### Changing null importances calculation
+#### Changing null importances calculation
 
 You can pick your own calculation method by changing `permutation_importance_calculator`.
-There are 2 provided calculations:
+There are 3 provided calculations:
+
 - `tpi.compute_permutation_importance_by_subtraction`
 - `tpi.compute_permutation_importance_by_division`
 - `tpi.compute_permutation_importance_by_wasserstein_distance`
@@ -319,10 +312,69 @@ You can also implement you own calculation function and pass it in. The function
 `PermutationImportanceCalculatorType` specification, you can find it in
 [API Reference](https://target-permutation-importances.readthedocs.io/en/latest/reference/)
 
-### Advance Customization
+#### Advance Customization
 
-This package exposes `generic_compute` to allow advance customization.
-Read [`target_permutation_importances.__init__.py`](https://github.com/kingychiu/target-permutation-importances/blob/main/target_permutation_importances/__init__.py) for details.
+This package exposes `tpi.generic_compute` to allow advance customization.
+Read the followings for details:
+
+- [generic_compute API reference](https://target-permutation-importances.readthedocs.io/en/latest/reference/#target_permutation_importances.functional.generic_compute)
+- [`target_permutation_importances.functional.py`](https://github.com/kingychiu/target-permutation-importances/blob/main/target_permutation_importances/functional.py).
+
+---
+
+## Get Started (scikit-learn APIs)
+
+
+`TargetPermutationImportances` follows scikit-learn interfaces and support scikit-learn feature selection method such as `SelectFromModel`:
+
+```python
+# Import the function
+import target_permutation_importances as tpi
+
+# Prepare a dataset
+import pandas as pd
+from sklearn.datasets import load_breast_cancer
+
+# Models
+from sklearn.feature_selection import SelectFromModel
+from sklearn.ensemble import RandomForestClassifier
+
+data = load_breast_cancer()
+
+# Convert to a pandas dataframe
+Xpd = pd.DataFrame(data.data, columns=data.feature_names)
+
+# Compute permutation importances with default settings
+ranker = tpi.TargetPermutationImportances(
+    model_cls=RandomForestClassifier, # The constructor/class of the model.
+    model_cls_params={ # The parameters to pass to the model constructor. Update this based on your needs.
+        "n_jobs": -1,
+    },
+)
+ranker.fit(
+    X=Xpd, # pd.DataFrame, np.ndarray
+    y=data.target, # pd.Series, np.ndarray
+    num_actual_runs=2,
+    num_random_runs=10,
+    shuffle_feature_order=False,
+    # Options: {compute_permutation_importance_by_subtraction, compute_permutation_importance_by_division}
+    # Or use your own function to calculate.
+    permutation_importance_calculator=tpi.compute_permutation_importance_by_subtraction,
+    # And other fit parameters for the model.
+    n_jobs=-1,
+)
+# Get the feature importances as a pandas dataframe
+result_df = ranker.feature_importances_df_
+print(result_df[["feature", "importance"]].sort_values("importance", ascending=False).head())
+
+
+# Select features with sklearn feature selectors
+selector = SelectFromModel(
+    estimator=ranker, prefit=True, threshold=result_df["importance"].max()
+).fit(Xpd, data.target)
+selected_x = selector.transform(X)
+print(selected_x.shape)
+```
 
 ---
 

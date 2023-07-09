@@ -1,3 +1,7 @@
+"""
+The core APIs of this library.
+"""
+
 import gc
 from functools import partial
 
@@ -11,7 +15,7 @@ from tqdm import tqdm
 from target_permutation_importances.typing import (
     ModelBuilderType,
     ModelFitterType,
-    ModelImportanceCalculatorType,
+    ModelImportanceGetter,
     PermutationImportanceCalculatorType,
     PositiveInt,
     XBuilderType,
@@ -216,7 +220,7 @@ def compute_permutation_importance_by_wasserstein_distance(
 def _compute_one_run(
     model_builder: ModelBuilderType,
     model_fitter: ModelFitterType,
-    model_importance_calculator: ModelImportanceCalculatorType,
+    importance_getter: ModelImportanceGetter,
     X_builder: XBuilderType,
     y_builder: YBuilderType,
     is_random_run: bool,
@@ -228,14 +232,14 @@ def _compute_one_run(
 
     model = model_fitter(model, X, y)
     gc.collect()
-    return model_importance_calculator(model, X, y)
+    return importance_getter(model, X, y)
 
 
 @beartype
 def generic_compute(
     model_builder: ModelBuilderType,
     model_fitter: ModelFitterType,
-    model_importance_calculator: ModelImportanceCalculatorType,
+    importance_getter: ModelImportanceGetter,
     permutation_importance_calculator: Union[
         PermutationImportanceCalculatorType, List[PermutationImportanceCalculatorType]
     ],
@@ -250,7 +254,7 @@ def generic_compute(
     Args:
         model_builder (ModelBuilderType): A function that return a model.
         model_fitter (ModelFitterType): A function that fit a model.
-        model_importance_calculator (ModelImportanceCalculatorType): A function that compute the importance of a model.
+        importance_getter (ModelImportanceGetter): A function that compute the importance of a model.
         permutation_importance_calculator (Union[ PermutationImportanceCalculatorType, List[PermutationImportanceCalculatorType] ]):
             A function or list of functions that compute the final permutation importance.
         X_builder (XBuilderType): A function that return the X data.
@@ -264,7 +268,7 @@ def generic_compute(
     run_params = {
         "model_builder": model_builder,
         "model_fitter": model_fitter,
-        "model_importance_calculator": model_importance_calculator,
+        "importance_getter": importance_getter,
         "X_builder": X_builder,
         "y_builder": y_builder,
     }
@@ -350,6 +354,42 @@ def compute(
 
     Returns:
         The return DataFrame(s) contain columns ["feature", "importance"]
+
+    Example:
+        ```python
+        # Import the function
+        import target_permutation_importances as tpi
+
+        # Prepare a dataset
+        import pandas as pd
+        from sklearn.datasets import load_breast_cancer
+
+        # Models
+        from sklearn.ensemble import RandomForestClassifier
+
+        data = load_breast_cancer()
+
+        # Convert to a pandas dataframe
+        Xpd = pd.DataFrame(data.data, columns=data.feature_names)
+
+        # Compute permutation importances with default settings
+        result_df = tpi.compute(
+            model_cls=RandomForestClassifier, # The constructor/class of the model.
+            model_cls_params={ # The parameters to pass to the model constructor. Update this based on your needs.
+                "n_jobs": -1,
+            },
+            model_fit_params={}, # The parameters to pass to the model fit method. Update this based on your needs.
+            X=Xpd, # pd.DataFrame, np.ndarray
+            y=data.target, # pd.Series, np.ndarray
+            num_actual_runs=2,
+            num_random_runs=10,
+            # Options: {compute_permutation_importance_by_subtraction, compute_permutation_importance_by_division}
+            # Or use your own function to calculate.
+            permutation_importance_calculator=tpi.compute_permutation_importance_by_subtraction,
+        )
+
+        print(result_df[["feature", "importance"]].sort_values("importance", ascending=False).head())
+        ```
     """
 
     def _x_builder(is_random_run: bool, run_idx: int) -> XType:
@@ -388,7 +428,7 @@ def compute(
             _model_fit_params["verbose"] = False
         return model.fit(X, y, **_model_fit_params)
 
-    def _model_importance_calculator(model: Any, X: XType, y: YType) -> pd.DataFrame:
+    def _importance_getter(model: Any, X: XType, y: YType) -> pd.DataFrame:
         feature_names_attr = _get_feature_names_attr(model)
         is_pd = isinstance(X, pd.DataFrame)
 
@@ -433,7 +473,7 @@ def compute(
     return generic_compute(
         model_builder=_model_builder,
         model_fitter=_model_fitter,
-        model_importance_calculator=_model_importance_calculator,
+        importance_getter=_importance_getter,
         permutation_importance_calculator=permutation_importance_calculator,
         X_builder=_x_builder,
         y_builder=_y_builder,

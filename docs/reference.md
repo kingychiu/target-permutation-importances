@@ -1,5 +1,17 @@
 # API Reference
 
+## Class APIs
+::: target_permutation_importances.class_wrapper
+    handler: python
+    options:
+      show_signature_annotations: true
+      members:
+      - TargetPermutationImportances
+      show_root_heading: false
+      show_root_toc_entry: false
+      show_source: true
+      heading_level: 3
+
 ## Functional APIs
 ::: target_permutation_importances.functional
     handler: python
@@ -27,7 +39,7 @@
       - YBuilderType
       - ModelBuilderType
       - ModelFitterType
-      - ModelImportanceCalculatorType
+      - ModelImportanceGetter
       - PermutationImportanceCalculatorType
       show_root_heading: false
       show_root_toc_entry: false
