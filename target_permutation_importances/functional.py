@@ -357,7 +357,7 @@ def compute(
 
     Example:
         ```python
-        # Import the function
+        # import the package
         import target_permutation_importances as tpi
 
         # Prepare a dataset

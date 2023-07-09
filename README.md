@@ -105,7 +105,7 @@ beartype = "^0.14.1"
 ### Tree Models with `feature_importances_` Attribute
 
 ```python
-# Import the function
+# import the package
 import target_permutation_importances as tpi
 
 # Prepare a dataset
@@ -163,7 +163,7 @@ Running 2 actual runs and 10 random runs
 ### Linear Models with `coef_` Attribute
 
 ```python
-# Import the function
+# import the package
 import target_permutation_importances as tpi
 
 # Prepare a dataset
@@ -214,7 +214,7 @@ Outputs:
 ### With `sklearn.multioutput`
 
 ```python
-# Import the function
+# import the package
 import target_permutation_importances as tpi
 
 # Prepare a dataset
@@ -328,11 +328,12 @@ Read the followings for details:
 `TargetPermutationImportancesWrapper` follows scikit-learn interfaces and support scikit-learn feature selection method such as `SelectFromModel`:
 
 ```python
-# Import the function
+# Import the package
 import target_permutation_importances as tpi
 
 # Prepare a dataset
 import pandas as pd
+import numpy as np
 from sklearn.datasets import load_breast_cancer
 
 # Models
@@ -372,8 +373,25 @@ selector = SelectFromModel(
 ).fit(Xpd, data.target)
 selected_x = selector.transform(Xpd)
 print(selected_x.shape)
+print(selector.get_feature_names_out())
 ```
 Fork above code from [Kaggle](https://www.kaggle.com/code/kingychiu/target-permutation-importances-basic-usage/notebook).
+
+Outputs:
+```
+Running 2 actual runs and 10 random runs
+100%|██████████| 2/2 [00:01<00:00,  1.80it/s]
+100%|██████████| 10/10 [00:06<00:00,  1.55it/s]
+                 feature  importance
+22       worst perimeter    0.151953
+27  worst concave points    0.124407
+20          worst radius    0.119090
+7    mean concave points    0.098747
+23            worst area    0.096943
+(569, 5)
+['mean concave points' 'worst radius' 'worst perimeter' 'worst area'
+ 'worst concave points']
+ ```
 
 ---
 

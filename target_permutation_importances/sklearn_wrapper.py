@@ -41,11 +41,12 @@ class TargetPermutationImportancesWrapper:
 
         Example:
             ```python
-            # Import the function
+            # Import the package
             import target_permutation_importances as tpi
 
             # Prepare a dataset
             import pandas as pd
+            import numpy as np
             from sklearn.datasets import load_breast_cancer
 
             # Models
@@ -85,6 +86,7 @@ class TargetPermutationImportancesWrapper:
             ).fit(Xpd, data.target)
             selected_x = selector.transform(Xpd)
             print(selected_x.shape)
+            print(selector.get_feature_names_out())
             ```
         """
         self.model_cls = model_cls
