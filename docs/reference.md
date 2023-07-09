@@ -1,7 +1,35 @@
 # API Reference
 
+## Functional APIs
+::: target_permutation_importances
+    handler: python
+    options:
+      members:
+      - compute
+      - generic_compute
+      show_root_heading: false
+      show_source: true
+      heading_level: 3
 
-## compute
+## Type Definitions
+::: target_permutation_importances.typing
+    handler: python
+    options:
+      members:
+      - XType
+      - YType
+      - XBuilderType
+      - YBuilderType
+      - ModelBuilderType
+      - ModelFitterType
+      - ModelImportanceCalculatorType
+      - PermutationImportanceCalculatorType
+      show_root_heading: false
+      show_source: true
+      heading_level: 3
+
+
+<!-- ## compute
 ::: target_permutation_importances.compute
     options:
       show_source: false
@@ -30,4 +58,4 @@
 ::: target_permutation_importances.compute_permutation_importance_by_wasserstein_distance
     options:
       show_source: true
-      heading_level: 3
+      heading_level: 3 -->

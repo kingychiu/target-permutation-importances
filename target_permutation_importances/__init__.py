@@ -3,67 +3,22 @@ from functools import partial
 
 import numpy as np
 import pandas as pd
-from beartype import beartype, vale
-from beartype.typing import Any, Dict, List, Protocol, Union, runtime_checkable
+from beartype import beartype
+from beartype.typing import Any, Dict, List, Union
 from scipy.stats import wasserstein_distance  # type: ignore
 from tqdm import tqdm
-from typing_extensions import Annotated
 
-XType = Union[np.ndarray, pd.DataFrame]
-YType = Union[np.ndarray, pd.Series]
-PositiveInt = Annotated[int, vale.Is[lambda x: x > 0]]
-
-
-@runtime_checkable
-class XBuilderType(Protocol):  # pragma: no cover
-    def __call__(self, is_random_run: bool, run_idx: int) -> XType:
-        ...
-
-
-@runtime_checkable
-class YBuilderType(Protocol):  # pragma: no cover
-    def __call__(self, is_random_run: bool, run_idx: int) -> YType:
-        ...
-
-
-@runtime_checkable
-class ModelBuilderType(Protocol):  # pragma: no cover
-    def __call__(self, is_random_run: bool, run_idx: int) -> Any:
-        ...
-
-
-@runtime_checkable
-class ModelFitterType(Protocol):  # pragma: no cover
-    def __call__(self, model: Any, X: XType, y: YType) -> Any:
-        ...
-
-
-@runtime_checkable
-class ModelImportanceCalculatorType(Protocol):  # pragma: no cover
-    def __call__(self, model: Any, X: XType, y: YType) -> pd.DataFrame:
-        ...
-
-
-@runtime_checkable
-class PermutationImportanceCalculatorType(Protocol):  # pragma: no cover
-    """
-    A function/callable that takes in a list of actual importance DataFrames
-    and a list of random importance s and returns a single DataFrame
-
-    Args:
-        actual_importance_dfs (List[pd.DataFrame]): list of actual importance DataFrames with columns ["feature", "importance"]
-        random_importance_dfs (List[pd.DataFrame]): list of random importance DataFrames with columns ["feature", "importance"]
-
-    Returns:
-        pd.DataFrame: The return DataFrame with columns ["feature", "importance"]
-    """
-
-    def __call__(
-        self,
-        actual_importance_dfs: List[pd.DataFrame],
-        random_importance_dfs: List[pd.DataFrame],
-    ) -> pd.DataFrame:
-        ...
+from target_permutation_importances.typing import (
+    ModelBuilderType,
+    ModelFitterType,
+    ModelImportanceCalculatorType,
+    PermutationImportanceCalculatorType,
+    PositiveInt,
+    XBuilderType,
+    XType,
+    YBuilderType,
+    YType,
+)
 
 
 def compute_permutation_importance_by_subtraction(
@@ -369,15 +324,15 @@ def compute(
         model_cls: The constructor/class of the model.
         model_cls_params: The parameters to pass to the model constructor.
         model_fit_params: The parameters to pass to the model fit method.
-        X (pd.DataFrame, np.ndarray): The input data.
-        y (pd.Series, np.ndarray): The target vector.
-        num_actual_runs (int): Number of actual runs. Defaults to 2.
-        num_random_runs (int): Number of random runs. Defaults to 10.
-        shuffle_feature_order (bool): Whether to shuffle the feature order for each run (only for X being pd.DataFrame). Defaults to False.
+        X: The input data.
+        y: The target vector.
+        num_actual_runs: Number of actual runs. Defaults to 2.
+        num_random_runs: Number of random runs. Defaults to 10.
+        shuffle_feature_order: Whether to shuffle the feature order for each run (only for X being pd.DataFrame). Defaults to False.
         permutation_importance_calculator: The function to compute the final importance. Defaults to compute_permutation_importance_by_subtraction.
 
     Returns:
-        pd.DataFrame: The return DataFrame contain columns ["feature", "importance"]
+        The return DataFrame(s) contain columns ["feature", "importance"]
     """
 
     def _x_builder(is_random_run: bool, run_idx: int) -> XType:

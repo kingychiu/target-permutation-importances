@@ -84,6 +84,7 @@ mkdocstrings = "^0.22.0"
 mkdocstrings-python = "^1.1.2"
 mkdocs-table-reader-plugin = "^2.0.1"
 pytest-xdist = "^3.3.1"
+mkdocs-material = "^9.1.18"
 
 [build-system]
 requires = ["poetry-core"]

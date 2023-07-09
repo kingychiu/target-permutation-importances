@@ -2,7 +2,25 @@ site_name: Target Permutation Importances Documentation
 site_url: https://target-permutation-importances.readthedocs.io/en/latest/
 repo_url: https://github.com/kingychiu/target-permutation-importances
 repo_name: target-permutation-importances
-theme: "readthedocs"
+theme:
+  name: "material"
+  features:
+  - announce.dismiss
+  - content.action.edit
+  - content.action.view
+  - content.code.annotate
+  - content.code.copy
+  - content.tooltips
+  - navigation.footer
+  - navigation.indexes
+  - navigation.sections
+  - navigation.tabs
+  - navigation.tabs.sticky
+  - navigation.top
+  - search.highlight
+  - search.suggest
+  - toc.follow
+
 
 nav:
   - "Introduction": index.md
@@ -20,5 +38,16 @@ extra_css:
 plugins:
   - search
   - autorefs
-  - mkdocstrings
-  - table-reader
+  - mkdocstrings:
+      handlers:
+        python:
+          import:
+          - https://docs.python.org/3/objects.inv
+          - https://installer.readthedocs.io/en/stable/objects.inv  # demonstration purpose in the docs
+          - https://mkdocstrings.github.io/autorefs/objects.inv
+          options:
+            separate_signature: true
+            merge_init_into_class: true
+            docstring_options:
+              ignore_init_summary: true
+
