@@ -25,12 +25,12 @@ IMP_FUNCS = [
     compute_permutation_importance_by_wasserstein_distance,
 ]
 CLF_MODEL_CLS = [
-    (RandomForestClassifier, {"n_estimators": 5, "n_jobs": 1}),
-    (XGBClassifier, {"n_estimators": 5, "n_jobs": 1}),
-    (CatBoostClassifier, {"n_estimators": 5}),
-    (LGBMClassifier, {"n_estimators": 5, "n_jobs": 1}),
-    (Lasso, {"max_iter": 5}),
-    (LinearSVC, {"max_iter": 5}),
+    (RandomForestClassifier, {"n_estimators": 20, "n_jobs": 1}),
+    (XGBClassifier, {"n_estimators": 20, "n_jobs": 1}),
+    (CatBoostClassifier, {"n_estimators": 20}),
+    (LGBMClassifier, {"n_estimators": 20, "n_jobs": 1}),
+    (Lasso, {"max_iter": 20}),
+    (LinearSVC, {"max_iter": 20}),
 ]
 X_TYPES = [pd.DataFrame, np.ndarray]
 test_compute_clf_scope = []
@@ -96,6 +96,7 @@ def test_compute_binary_classification_and_SelectFromModel(model_cls, imp_func, 
         :5
     ]
     
+    print(model_cls)
     print(selected_features)
     print(result_df.sort_values("importance", ascending=False))
 
