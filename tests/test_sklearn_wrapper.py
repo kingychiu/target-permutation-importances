@@ -95,6 +95,9 @@ def test_compute_binary_classification_and_SelectFromModel(model_cls, imp_func, 
     best_n_features = result_df.sort_values("importance", ascending=False)["feature"][
         :5
     ]
+    
+    print(selected_features)
+    print(result_df.sort_values("importance", ascending=False))
 
     assert set(selected_features) == set(best_n_features)
 
