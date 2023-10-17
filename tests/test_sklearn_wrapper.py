@@ -6,7 +6,7 @@ from lightgbm import LGBMClassifier
 from sklearn.datasets import load_breast_cancer
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.feature_selection import SelectFromModel
-from sklearn.linear_model import Lasso
+from sklearn.linear_model import Ridge
 from sklearn.svm import LinearSVC
 from xgboost import XGBClassifier
 
@@ -29,7 +29,7 @@ CLF_MODEL_CLS = [
     (XGBClassifier, {"n_estimators": 2, "n_jobs": 1}),
     (CatBoostClassifier, {"n_estimators": 2}),
     (LGBMClassifier, {"n_estimators": 2, "n_jobs": 1}),
-    (Lasso, {"max_iter": 2}),
+    (Ridge, {"max_iter": 2}),
     (LinearSVC, {"max_iter": 2}),
 ]
 X_TYPES = [pd.DataFrame, np.ndarray]
