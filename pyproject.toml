@@ -57,7 +57,7 @@ Documentation = "https://target-permutation-importances.readthedocs.io/en/latest
 [tool.poetry.dependencies]
 python = "^3.8"
 numpy = "^1.21.0"
-pandas = "^1.5.3"
+pandas = ">1.5.3"
 tqdm = "^4.48.2"
 beartype = "^0.14.1"
 scipy = "^1.9"
