@@ -19,7 +19,7 @@ The method is based on repeated permutations of the outcome
 vector for estimating the distribution of measured importance
 for each variable in a non-informative setting.
 
-Overall, this package 
+Overall, this package
 
 1. Fit the given model class $M$ times with different model's `random_state` to get $M$ actual feature importances of feature f: $A_f = [a_{f_1},a_{f_2}...a_{f_M}]$.
 2. Fit the given model class with different model's `random_state` and **shuffled targets** for $N$ times to get $N$ feature random importances: $R_f = [r_{f_1},r_{f_2}...r_{f_N}]$.
@@ -92,11 +92,12 @@ Advance Usage / Customization section.
 Dependencies:
 ```
 [tool.poetry.dependencies]
-python = "^3.8"
-numpy = "^1.21.0"
+python = "^3.9"
+numpy = "^1.23.5"
 pandas = "^1.5.3"
 tqdm = "^4.48.2"
 beartype = "^0.14.1"
+scipy = "^1.9"
 ```
 ---
 
