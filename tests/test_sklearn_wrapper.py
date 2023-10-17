@@ -6,7 +6,7 @@ from lightgbm import LGBMClassifier
 from sklearn.datasets import load_breast_cancer
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.feature_selection import SelectFromModel
-from sklearn.linear_model import Lasso
+from sklearn.linear_model import Ridge
 from sklearn.svm import LinearSVC
 from xgboost import XGBClassifier
 
@@ -25,12 +25,12 @@ IMP_FUNCS = [
     compute_permutation_importance_by_wasserstein_distance,
 ]
 CLF_MODEL_CLS = [
-    (RandomForestClassifier, {"n_estimators": 20, "n_jobs": 1}),
-    (XGBClassifier, {"n_estimators": 20, "n_jobs": 1}),
-    (CatBoostClassifier, {"n_estimators": 20}),
-    (LGBMClassifier, {"n_estimators": 20, "n_jobs": 1}),
-    (Lasso, {"max_iter": 20}),
-    (LinearSVC, {"max_iter": 20}),
+    (RandomForestClassifier, {"n_estimators": 2, "n_jobs": 1}),
+    (XGBClassifier, {"n_estimators": 2, "n_jobs": 1}),
+    (CatBoostClassifier, {"n_estimators": 2}),
+    (LGBMClassifier, {"n_estimators": 2, "n_jobs": 1}),
+    (Ridge, {"max_iter": 2}),
+    (LinearSVC, {"max_iter": 2}),
 ]
 X_TYPES = [pd.DataFrame, np.ndarray]
 test_compute_clf_scope = []
@@ -95,10 +95,6 @@ def test_compute_binary_classification_and_SelectFromModel(model_cls, imp_func, 
     best_n_features = result_df.sort_values("importance", ascending=False)["feature"][
         :5
     ]
-    
-    print(model_cls)
-    print(selected_features)
-    print(result_df.sort_values("importance", ascending=False))
 
     assert set(selected_features) == set(best_n_features)
 
