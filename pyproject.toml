@@ -1,6 +1,6 @@
 [project]
 name = "target-permutation-importances"
-version = "1.0.20.beta.1"
+version = "2.0.0.beta.1"
 description = "Compute (Target) Permutation Importances of a machine learning model"
 authors = [{name = "Anthony Chiu", email = "kingychiu@gmail.com"}]
 maintainers = [{name = "Anthony Chiu", email = "kingychiu@gmail.com"}]

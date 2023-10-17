@@ -25,12 +25,12 @@ IMP_FUNCS = [
     compute_permutation_importance_by_wasserstein_distance,
 ]
 CLF_MODEL_CLS = [
-    (RandomForestClassifier, {"n_estimators": 2, "n_jobs": 1}),
-    (XGBClassifier, {"n_estimators": 2, "n_jobs": 1}),
-    (CatBoostClassifier, {"n_estimators": 2}),
-    (LGBMClassifier, {"n_estimators": 2, "n_jobs": 1}),
-    (Lasso, {"max_iter": 2}),
-    (LinearSVC, {"max_iter": 2}),
+    (RandomForestClassifier, {"n_estimators": 5, "n_jobs": 1}),
+    (XGBClassifier, {"n_estimators": 5, "n_jobs": 1}),
+    (CatBoostClassifier, {"n_estimators": 5}),
+    (LGBMClassifier, {"n_estimators": 5, "n_jobs": 1}),
+    (Lasso, {"max_iter": 5}),
+    (LinearSVC, {"max_iter": 5}),
 ]
 X_TYPES = [pd.DataFrame, np.ndarray]
 test_compute_clf_scope = []
