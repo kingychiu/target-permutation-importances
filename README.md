@@ -84,6 +84,16 @@ or with poetry:
 poetry add target-permutation-importances
 ```
 
+If with Python 3.8.x & Pandas 1.x.x:
+```
+pip install target-permutation-importances==1.19.0
+```
+or with poetry:
+```
+poetry add target-permutation-importances==1.19.0
+```
+
+
 Although this package is tested on models from `sklearn`, `xgboost`, `catboost`, `lightgbm`, they are not
 a hard requirement for the installation, you can use this package for any model if it implements the `sklearn` interface.
 For models that don't follow `sklearn` interface, you can use the exposed `generic_compute` method as discussed in the 
