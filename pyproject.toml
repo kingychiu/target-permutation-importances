@@ -1,6 +1,6 @@
 [project]
 name = "target-permutation-importances"
-version = "1.0.19"
+version = "1.0.20.beta.1"
 description = "Compute (Target) Permutation Importances of a machine learning model"
 authors = [{name = "Anthony Chiu", email = "kingychiu@gmail.com"}]
 maintainers = [{name = "Anthony Chiu", email = "kingychiu@gmail.com"}]
@@ -24,7 +24,7 @@ classifiers = [
 
 [tool.poetry]
 name = "target-permutation-importances"
-version = "1.0.19"
+version = "1.0.20.beta.1"
 description = "Compute (Target) Permutation Importances of a machine learning model"
 authors = ["Anthony Chiu <kingychiu@gmail.com>"]
 maintainers = ["Anthony Chiu <kingychiu@gmail.com>"]

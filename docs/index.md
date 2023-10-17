@@ -92,11 +92,12 @@ Advance Usage / Customization section.
 Dependencies:
 ```
 [tool.poetry.dependencies]
-python = "^3.8"
-numpy = "^1.21.0"
+python = "^3.9"
+numpy = "^1.23.5"
 pandas = "^1.5.3"
 tqdm = "^4.48.2"
 beartype = "^0.14.1"
+scipy = "^1.9"
 ```
 ---
 
