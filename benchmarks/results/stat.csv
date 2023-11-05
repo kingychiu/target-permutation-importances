@@ -4,6 +4,6 @@ CatBoostRegressor,12,8,66.67
 LGBMClassifier,10,8,80.0
 LGBMRegressor,12,8,66.67
 RandomForestClassifier,10,10,100.0
-RandomForestRegressor,12,8,66.67
+RandomForestRegressor,12,7,58.33
 XGBClassifier,10,7,70.0
-XGBRegressor,12,7,58.33
+XGBRegressor,12,8,66.67

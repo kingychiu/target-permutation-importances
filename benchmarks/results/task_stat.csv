@@ -4,6 +4,6 @@ binary_classification,A/(R+1),26.92
 binary_classification,Wasserstein,23.08
 binary_classification,built-in,17.31
 regression,built-in,29.82
-regression,A/(R+1),28.07
-regression,A-R,26.32
-regression,Wasserstein,15.79
+regression,A-R,28.07
+regression,A/(R+1),24.56
+regression,Wasserstein,17.54
