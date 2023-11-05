@@ -92,5 +92,5 @@ build-backend = "poetry.core.masonry.api"
 [tool.ruff]
 exclude = ["__init__.py"]
 select = ["E", "F", "PL", "I", "ICN", "RET", "SIM", "NPY", "RUF"]
-ignore = ["E501", "PLR0913"]
+ignore = ["E501", "PLR0913", "RUF013", "PLR0915"]
 

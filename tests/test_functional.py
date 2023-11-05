@@ -24,6 +24,7 @@ from target_permutation_importances.functional import (
     compute_permutation_importance_by_subtraction,
     compute_permutation_importance_by_wasserstein_distance,
 )
+from target_permutation_importances.typing import YRandomizationType
 
 IMP_FUNCS = [
     compute_permutation_importance_by_subtraction,
@@ -45,6 +46,7 @@ REG_MODEL_CLS = [
     (LGBMRegressor, {"n_estimators": 2, "n_jobs": 1}),
 ]
 X_TYPES = [pd.DataFrame, np.ndarray]
+
 test_compute_clf_scope = []
 for model_cls in CLF_MODEL_CLS:
     for imp_func in IMP_FUNCS:
@@ -222,6 +224,11 @@ def test_compute_regression(model_cls, imp_func, xtype):
         y=data.target,
         num_actual_runs=5,
         num_random_runs=5,
+        y_randomizations=[
+            YRandomizationType.SHUFFLE_TARGET,
+            YRandomizationType.RANDOM_NORMAL,
+            YRandomizationType.RANDOM_UNIFORM,
+        ],
     )
     assert isinstance(result_df, pd.DataFrame)
     assert result_df.shape[0] == X.shape[1]
@@ -261,6 +268,11 @@ def test_compute_multi_target_regression_with_MultiOutputRegressor(
         y=y,
         num_actual_runs=5,
         num_random_runs=5,
+        y_randomizations=[
+            YRandomizationType.SHUFFLE_TARGET,
+            YRandomizationType.RANDOM_NORMAL,
+            YRandomizationType.RANDOM_UNIFORM,
+        ],
     )
     assert isinstance(result_df, pd.DataFrame)
     assert result_df.shape[0] == X.shape[1]

@@ -6,56 +6,56 @@ from sklearn import preprocessing
 
 dataset_configs = [
     # Classification
-    {
-        "name": "clf_cat/electricity.csv",
-        "task": "binary_classification",
-        "target_column": "class",
-    },
-    {
-        "name": "clf_cat/eye_movements.csv",
-        "task": "binary_classification",
-        "target_column": "label",
-    },
-    {
-        "name": "clf_cat/covertype.csv",
-        "task": "binary_classification",
-        "target_column": "class",
-    },
-    {
-        "name": "clf_cat/albert.csv",
-        "task": "binary_classification",
-        "target_column": "class",
-    },
-    {
-        "name": "clf_cat/compas-two-years.csv",
-        "task": "binary_classification",
-        "target_column": "twoyearrecid",
-    },
-    {
-        "name": "clf_cat/default-of-credit-card-clients.csv",
-        "task": "binary_classification",
-        "target_column": "y",
-    },
-    {
-        "name": "clf_cat/road-safety.csv",
-        "task": "binary_classification",
-        "target_column": "SexofDriver",
-    },
-    {
-        "name": "clf_num/Bioresponse.csv",
-        "task": "binary_classification",
-        "target_column": "target",
-    },
-    {
-        "name": "clf_num/jannis.csv",
-        "task": "binary_classification",
-        "target_column": "class",
-    },
-    {
-        "name": "clf_num/MiniBooNE.csv",
-        "task": "binary_classification",
-        "target_column": "signal",
-    },
+    # {
+    #     "name": "clf_cat/electricity.csv",
+    #     "task": "binary_classification",
+    #     "target_column": "class",
+    # },
+    # {
+    #     "name": "clf_cat/eye_movements.csv",
+    #     "task": "binary_classification",
+    #     "target_column": "label",
+    # },
+    # {
+    #     "name": "clf_cat/covertype.csv",
+    #     "task": "binary_classification",
+    #     "target_column": "class",
+    # },
+    # {
+    #     "name": "clf_cat/albert.csv",
+    #     "task": "binary_classification",
+    #     "target_column": "class",
+    # },
+    # {
+    #     "name": "clf_cat/compas-two-years.csv",
+    #     "task": "binary_classification",
+    #     "target_column": "twoyearrecid",
+    # },
+    # {
+    #     "name": "clf_cat/default-of-credit-card-clients.csv",
+    #     "task": "binary_classification",
+    #     "target_column": "y",
+    # },
+    # {
+    #     "name": "clf_cat/road-safety.csv",
+    #     "task": "binary_classification",
+    #     "target_column": "SexofDriver",
+    # },
+    # {
+    #     "name": "clf_num/Bioresponse.csv",
+    #     "task": "binary_classification",
+    #     "target_column": "target",
+    # },
+    # {
+    #     "name": "clf_num/jannis.csv",
+    #     "task": "binary_classification",
+    #     "target_column": "class",
+    # },
+    # {
+    #     "name": "clf_num/MiniBooNE.csv",
+    #     "task": "binary_classification",
+    #     "target_column": "signal",
+    # },
     # Regression
     {
         "name": "reg_num/cpu_act.csv",
@@ -139,14 +139,10 @@ def get_tabular_dataset(
     return name, task, features, [target_column], df
 
 
-def get_classification_tabular_datasets() -> Iterator[pd.DataFrame]:
+def get_tabular_datasets() -> Iterator[pd.DataFrame]:
     for dataset_config in dataset_configs:
         yield get_tabular_dataset(
             name=dataset_config["name"],
             task=dataset_config["task"],
             target_column=dataset_config["target_column"],
         )
-
-
-for df in get_classification_tabular_datasets():
-    break

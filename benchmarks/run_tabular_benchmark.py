@@ -15,6 +15,7 @@ from target_permutation_importances import (
     compute_permutation_importance_by_subtraction,
     compute_permutation_importance_by_wasserstein_distance,
 )
+from target_permutation_importances.typing import YRandomizationType
 
 from . import tabular_benchmark
 
@@ -35,9 +36,9 @@ score_funcs = {
 result_path = "./benchmarks/results/tabular_benchmark.csv"
 
 model_names = [
-    # "RandomForest",
-    # "XGBoost",
-    # "LGBM",
+    "RandomForest",
+    "XGBoost",
+    "LGBM",
     "CatBoost",
 ]
 
@@ -123,6 +124,7 @@ def write_report(reports: List):
     report_df = report_df.drop_duplicates(
         subset=["model", "dataset", "importances"], keep="last"
     ).reset_index(drop=True)
+
     # Update best method for each dataset
     report_df["higher_is_better"] = False
     report_df.loc[report_df["score"] == "f1_score", "higher_is_better"] = True
@@ -157,7 +159,6 @@ def write_report(reports: List):
     report_df.to_csv(result_path, index=False)
 
 
-reports = []
 for model_name in model_names:
     for (
         name,
@@ -165,7 +166,7 @@ for model_name in model_names:
         features,
         target,
         df,
-    ) in tabular_benchmark.get_classification_tabular_datasets():
+    ) in tabular_benchmark.get_tabular_datasets():
         score_func, higher_is_better = score_funcs[task]
         model_cls, model_cls_params = model_cls_dicts[task][model_name]
 
@@ -215,7 +216,7 @@ for model_name in model_names:
             score_func,
             higher_is_better,
         )
-        reports.append(
+        reports = [
             {
                 "model": model_cls.__name__,
                 "dataset": name,
@@ -227,7 +228,7 @@ for model_name in model_names:
                 "val_score": val_score,
                 "test_score": test_score,
             }
-        )
+        ]
         print(reports[-1])
         write_report(reports)
         compute_variants = [
@@ -235,6 +236,16 @@ for model_name in model_names:
             ("A/(R+1)", compute_permutation_importance_by_division),
             ("Wasserstein", compute_permutation_importance_by_wasserstein_distance),
         ]
+
+        if "reg" in task:
+            y_randomizations = [
+                YRandomizationType.SHUFFLE_TARGET,
+                YRandomizationType.RANDOM_NORMAL,
+                YRandomizationType.RANDOM_UNIFORM,
+            ]
+
+        else:
+            y_randomizations = [YRandomizationType.SHUFFLE_TARGET]
 
         importance_dfs = compute(
             model_cls=model_cls,
@@ -248,10 +259,12 @@ for model_name in model_names:
                 compute_variant[1] for compute_variant in compute_variants
             ],
             shuffle_feature_order=shuffle_feature_order,
+            y_randomizations=y_randomizations,
         )
 
         for variant_name, importance_df in zip(
-            [compute_variant[0] for compute_variant in compute_variants], importance_dfs
+            [compute_variant[0] for compute_variant in compute_variants],
+            importance_dfs,
         ):
             importance_df = importance_df.sort_values(  # noqa
                 "importance", ascending=False, ignore_index=True
@@ -269,7 +282,7 @@ for model_name in model_names:
                 score_func,
                 higher_is_better=higher_is_better,
             )
-            reports.append(
+            reports = [
                 {
                     "model": model_cls.__name__,
                     "dataset": name,
@@ -281,6 +294,6 @@ for model_name in model_names:
                     "val_score": val_score,
                     "test_score": test_score,
                 }
-            )
+            ]
             print(reports[-1])
             write_report(reports)

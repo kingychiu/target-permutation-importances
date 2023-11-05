@@ -1,3 +1,5 @@
+from enum import Enum
+
 import numpy as np
 import pandas as pd
 from beartype import vale
@@ -39,6 +41,12 @@ class YBuilderType(Protocol):  # pragma: no cover
 
     def __call__(self, is_random_run: bool, run_idx: int) -> YType:
         ...
+
+
+class YRandomizationType(Enum):
+    SHUFFLE_TARGET = 1
+    RANDOM_NORMAL = 2
+    RANDOM_UNIFORM = 3
 
 
 @runtime_checkable

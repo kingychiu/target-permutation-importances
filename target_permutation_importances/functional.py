@@ -8,7 +8,7 @@ from functools import partial
 import numpy as np
 import pandas as pd
 from beartype import beartype
-from beartype.typing import Any, Dict, List, Union
+from beartype.typing import Any, Dict, List, Optional, Union
 from scipy.stats import wasserstein_distance  # type: ignore
 from tqdm import tqdm
 
@@ -21,6 +21,7 @@ from target_permutation_importances.typing import (
     XBuilderType,
     XType,
     YBuilderType,
+    YRandomizationType,
     YType,
 )
 
@@ -337,6 +338,7 @@ def compute(
     permutation_importance_calculator: Union[
         PermutationImportanceCalculatorType, List[PermutationImportanceCalculatorType]
     ] = compute_permutation_importance_by_subtraction,
+    y_randomizations: Optional[List[YRandomizationType]] = None,
 ) -> Union[pd.DataFrame, List[pd.DataFrame]]:
     """
     Compute the permutation importance of a model given a dataset.
@@ -351,7 +353,7 @@ def compute(
         num_random_runs: Number of random runs. Defaults to 10.
         shuffle_feature_order: Whether to shuffle the feature order for each run (only for X being pd.DataFrame). Defaults to False.
         permutation_importance_calculator: The function to compute the final importance. Defaults to compute_permutation_importance_by_subtraction.
-
+        y_randomizations: The randomization methods to use for the random runs. Defaults to [YRandomizationType.SHUFFLE_TARGET].
     Returns:
         The return DataFrame(s) contain columns ["feature", "importance"]
 
@@ -391,6 +393,8 @@ def compute(
         print(result_df[["feature", "importance"]].sort_values("importance", ascending=False).head())
         ```
     """
+    if y_randomizations is None:
+        y_randomizations = [YRandomizationType.SHUFFLE_TARGET]
 
     def _x_builder(is_random_run: bool, run_idx: int) -> XType:
         if shuffle_feature_order:
@@ -407,8 +411,21 @@ def compute(
     def _y_builder(is_random_run: bool, run_idx: int) -> YType:
         rng = np.random.default_rng(seed=run_idx)
         if is_random_run:
-            # Only shuffle the target for random runs
-            return rng.permutation(y)
+            random_method_idx = run_idx % len(y_randomizations)
+            y_randomization = y_randomizations[random_method_idx]
+            if y_randomization == YRandomizationType.SHUFFLE_TARGET:
+                # Only shuffle the target for random runs
+                return rng.permutation(y)
+            if y_randomization == YRandomizationType.RANDOM_NORMAL:
+                # Only shuffle the target for random runs
+                return rng.normal(y.mean(), y.std(), y.shape)
+            if y_randomization == YRandomizationType.RANDOM_UNIFORM:
+                # Only shuffle the target for random runs
+                return rng.uniform(y.min(), y.max(), y.shape)
+
+            raise NotImplementedError(  # pragma: no cover
+                f"Selected y_randomization_type {y_randomization} is not supported"
+            )
         return y
 
     def _model_builder(is_random_run: bool, run_idx: int) -> Any:
