@@ -239,7 +239,7 @@ for model_name in model_names:
         importance_dfs = compute(
             model_cls=model_cls,
             model_cls_params=model_cls_params,
-            model_fit_params={},
+            model_fit_params_builder=lambda _: {},
             X=X_train,
             y=y_train,
             num_actual_runs=num_actual_runs,

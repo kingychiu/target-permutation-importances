@@ -139,7 +139,7 @@ class TargetPermutationImportancesWrapper:
         result = compute(
             model_cls=self.model_cls,
             model_cls_params=self.model_cls_params,
-            model_fit_params=fit_params,
+            model_fit_params_builder=lambda _: fit_params,
             X=X,
             y=y,
             num_actual_runs=self.num_actual_runs,
