@@ -329,7 +329,7 @@ def _get_model_importances_attr(model: Any):
 def compute(
     model_cls: Any,
     model_cls_params: Dict,
-    model_fit_params_builder: ModelFitParamsBuilderType,
+    model_fit_params: Union[ModelFitParamsBuilderType, Dict],
     X: XType,
     y: YType,
     num_actual_runs: PositiveInt = 2,
@@ -345,7 +345,7 @@ def compute(
     Args:
         model_cls: The constructor/class of the model.
         model_cls_params: The parameters to pass to the model constructor.
-        model_fit_params_builder: A function that return parameters to pass to the model fit method.
+        model_fit_params: A function that return parameters to pass to the model fit method.
         X: The input data.
         y: The target vector.
         num_actual_runs: Number of actual runs. Defaults to 2.
@@ -379,7 +379,7 @@ def compute(
             model_cls_params={ # The parameters to pass to the model constructor. Update this based on your needs.
                 "n_jobs": -1,
             },
-            model_fit_params_builder=lambda _: {}, # The parameters to pass to the model fit method. Update this based on your needs.
+            model_fit_params=lambda _: {}, # The parameters to pass to the model fit method. Update this based on your needs.
             X=Xpd, # pd.DataFrame, np.ndarray
             y=data.target, # pd.Series, np.ndarray
             num_actual_runs=2,
@@ -424,9 +424,12 @@ def compute(
         return model_cls(**_model_cls_params)
 
     def _model_fitter(model: Any, X: XType, y: YType) -> Any:
-        _model_fit_params = model_fit_params_builder(
-            list(X.columns) if isinstance(X, pd.DataFrame) else None,
-        )
+        if isinstance(model_fit_params, dict):
+            _model_fit_params = model_fit_params.copy()
+        else:
+            _model_fit_params = model_fit_params(
+                list(X.columns) if isinstance(X, pd.DataFrame) else None,
+            )
         if "Cat" in str(model.__class__):
             _model_fit_params["verbose"] = False
         return model.fit(X, y, **_model_fit_params)
