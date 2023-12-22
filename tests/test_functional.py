@@ -70,7 +70,7 @@ def test_compute_binary_classification(model_cls, imp_func, xtype):
     result_df = compute(
         model_cls=model_cls[0],
         model_cls_params=model_cls[1],
-        model_fit_params={},
+        model_fit_params=lambda _: {},
         permutation_importance_calculator=imp_func,
         X=X,
         y=data.target,
@@ -103,7 +103,7 @@ def test_compute_multi_class_classification(model_cls, imp_func, xtype):
     result_df = compute(
         model_cls=model_cls[0],
         model_cls_params=model_cls[1],
-        model_fit_params={},
+        model_fit_params=lambda _: {},
         permutation_importance_calculator=imp_func,
         X=X,
         y=data.target,
@@ -146,7 +146,7 @@ def test_compute_multi_label_classification(model_cls, imp_func, xtype):
     result_df = compute(
         model_cls=model_cls[0],
         model_cls_params=model_cls_params,
-        model_fit_params={},
+        model_fit_params=lambda _: {},
         permutation_importance_calculator=imp_func,
         X=X,
         y=y,
@@ -185,7 +185,7 @@ def test_compute_multi_label_classification_with_MultiOutputClassifier(
         model_cls_params={
             "estimator": model_cls[0](**model_cls[1]),
         },
-        model_fit_params={},
+        model_fit_params=lambda _: {},
         permutation_importance_calculator=imp_func,
         X=X,
         y=y,
@@ -216,7 +216,7 @@ def test_compute_regression(model_cls, imp_func, xtype):
     result_df = compute(
         model_cls=model_cls[0],
         model_cls_params=model_cls[1],
-        model_fit_params={},
+        model_fit_params=lambda _: {},
         permutation_importance_calculator=imp_func,
         X=X,
         y=data.target,
@@ -255,7 +255,7 @@ def test_compute_multi_target_regression_with_MultiOutputRegressor(
         model_cls_params={
             "estimator": model_cls[0](**model_cls[1]),
         },
-        model_fit_params={},
+        model_fit_params=lambda _: {},
         permutation_importance_calculator=imp_func,
         X=X,
         y=y,
@@ -282,7 +282,7 @@ def test_compute_with_multiple_importance_functions():
     result_dfs = compute(
         model_cls=RandomForestClassifier,
         model_cls_params={"n_estimators": 2, "n_jobs": 1},
-        model_fit_params={},
+        model_fit_params=lambda _: {},
         permutation_importance_calculator=[
             compute_permutation_importance_by_subtraction,
             compute_permutation_importance_by_division,
@@ -371,7 +371,7 @@ def test_invalid_compute():
         compute(
             model_cls=RandomForestClassifier,
             model_cls_params={},
-            model_fit_params={},
+            model_fit_params=lambda _: {},
             permutation_importance_calculator=compute_permutation_importance_by_subtraction,
             X=1,
             y=data.target,
@@ -382,7 +382,7 @@ def test_invalid_compute():
         compute(
             model_cls=RandomForestClassifier,
             model_cls_params={},
-            model_fit_params={},
+            model_fit_params=lambda _: {},
             permutation_importance_calculator=compute_permutation_importance_by_subtraction,
             X=Xpd,
             y=1,
@@ -393,7 +393,7 @@ def test_invalid_compute():
         compute(
             model_cls=RandomForestClassifier,
             model_cls_params={},
-            model_fit_params={},
+            model_fit_params=lambda _: {},
             permutation_importance_calculator=compute_permutation_importance_by_subtraction,
             X=Xpd,
             y=data.target,

@@ -1,7 +1,7 @@
 import numpy as np
 import pandas as pd
 from beartype import vale
-from beartype.typing import Any, List, Union, runtime_checkable
+from beartype.typing import Any, List, Optional, Union, runtime_checkable
 from typing_extensions import Annotated, Protocol
 
 XType = Union[np.ndarray, pd.DataFrame]
@@ -38,6 +38,12 @@ class YBuilderType(Protocol):  # pragma: no cover
     """
 
     def __call__(self, is_random_run: bool, run_idx: int) -> YType:
+        ...
+
+
+@runtime_checkable
+class ModelFitParamsBuilderType(Protocol):  # pragma: no cover
+    def __call__(self, feature_columns: Optional[List[str]]) -> dict:
         ...
 
 
