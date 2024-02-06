@@ -178,9 +178,9 @@ def compute_permutation_importance_by_wasserstein_distance(
                 "importance"
             ].to_numpy(),
         )
-    mean_actual_importance_df[
-        "wasserstein_distance"
-    ] = mean_actual_importance_df.index.map(distances)
+    mean_actual_importance_df["wasserstein_distance"] = (
+        mean_actual_importance_df.index.map(distances)
+    )
 
     # Sort by feature name to make sure the order is the same
     mean_actual_importance_df = mean_actual_importance_df.sort_index()

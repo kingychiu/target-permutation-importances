@@ -1,6 +1,7 @@
 """
 The Sklearn Class Wrappers
 """
+
 import numpy as np
 import pandas as pd
 from beartype.typing import Any, Dict, List, Union

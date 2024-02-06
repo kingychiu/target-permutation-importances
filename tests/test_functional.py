@@ -129,8 +129,6 @@ def test_compute_multi_label_classification(model_cls, imp_func, xtype):
     )
     if xtype is pd.DataFrame:
         X = pd.DataFrame(X, columns=[f"feature_{i}" for i in range(X.shape[1])])
-    else:
-        X = X
 
     model_cls_params = model_cls[1].copy()
     if "Cat" in model_cls[0].__name__:
@@ -174,8 +172,6 @@ def test_compute_multi_label_classification_with_MultiOutputClassifier(
     )
     if xtype is pd.DataFrame:
         X = pd.DataFrame(X, columns=[f"feature_{i}" for i in range(X.shape[1])])
-    else:
-        X = X
 
     if "Lasso" in model_cls[0].__name__ or "LinearSVC" in model_cls[0].__name__:
         return
@@ -247,8 +243,6 @@ def test_compute_multi_target_regression_with_MultiOutputRegressor(
     )
     if xtype is pd.DataFrame:
         X = pd.DataFrame(X, columns=[f"feature_{i}" for i in range(X.shape[1])])
-    else:
-        X = X
 
     result_df = compute(
         model_cls=MultiOutputRegressor,

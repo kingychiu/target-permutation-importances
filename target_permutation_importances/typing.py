@@ -21,8 +21,7 @@ class XBuilderType(Protocol):  # pragma: no cover
         return (XType): The X data
     """
 
-    def __call__(self, is_random_run: bool, run_idx: int) -> XType:
-        ...
+    def __call__(self, is_random_run: bool, run_idx: int) -> XType: ...
 
 
 @runtime_checkable
@@ -37,14 +36,12 @@ class YBuilderType(Protocol):  # pragma: no cover
         return (YType): The y data
     """
 
-    def __call__(self, is_random_run: bool, run_idx: int) -> YType:
-        ...
+    def __call__(self, is_random_run: bool, run_idx: int) -> YType: ...
 
 
 @runtime_checkable
 class ModelFitParamsBuilderType(Protocol):  # pragma: no cover
-    def __call__(self, feature_columns: Optional[List[str]]) -> dict:
-        ...
+    def __call__(self, feature_columns: Optional[List[str]]) -> dict: ...
 
 
 @runtime_checkable
@@ -60,8 +57,7 @@ class ModelBuilderType(Protocol):  # pragma: no cover
         return (Any): The newly created model
     """
 
-    def __call__(self, is_random_run: bool, run_idx: int) -> Any:
-        ...
+    def __call__(self, is_random_run: bool, run_idx: int) -> Any: ...
 
 
 @runtime_checkable
@@ -77,8 +73,7 @@ class ModelFitterType(Protocol):  # pragma: no cover
         return (Any): The fitted model
     """
 
-    def __call__(self, model: Any, X: XType, y: YType) -> Any:
-        ...
+    def __call__(self, model: Any, X: XType, y: YType) -> Any: ...
 
 
 @runtime_checkable
@@ -94,8 +89,7 @@ class ModelImportanceGetter(Protocol):  # pragma: no cover
         return (pd.DataFrame): The return DataFrame with columns ["feature", "importance"]
     """
 
-    def __call__(self, model: Any, X: XType, y: YType) -> pd.DataFrame:
-        ...
+    def __call__(self, model: Any, X: XType, y: YType) -> pd.DataFrame: ...
 
 
 @runtime_checkable
@@ -116,5 +110,4 @@ class PermutationImportanceCalculatorType(Protocol):  # pragma: no cover
         self,
         actual_importance_dfs: List[pd.DataFrame],
         random_importance_dfs: List[pd.DataFrame],
-    ) -> pd.DataFrame:
-        ...
+    ) -> pd.DataFrame: ...
