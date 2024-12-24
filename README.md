@@ -13,6 +13,13 @@
 
 ---
 
+## [TLDR] Feature Selection Examples
+Compute feature importances on the training set and validate the performance on the validation set:
+- [Feature Selection for Binary Classification with RandomForestClassifier](https://www.kaggle.com/code/kingychiu/feature-selection-for-binary-classification-task)
+- [Feature Selection for Binary Classification with XGBClassifier](https://www.kaggle.com/code/kingychiu/feature-selection-for-binary-classification-xgb/notebook)
+
+---
+
 ## Overview
 Null Importances is normalized feature importance measures that can correct the feature importance bias.
 The method is based on repeated permutations of the outcome
@@ -122,11 +129,19 @@ import target_permutation_importances as tpi
 # Prepare a dataset
 import pandas as pd
 from sklearn.datasets import load_breast_cancer
+from sklearn.model_selection import train_test_split
 
 # Models
 from sklearn.ensemble import RandomForestClassifier
 
 data = load_breast_cancer()
+
+# Convert to a pandas dataframe
+X = pd.DataFrame(data.data, columns=data.feature_names)
+y = data.target
+
+# Train test split, only compute importances in the train set
+X_train, X_val, y_train, y_val =  train_test_split(X, y, test_size=0.2, shuffle=True, random_state=2023)
 
 # Convert to a pandas dataframe
 Xpd = pd.DataFrame(data.data, columns=data.feature_names)
@@ -138,8 +153,8 @@ result_df = tpi.compute(
         "n_jobs": -1,
     },
     model_fit_params={}, # The parameters to pass to the model fit method. Update this based on your needs.
-    X=Xpd, # pd.DataFrame, np.ndarray
-    y=data.target, # pd.Series, np.ndarray
+    X=X_train, # pd.DataFrame
+    y=y_train, # pd.Series, np.ndarray
     num_actual_runs=2,
     num_random_runs=10,
     # Options: {compute_permutation_importance_by_subtraction, compute_permutation_importance_by_division}
@@ -180,6 +195,7 @@ import target_permutation_importances as tpi
 # Prepare a dataset
 import pandas as pd
 from sklearn.datasets import load_breast_cancer
+from sklearn.model_selection import train_test_split
 
 # Models
 from sklearn.svm import LinearSVC
@@ -187,15 +203,19 @@ from sklearn.svm import LinearSVC
 data = load_breast_cancer()
 
 # Convert to a pandas dataframe
-Xpd = pd.DataFrame(data.data, columns=data.feature_names)
+X = pd.DataFrame(data.data, columns=data.feature_names)
+y = data.target
+
+# Train test split, only compute importances in the train set
+X_train, X_val, y_train, y_val =  train_test_split(X, y, test_size=0.2, shuffle=True, random_state=2023)
 
 # Compute permutation importances with default settings
 result_df = tpi.compute(
     model_cls=LinearSVC, # The constructor/class of the model.
     model_cls_params={"max_iter": 1000}, # The parameters to pass to the model constructor. Update this based on your needs.
     model_fit_params={}, # The parameters to pass to the model fit method. Update this based on your needs.
-    X=Xpd, # pd.DataFrame, np.ndarray
-    y=data.target, # pd.Series, np.ndarray
+    X=X_train, # pd.DataFrame
+    y=y_train, # pd.Series, np.ndarray
     num_actual_runs=1,
     num_random_runs=10,
     # Options: {compute_permutation_importance_by_subtraction, compute_permutation_importance_by_division}
@@ -231,6 +251,7 @@ import target_permutation_importances as tpi
 # Prepare a dataset
 import pandas as pd
 from sklearn.datasets import make_regression
+from sklearn.model_selection import train_test_split
 
 # Models
 from sklearn.ensemble import RandomForestRegressor
@@ -242,6 +263,8 @@ X, y = make_regression(
     n_features=20,
     n_targets=5,
 )
+# Train test split, only compute importances in the train set
+X_train, X_val, y_train, y_val =  train_test_split(X, y, test_size=0.2, shuffle=True, random_state=2023)
 
 # Compute permutation importances with default settings
 result_df = tpi.compute(
@@ -250,8 +273,8 @@ result_df = tpi.compute(
         "estimator": RandomForestRegressor(n_estimators=2),
     },
     model_fit_params={}, # The parameters to pass to the model fit method. Update this based on your needs.
-    X=X, # pd.DataFrame, np.ndarray
-    y=y, # pd.Series, np.ndarray
+    X=X_train, # pd.DataFrame, np.ndarray
+    y=y_train, # pd.Series, np.ndarray
     num_actual_runs=2,
     num_random_runs=10,
     # Options: {compute_permutation_importance_by_subtraction, compute_permutation_importance_by_division}
@@ -346,6 +369,7 @@ import target_permutation_importances as tpi
 import pandas as pd
 import numpy as np
 from sklearn.datasets import load_breast_cancer
+from sklearn.model_selection import train_test_split
 
 # Models
 from sklearn.feature_selection import SelectFromModel
@@ -354,7 +378,11 @@ from sklearn.ensemble import RandomForestClassifier
 data = load_breast_cancer()
 
 # Convert to a pandas dataframe
-Xpd = pd.DataFrame(data.data, columns=data.feature_names)
+X = pd.DataFrame(data.data, columns=data.feature_names)
+y = data.target
+
+# Train test split, only compute importances in the train set
+X_train, X_val, y_train, y_val =  train_test_split(X, y, test_size=0.2, shuffle=True, random_state=2023)
 
 # Compute permutation importances with default settings
 wrapped_model = tpi.TargetPermutationImportancesWrapper(
@@ -369,8 +397,8 @@ wrapped_model = tpi.TargetPermutationImportancesWrapper(
     permutation_importance_calculator=tpi.compute_permutation_importance_by_subtraction,
 )
 wrapped_model.fit(
-    X=Xpd, # pd.DataFrame, np.ndarray
-    y=data.target, # pd.Series, np.ndarray
+    X=X_train, # pd.DataFrame, np.ndarray
+    y=y_train, # pd.Series, np.ndarray
     # And other fit parameters for the model.
 )
 # Get the feature importances as a pandas dataframe
@@ -406,11 +434,7 @@ Running 2 actual runs and 10 random runs
 
 ---
 
-## Feature Selection Examples
-- [Feature Selection for Binary Classification with RandomForestClassifier](https://www.kaggle.com/code/kingychiu/feature-selection-for-binary-classification-task)
-- [Feature Selection for Binary Classification with XGBClassifier](https://www.kaggle.com/code/kingychiu/feature-selection-for-binary-classification-xgb/notebook)
 
----
 
 
 ## Development Setup and Contribution Guide
